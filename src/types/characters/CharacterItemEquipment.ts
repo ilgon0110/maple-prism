@@ -2,7 +2,11 @@ export interface ICharacterItemEquipment {
   date: string;
   character_gender: string;
   character_class: string;
+  preset_no: number;
   item_equipment: IItemEquipment[];
+  item_equipment_preset_1: IItemEquipment[];
+  item_equipment_preset_2: IItemEquipment[];
+  item_equipment_preset_3: IItemEquipment[];
   title: {
     title_name: string;
     title_icon: string;

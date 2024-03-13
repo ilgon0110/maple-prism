@@ -3,9 +3,11 @@ export interface ICharacterCashItemEquipment {
   character_gender: string;
   character_class: string;
   preset_no: number;
+  cash_item_equipment_base: ICharacterCashItemEquipmentPreset[];
   cash_item_equipment_preset_1: ICharacterCashItemEquipmentPreset[];
   cash_item_equipment_preset_2: ICharacterCashItemEquipmentPreset[];
   cash_item_equipment_preset_3: ICharacterCashItemEquipmentPreset[];
+  additional_cash_item_equipment_base: ICharacterCashItemEquipmentPreset[];
   additional_cash_item_equipment_preset_1: ICharacterCashItemEquipmentPreset[];
   additional_cash_item_equipment_preset_2: ICharacterCashItemEquipmentPreset[];
   additional_cash_item_equipment_preset_3: ICharacterCashItemEquipmentPreset[];
@@ -30,5 +32,5 @@ interface ICharacterCashItemEquipmentPreset {
     saturation: number;
     value: number;
   };
-  base_preset_item_disable_flag: string;
+  item_gender: string | null;
 }
