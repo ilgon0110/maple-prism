@@ -22,13 +22,13 @@ interface VariantProps {
 
 const ARRAY_REPEAT = 1;
 
-const SlotMachine = ({
+function SlotMachine({
   textData,
   infinite,
   velocity,
   randomVelocity,
   endText,
-}: SlotMachineProps) => {
+}: SlotMachineProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [randomVelocityValue, setRandomVelocityValue] = useState(0);
   const [textArr, setTextArr] = useState(
@@ -115,6 +115,5 @@ const SlotMachine = ({
       </div>
     </div>
   );
-};
-
-export default React.memo(SlotMachine);
+}
+export const MemoizedSlotMachine = React.memo(SlotMachine);

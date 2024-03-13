@@ -1,6 +1,6 @@
 import MyFooter from "@/components/MyFooter";
 import NameSearchBox from "@/components/NameSearchBox";
-import SlotMachine from "@/components/SlotMachine";
+import { MemoizedSlotMachine } from "@/components/SlotMachine";
 import Image from "next/image";
 import React from "react";
 
@@ -15,7 +15,7 @@ export default function Home() {
             .fill(0)
             .map((_, i) => {
               return (
-                <SlotMachine
+                <MemoizedSlotMachine
                   key={i}
                   velocity={10}
                   textData={textData}
