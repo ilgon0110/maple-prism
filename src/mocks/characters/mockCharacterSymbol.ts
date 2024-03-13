@@ -1,5 +1,5 @@
 export const mockCharacterSymbol = {
-  date: "2024-01-12T00:00+09:00",
+  date: "2024-03-11T00:00+09:00",
   character_class: "은월",
   symbol: [
     {
@@ -175,7 +175,7 @@ export const mockCharacterSymbol = {
       symbol_int: "0",
       symbol_luk: "0",
       symbol_hp: "0",
-      symbol_growth_count: 502,
+      symbol_growth_count: 902,
       symbol_require_growth_count: 581,
     },
   ],

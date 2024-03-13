@@ -1,7 +1,7 @@
 import { ICharacterPetEquipment } from "@/types/characters/CharacterPetEquipment";
 
 export const mockCharacterPetEquipment: ICharacterPetEquipment = {
-  date: "2024-01-12T00:00+09:00",
+  date: "2024-03-11T00:00+09:00",
   pet_1_name: "칸타빌레",
   pet_1_nickname: "칸타빌레",
   pet_1_icon:
@@ -25,6 +25,9 @@ export const mockCharacterPetEquipment: ICharacterPetEquipment = {
     ],
     scroll_upgrade: 8,
     scroll_upgradable: 0,
+    item_shape: "환상 마스터 타임",
+    item_shape_icon:
+      "https://open.api.nexon.com/static/maplestory/ItemIcon/KEHCJOJB.png",
   },
   pet_1_auto_skill: {
     skill_1: "쓸만한 샤프 아이즈",
@@ -32,7 +35,7 @@ export const mockCharacterPetEquipment: ICharacterPetEquipment = {
       "https://open.api.nexon.com/static/maplestory/SkillIcon/KBPCLHPBMC.png",
     skill_2: "쓸만한 컴뱃 오더스",
     skill_2_icon:
-      "https://open.api.nexon.com/static/maplestory/SkillIcon/KBPCLHPBMC.png",
+      "https://open.api.nexon.com/static/maplestory/SkillIcon/KBPCLHPBME.png",
   },
   pet_1_pet_type: "루나 쁘띠",
   pet_1_skill: [
@@ -44,6 +47,9 @@ export const mockCharacterPetEquipment: ICharacterPetEquipment = {
     "펫 훈련 스킬",
   ],
   pet_1_date_expire: "2024-09-30T03:00+09:00",
+  pet_1_appearance: "칸타빌레",
+  pet_1_appearance_icon:
+    "https://open.api.nexon.com/static/maplestory/ItemIcon/KAPCJCID.png",
   pet_2_name: "쀼리",
   pet_2_nickname: "쀼리",
   pet_2_icon:
@@ -66,6 +72,9 @@ export const mockCharacterPetEquipment: ICharacterPetEquipment = {
     ],
     scroll_upgrade: 9,
     scroll_upgradable: 0,
+    item_shape: "더스티 쀼리",
+    item_shape_icon:
+      "https://open.api.nexon.com/static/maplestory/ItemIcon/KEHCJOKH.png",
   },
   pet_2_auto_skill: {
     skill_1: "쓸만한 어드밴스드 블레스",
@@ -73,7 +82,7 @@ export const mockCharacterPetEquipment: ICharacterPetEquipment = {
       "https://open.api.nexon.com/static/maplestory/SkillIcon/KBPCLHPBMF.png",
     skill_2: "쓸만한 홀리 심볼",
     skill_2_icon:
-      "https://open.api.nexon.com/static/maplestory/SkillIcon/KBPCLHPBMF.png",
+      "https://open.api.nexon.com/static/maplestory/SkillIcon/KBPCLHPBOA.png",
   },
   pet_2_pet_type: "루나 드림",
   pet_2_skill: [
@@ -83,6 +92,9 @@ export const mockCharacterPetEquipment: ICharacterPetEquipment = {
     "펫 훈련 스킬",
   ],
   pet_2_date_expire: "2024-10-01T23:00+09:00",
+  pet_2_appearance: "쀼리",
+  pet_2_appearance_icon:
+    "https://open.api.nexon.com/static/maplestory/ItemIcon/KAPCJCMJ.png",
   pet_3_name: "뽀리",
   pet_3_nickname: "뽀리",
   pet_3_icon:
@@ -105,6 +117,9 @@ export const mockCharacterPetEquipment: ICharacterPetEquipment = {
     ],
     scroll_upgrade: 9,
     scroll_upgradable: 0,
+    item_shape: "더스티 뽀리",
+    item_shape_icon:
+      "https://open.api.nexon.com/static/maplestory/ItemIcon/KEHCJOKG.png",
   },
   pet_3_auto_skill: {
     skill_1: "메이플 용사",
@@ -112,7 +127,7 @@ export const mockCharacterPetEquipment: ICharacterPetEquipment = {
       "https://open.api.nexon.com/static/maplestory/SkillIcon/KFNHKFPAMI.png",
     skill_2: "히어로즈 오쓰",
     skill_2_icon:
-      "https://open.api.nexon.com/static/maplestory/SkillIcon/KFNHKFPAMI.png",
+      "https://open.api.nexon.com/static/maplestory/SkillIcon/KFNHKFPAPC.png",
   },
   pet_3_pet_type: "루나 드림",
   pet_3_skill: [
@@ -123,4 +138,7 @@ export const mockCharacterPetEquipment: ICharacterPetEquipment = {
     "펫 훈련 스킬",
   ],
   pet_3_date_expire: "2024-09-30T03:00+09:00",
+  pet_3_appearance: "뽀리",
+  pet_3_appearance_icon:
+    "https://open.api.nexon.com/static/maplestory/ItemIcon/KAPCJCMI.png",
 };

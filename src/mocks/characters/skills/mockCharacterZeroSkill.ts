@@ -1,7 +1,7 @@
 import { ICharacterSkill } from "@/types/characters/CharacterSkill";
 
 export const mockCharacterZeroSkill: ICharacterSkill = {
-  date: "2024-01-12T00:00+09:00",
+  date: "2024-03-11T00:00+09:00",
   character_class: "은월",
   character_skill_grade: "0",
   character_skill: [
@@ -90,6 +90,15 @@ export const mockCharacterZeroSkill: ICharacterSkill = {
         "https://open.api.nexon.com/static/maplestory/SkillIcon/KFNCLCPDJB.png",
     },
     {
+      skill_name: "쓸만한 하이퍼 바디",
+      skill_description:
+        "[아이템 잠재스킬]\n최대 HP와 최대 MP의 양이 증가한다.",
+      skill_level: 1,
+      skill_effect: "MP 80 소비하여 240초 동안 최대 HP, 최대 MP  40% 증가",
+      skill_icon:
+        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFNCLCGBMD.png",
+    },
+    {
       skill_name: "영웅의 메아리",
       skill_description:
         "[마스터 레벨 : 1]\n주변 모든 캐릭터의 공격력과 마력을 증가시킨다. \n재사용 대기시간 : 2시간",
@@ -165,123 +174,14 @@ export const mockCharacterZeroSkill: ICharacterSkill = {
         "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHMHPD.png",
     },
     {
-      skill_name: "유니온 아티팩트 : 올스탯",
+      skill_name: "컨티뉴어스 링",
       skill_description:
-        "[마스터 레벨 : 10]\r\n크리스탈의 힘이 발현되어 능력치가 증가한다.",
-      skill_level: 0,
-      skill_effect: null,
-      skill_icon:
-        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNENG.png",
-    },
-    {
-      skill_name: "유니온 아티팩트 : 최대 HP/MP",
-      skill_description:
-        "[마스터 레벨 : 10]\r\n크리스탈의 힘이 발현되어 능력치가 증가한다.",
-      skill_level: 0,
-      skill_effect: null,
-      skill_icon:
-        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNENH.png",
-    },
-    {
-      skill_name: "유니온 아티팩트 : 공격력/마력",
-      skill_description:
-        "[마스터 레벨 : 10]\r\n크리스탈의 힘이 발현되어 능력치가 증가한다.",
-      skill_level: 10,
-      skill_effect: "공격력 30, 마력 30 증가",
-      skill_icon:
-        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNENI.png",
-    },
-    {
-      skill_name: "유니온 아티팩트 : 데미지",
-      skill_description:
-        "[마스터 레벨 : 10]\r\n크리스탈의 힘이 발현되어 능력치가 증가한다.",
-      skill_level: 10,
-      skill_effect: "데미지 15.00% 증가",
-      skill_icon:
-        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNENJ.png",
-    },
-    {
-      skill_name: "유니온 아티팩트 : 보스 몬스터 공격 시 데미지",
-      skill_description:
-        "[마스터 레벨 : 10]\r\n크리스탈의 힘이 발현되어 능력치가 증가한다.",
-      skill_level: 10,
-      skill_effect: "보스 몬스터 공격 시 데미지 15.00% 증가",
-      skill_icon:
-        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNEOA.png",
-    },
-    {
-      skill_name: "유니온 아티팩트 : 몬스터 방어율 무시",
-      skill_description:
-        "[마스터 레벨 : 10]\r\n크리스탈의 힘이 발현되어 능력치가 증가한다.",
-      skill_level: 8,
-      skill_effect: "몬스터 방어율 무시 16% 증가",
-      skill_icon:
-        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNEOB.png",
-    },
-    {
-      skill_name: "유니온 아티팩트 : 재사용 대기시간 미적용",
-      skill_description:
-        "[마스터 레벨 : 10]\r\n크리스탈의 힘이 발현되어 능력치가 증가한다.",
-      skill_level: 3,
-      skill_effect: "재사용 대기시간 미적용 확률 2.25% 증가",
-      skill_icon:
-        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNEOD.png",
-    },
-    {
-      skill_name: "유니온 아티팩트 : 메소 획득량",
-      skill_description:
-        "[마스터 레벨 : 10]\r\n크리스탈의 힘이 발현되어 능력치가 증가한다.",
-      skill_level: 10,
-      skill_effect: "메소 획득량 12% 증가",
-      skill_icon:
-        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNEOE.png",
-    },
-    {
-      skill_name: "유니온 아티팩트 : 아이템 드롭률",
-      skill_description:
-        "[마스터 레벨 : 10]\r\n크리스탈의 힘이 발현되어 능력치가 증가한다.",
-      skill_level: 10,
-      skill_effect: "아이템 드롭률 12% 증가",
-      skill_icon:
-        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNEOF.png",
-    },
-    {
-      skill_name: "유니온 아티팩트 : 크리티컬 확률",
-      skill_description:
-        "[마스터 레벨 : 10]\r\n크리스탈의 힘이 발현되어 능력치가 증가한다.",
-      skill_level: 5,
-      skill_effect: "크리티컬 확률 10% 증가",
-      skill_icon:
-        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNEOG.png",
-    },
-    {
-      skill_name: "유니온 아티팩트 : 크리티컬 데미지",
-      skill_description:
-        "[마스터 레벨 : 10]\r\n크리스탈의 힘이 발현되어 능력치가 증가한다.",
-      skill_level: 10,
-      skill_effect: "크리티컬 데미지 4.00% 증가",
-      skill_icon:
-        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNEOH.png",
-    },
-    {
-      skill_name: "유니온 아티팩트 : 추가 경험치 획득",
-      skill_description:
-        "[마스터 레벨 : 10]\r\n크리스탈의 힘이 발현되어 능력치가 증가한다.",
-      skill_level: 8,
+        "[마스터 레벨 : 5]\r\n컨티뉴어스 링 착용 시 반지의 힘이 활성화되기까지 준비시간을 가진다. 준비를 마치면 주기적으로 보스 몬스터에게 공격 스킬 적중 시 일정 시간 동안 보스 몬스터 공격 시 데미지, 공격력, 마력이 증가한다. 컨티뉴어스 링은 재사용 대기시간 초기화, 재사용 대기시간 감소의 효과를 받지 않는다.",
+      skill_level: 4,
       skill_effect:
-        "추가 경험치 획득 9% 증가, 다수 공격 스킬의 최대 공격 가능 대상 수 1 증가",
+        "컨티뉴어스 링 착용 시 120초 동안 준비, 준비를 마치면 보스 몬스터에게 공격 스킬 적중 시 8초 동안 보스 몬스터 공격 시 데미지 140%, 공격력 10%, 마력 10% 증가\n재발동 대기시간 12초",
       skill_icon:
-        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNEOI.png",
-    },
-    {
-      skill_name: "즐거운 만찬",
-      skill_description:
-        "[마스터 레벨 : 1]\n레벨 범위 몬스터를 100마리 처치할 때마다 맛있는 요리를 되찾게 되며, 맛있는 요리를 모두 되찾으면 <즐거운 만찬>이 발동된다. \n\n일일 <즐거운 만찬> 발동 횟수가 30회에 도달한 경우 종료된다.\n\n이벤트 기간이 종료된 후에는 사용할 수 없다. \n\n우클릭으로 온오프 가능",
-      skill_level: 1,
-      skill_effect:
-        "\n\n<즐거운 만찬> 최대 15마리의 적을 1500% 데미지로 5번 공격하는 스킬이 6회 발동",
-      skill_icon:
-        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNEPH.png",
+        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNCIB.png",
     },
     {
       skill_name: "드림 메신저",
@@ -291,6 +191,70 @@ export const mockCharacterZeroSkill: ICharacterSkill = {
       skill_effect: null,
       skill_icon:
         "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNEIB.png",
+    },
+    {
+      skill_name: "보스 킬링 머신",
+      skill_description:
+        "[마스터 레벨 : 15]\r\n연습모드 전용\n\n보스 몬스터 공격 시 데미지가 증가한다.",
+      skill_level: 15,
+      skill_effect: "보스 몬스터 공격 시 데미지 30% 증가",
+      skill_icon:
+        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNHMA.png",
+    },
+    {
+      skill_name: "방어력은 숫자일 뿐",
+      skill_description:
+        "[마스터 레벨 : 15]\r\n연습모드 전용\n\n공격 시 적의 방어를 일정 비율 무시한다.",
+      skill_level: 4,
+      skill_effect: "공격 시 적의 방어 8% 무시",
+      skill_icon:
+        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNHMB.png",
+    },
+    {
+      skill_name: "길드의 이름으로",
+      skill_description:
+        "[마스터 레벨 : 15]\r\n연습모드 전용\n\n일정 시간 동안 데미지가 일정 비율 증가한다.",
+      skill_level: 15,
+      skill_effect: "데미지 30% 증가",
+      skill_icon:
+        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNHMC.png",
+    },
+    {
+      skill_name: "크게 한방",
+      skill_description:
+        "[마스터 레벨 : 15]\r\n연습모드 전용\n\n크리티컬 데미지가 일정 비율 증가한다.",
+      skill_level: 15,
+      skill_effect: "크리티컬 데미지 30% 증가",
+      skill_icon:
+        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNHMD.png",
+    },
+    {
+      skill_name: "헤븐즈 도어",
+      skill_description:
+        "[마스터 레벨 : 1]\r\n연습모드 전용\n\nHP가 0이 되는 것을 한 번 무시하는 버프를 획득한다.",
+      skill_level: 1,
+      skill_effect: null,
+      skill_icon:
+        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNHME.png",
+    },
+    {
+      skill_name: "연습모드 전용 영웅의 메아리",
+      skill_description:
+        "연습모드 전용\n\n캐릭터의 공격력과 마력을 증가시킨다.",
+      skill_level: 1,
+      skill_effect: "공격력, 마력 4% 증가",
+      skill_icon:
+        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNHMF.png",
+    },
+    {
+      skill_name: "꿈속 과일 디저트",
+      skill_description:
+        "[마스터 레벨 : 1]\n레벨 범위 몬스터를 100마리 처치할 때마다 꿈속 과일 디저트가 준비되며, 3번 모두 준비되면 <달콤한 디저트>가 발동된다. 이어서 <상큼한 디저트>가 발동된다. \n\n일일 <꿈속 과일 디저트> 발동 횟수가 30회에 도달한 경우 종료된다.\n\n이벤트 기간이 종료된 후에는 사용할 수 없다. \n\n우클릭으로 온오프 가능",
+      skill_level: 1,
+      skill_effect:
+        "\n\n<달콤한 디저트> 최대 15마리의 적을 1800% 데미지로 6번 공격하는 스킬이 6회 발동\n\n<상큼한 디저트> 최대 15마리의 적을 1800% 데미지로 5번 공격하는 스킬을 6회 발동하는 귀여운 접시 5명을 소환",
+      skill_icon:
+        "https://open.api.nexon.com/static/maplestory/SkillIcon/KFHCLHNHNC.png",
     },
   ],
 };

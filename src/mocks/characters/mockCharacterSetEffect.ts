@@ -1,7 +1,7 @@
 import { ICharacterSetEffect } from "@/types/characters/CharacterSetEffect";
 
 export const mockCharacterSetEffect: ICharacterSetEffect = {
-  date: "2024-01-12T00:00+09:00",
+  date: "2024-03-11T00:00+09:00",
   set_effect: [
     {
       set_name: "앱솔랩스 세트(해적)",
@@ -46,9 +46,20 @@ export const mockCharacterSetEffect: ICharacterSetEffect = {
       ],
     },
     {
-      set_name: "칠흑의 보스 세트",
+      set_name: "마이스터 세트",
       total_set_count: 1,
       set_effect_info: [],
+    },
+    {
+      set_name: "칠흑의 보스 세트",
+      total_set_count: 2,
+      set_effect_info: [
+        {
+          set_count: 2,
+          set_option:
+            "올스탯 : +10, 최대 HP : +250, 공격력 : +10, 마력 : +10, 보스 몬스터 공격 시 데미지 : +10%",
+        },
+      ],
     },
     {
       set_name: "쁘띠 마스터 타임 세트",
@@ -62,12 +73,21 @@ export const mockCharacterSetEffect: ICharacterSetEffect = {
     },
     {
       set_name: "여명의 보스 세트",
-      total_set_count: 2,
+      total_set_count: 4,
       set_effect_info: [
         {
           set_count: 2,
           set_option:
             "올스탯 : +10, 최대 HP : +250, 공격력 : +10, 마력 : +10, 보스 몬스터 공격 시 데미지 : +10%",
+        },
+        {
+          set_count: 3,
+          set_option: "올스탯 : +10, 최대 HP : +250, 공격력 : +10, 마력 : +10",
+        },
+        {
+          set_count: 4,
+          set_option:
+            "올스탯 : +10, 최대 HP : +250, 공격력 : +10, 마력 : +10, 방어력 : +100, 몬스터 방어율 무시 : +10%",
         },
       ],
     },
@@ -77,18 +97,12 @@ export const mockCharacterSetEffect: ICharacterSetEffect = {
       set_effect_info: [],
     },
     {
-      set_name: "레헬른 세트",
+      set_name: "체크메이트 세트",
       total_set_count: 5,
       set_effect_info: [
         {
-          set_count: 3,
-          set_option:
-            "올스탯 : +5, 최대 HP : +250, 최대 MP : +250, 공격력 : +3, 마력 : +3",
-        },
-        {
           set_count: 5,
-          set_option:
-            "올스탯 : +10, 최대 HP : +500, 최대 MP : +500, 공격력 : +7, 마력 : +7",
+          set_option: "올스탯 : +5, 공격력 : +3, 마력 : +3",
         },
       ],
     },

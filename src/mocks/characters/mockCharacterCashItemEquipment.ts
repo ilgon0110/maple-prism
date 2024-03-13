@@ -1,49 +1,24 @@
 import { ICharacterCashItemEquipment } from "@/types/characters/CharacterCashItemEquipment";
 
 export const mockCharacterCashItemEquipment: ICharacterCashItemEquipment = {
-  date: "2024-01-12T00:00+09:00",
+  date: "2024-03-11T00:00+09:00",
   character_gender: "여",
   character_class: "은월",
   preset_no: 1,
-  cash_item_equipment_preset_1: [
+  cash_item_equipment_base: [
     {
       cash_item_equipment_part: "모자",
       cash_item_equipment_slot: "모자",
-      cash_item_name: "마이 퀸 티아라",
+      cash_item_name: "체크메이트 쥬얼",
       cash_item_icon:
-        "https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCNHPE.png",
+        "https://open.api.nexon.com/static/maplestory/ItemIcon/KEPCODJJ.png",
       cash_item_description: null,
-      cash_item_option: [
-        {
-          option_type: "STR",
-          option_value: "30",
-        },
-        {
-          option_type: "DEX",
-          option_value: "30",
-        },
-        {
-          option_type: "INT",
-          option_value: "30",
-        },
-        {
-          option_type: "LUK",
-          option_value: "30",
-        },
-        {
-          option_type: "최대 HP",
-          option_value: "1500",
-        },
-        {
-          option_type: "최대 MP",
-          option_value: "1500",
-        },
-      ],
+      cash_item_option: [],
       date_expire: null,
-      date_option_expire: "2024-02-08T16:42+09:00",
-      cash_item_label: null,
+      date_option_expire: null,
+      cash_item_label: "스페셜라벨",
       cash_item_coloring_prism: null,
-      base_preset_item_disable_flag: "0",
+      item_gender: null,
     },
     {
       cash_item_equipment_part: "얼굴장식",
@@ -57,7 +32,7 @@ export const mockCharacterCashItemEquipment: ICharacterCashItemEquipment = {
       date_option_expire: null,
       cash_item_label: null,
       cash_item_coloring_prism: null,
-      base_preset_item_disable_flag: "0",
+      item_gender: null,
     },
     {
       cash_item_equipment_part: "눈장식",
@@ -71,7 +46,7 @@ export const mockCharacterCashItemEquipment: ICharacterCashItemEquipment = {
       date_option_expire: null,
       cash_item_label: null,
       cash_item_coloring_prism: null,
-      base_preset_item_disable_flag: "0",
+      item_gender: null,
     },
     {
       cash_item_equipment_part: "귀고리",
@@ -85,49 +60,35 @@ export const mockCharacterCashItemEquipment: ICharacterCashItemEquipment = {
       date_option_expire: null,
       cash_item_label: null,
       cash_item_coloring_prism: null,
-      base_preset_item_disable_flag: "0",
+      item_gender: null,
     },
     {
       cash_item_equipment_part: "한벌옷",
       cash_item_equipment_slot: "상의",
-      cash_item_name: "엔들리스 드림",
+      cash_item_name: "체크메이트 퀸",
       cash_item_icon:
-        "https://open.api.nexon.com/static/maplestory/ItemIcon/KEPHKAPE.png",
+        "https://open.api.nexon.com/static/maplestory/ItemIcon/KEPHKBOI.png",
       cash_item_description: null,
-      cash_item_option: [
-        {
-          option_type: "방어력",
-          option_value: "300",
-        },
-      ],
+      cash_item_option: [],
       date_expire: null,
-      date_option_expire: "2024-02-08T16:42+09:00",
-      cash_item_label: null,
+      date_option_expire: null,
+      cash_item_label: "스페셜라벨",
       cash_item_coloring_prism: null,
-      base_preset_item_disable_flag: "0",
+      item_gender: "여",
     },
     {
       cash_item_equipment_part: "신발",
       cash_item_equipment_slot: "신발",
-      cash_item_name: "속박의 매듭",
+      cash_item_name: "체크메이트 슈즈",
       cash_item_icon:
-        "https://open.api.nexon.com/static/maplestory/ItemIcon/KEPFIBKG.png",
+        "https://open.api.nexon.com/static/maplestory/ItemIcon/KEPFIDPE.png",
       cash_item_description: null,
-      cash_item_option: [
-        {
-          option_type: "이동속도",
-          option_value: "50",
-        },
-        {
-          option_type: "점프력",
-          option_value: "50",
-        },
-      ],
+      cash_item_option: [],
       date_expire: null,
-      date_option_expire: "2024-02-08T16:42+09:00",
-      cash_item_label: null,
+      date_option_expire: null,
+      cash_item_label: "스페셜라벨",
       cash_item_coloring_prism: null,
-      base_preset_item_disable_flag: "0",
+      item_gender: null,
     },
     {
       cash_item_equipment_part: "장갑",
@@ -141,69 +102,35 @@ export const mockCharacterCashItemEquipment: ICharacterCashItemEquipment = {
       date_option_expire: null,
       cash_item_label: null,
       cash_item_coloring_prism: null,
-      base_preset_item_disable_flag: "0",
+      item_gender: null,
     },
     {
       cash_item_equipment_part: "망토",
       cash_item_equipment_slot: "망토",
-      cash_item_name: "한밤의 축제",
+      cash_item_name: "타임 아웃",
       cash_item_icon:
-        "https://open.api.nexon.com/static/maplestory/ItemIcon/KEOCIDID.png",
+        "https://open.api.nexon.com/static/maplestory/ItemIcon/KEOCIFNE.png",
       cash_item_description: null,
-      cash_item_option: [
-        {
-          option_type: "STR",
-          option_value: "30",
-        },
-        {
-          option_type: "DEX",
-          option_value: "30",
-        },
-        {
-          option_type: "INT",
-          option_value: "30",
-        },
-        {
-          option_type: "LUK",
-          option_value: "30",
-        },
-        {
-          option_type: "최대 HP",
-          option_value: "1500",
-        },
-        {
-          option_type: "최대 MP",
-          option_value: "1500",
-        },
-      ],
+      cash_item_option: [],
       date_expire: null,
-      date_option_expire: "2024-02-08T16:42+09:00",
-      cash_item_label: null,
+      date_option_expire: null,
+      cash_item_label: "스페셜라벨",
       cash_item_coloring_prism: null,
-      base_preset_item_disable_flag: "0",
+      item_gender: null,
     },
     {
       cash_item_equipment_part: "무기",
       cash_item_equipment_slot: "무기",
-      cash_item_name: "악몽 시계",
+      cash_item_name: "체스퀸 하트",
       cash_item_icon:
-        "https://open.api.nexon.com/static/maplestory/ItemIcon/KEICIFPI.png",
+        "https://open.api.nexon.com/static/maplestory/ItemIcon/KEICJOJC.png",
       cash_item_description: "모든 무기에 착용이 가능하다.",
-      cash_item_option: [
-        {
-          option_type: "공격력",
-          option_value: "30",
-        },
-        {
-          option_type: "마력",
-          option_value: "30",
-        },
-      ],
+      cash_item_option: [],
       date_expire: null,
-      date_option_expire: "2024-02-08T16:42+09:00",
-      cash_item_label: null,
+      date_option_expire: null,
+      cash_item_label: "스페셜라벨",
       cash_item_coloring_prism: null,
-      base_preset_item_disable_flag: "0",
+      item_gender: null,
     },
     {
       cash_item_equipment_part: "반지",
@@ -218,26 +145,11 @@ export const mockCharacterCashItemEquipment: ICharacterCashItemEquipment = {
       date_option_expire: null,
       cash_item_label: null,
       cash_item_coloring_prism: null,
-      base_preset_item_disable_flag: "0",
+      item_gender: null,
     },
     {
       cash_item_equipment_part: "반지",
-      cash_item_equipment_slot: "반지3",
-      cash_item_name: "V 말풍선 반지",
-      cash_item_icon:
-        "https://open.api.nexon.com/static/maplestory/ItemIcon/KEODOHMJ.png",
-      cash_item_description:
-        "MapleStory V 사전 예약에 참여하신 용사님들에게 드리는 선물입니다.",
-      cash_item_option: [],
-      date_expire: null,
-      date_option_expire: null,
-      cash_item_label: null,
-      cash_item_coloring_prism: null,
-      base_preset_item_disable_flag: "0",
-    },
-    {
-      cash_item_equipment_part: "반지",
-      cash_item_equipment_slot: "반지4",
+      cash_item_equipment_slot: "반지2",
       cash_item_name: "V 명찰 반지",
       cash_item_icon:
         "https://open.api.nexon.com/static/maplestory/ItemIcon/KEODOGPG.png",
@@ -248,11 +160,42 @@ export const mockCharacterCashItemEquipment: ICharacterCashItemEquipment = {
       date_option_expire: null,
       cash_item_label: null,
       cash_item_coloring_prism: null,
-      base_preset_item_disable_flag: "0",
+      item_gender: null,
+    },
+    {
+      cash_item_equipment_part: "반지",
+      cash_item_equipment_slot: "반지3",
+      cash_item_name: "DREAMER 말풍선 반지",
+      cash_item_icon:
+        "https://open.api.nexon.com/static/maplestory/ItemIcon/KEODODOF.png",
+      cash_item_description:
+        "캐릭터가 대화를 할 때, DREAMER 말풍선이 나타난다.",
+      cash_item_option: [],
+      date_expire: null,
+      date_option_expire: null,
+      cash_item_label: null,
+      cash_item_coloring_prism: null,
+      item_gender: null,
+    },
+    {
+      cash_item_equipment_part: "반지",
+      cash_item_equipment_slot: "반지4",
+      cash_item_name: "DREAMER 명찰 반지",
+      cash_item_icon:
+        "https://open.api.nexon.com/static/maplestory/ItemIcon/KEODOCOH.png",
+      cash_item_description: "캐릭터 이름이 DREAMER 명찰에 나타난다.",
+      cash_item_option: [],
+      date_expire: null,
+      date_option_expire: null,
+      cash_item_label: null,
+      cash_item_coloring_prism: null,
+      item_gender: null,
     },
   ],
+  cash_item_equipment_preset_1: [],
   cash_item_equipment_preset_2: [],
   cash_item_equipment_preset_3: [],
+  additional_cash_item_equipment_base: [],
   additional_cash_item_equipment_preset_1: [],
   additional_cash_item_equipment_preset_2: [],
   additional_cash_item_equipment_preset_3: [],

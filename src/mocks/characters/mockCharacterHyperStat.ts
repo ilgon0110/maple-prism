@@ -1,10 +1,10 @@
 import { ICharacterHyperStat } from "@/types/characters/CharacterHyperStat";
 
 export const mockCharacterHyperStat: ICharacterHyperStat = {
-  date: "2024-01-12T00:00+09:00",
+  date: "2024-03-11T00:00+09:00",
   character_class: "은월",
   use_preset_no: "3",
-  use_available_hyper_stat: 1364,
+  use_available_hyper_stat: 1398,
   hyper_stat_preset_1: [
     {
       stat_type: "STR",
@@ -109,7 +109,7 @@ export const mockCharacterHyperStat: ICharacterHyperStat = {
       stat_increase: null,
     },
   ],
-  hyper_stat_preset_1_remain_point: 124,
+  hyper_stat_preset_1_remain_point: 158,
   hyper_stat_preset_2: [
     {
       stat_type: "STR",
@@ -214,13 +214,13 @@ export const mockCharacterHyperStat: ICharacterHyperStat = {
       stat_increase: null,
     },
   ],
-  hyper_stat_preset_2_remain_point: 105,
+  hyper_stat_preset_2_remain_point: 139,
   hyper_stat_preset_3: [
     {
       stat_type: "STR",
-      stat_point: 15,
-      stat_level: 4,
-      stat_increase: "힘 120 증가",
+      stat_point: 60,
+      stat_level: 7,
+      stat_increase: "힘 210 증가",
     },
     {
       stat_type: "DEX",
@@ -260,9 +260,9 @@ export const mockCharacterHyperStat: ICharacterHyperStat = {
     },
     {
       stat_type: "크리티컬 확률",
-      stat_point: null,
-      stat_level: 0,
-      stat_increase: null,
+      stat_point: 3,
+      stat_level: 2,
+      stat_increase: "크리티컬 확률 2% 증가",
     },
     {
       stat_type: "크리티컬 데미지",
@@ -296,9 +296,9 @@ export const mockCharacterHyperStat: ICharacterHyperStat = {
     },
     {
       stat_type: "공격력/마력",
-      stat_point: 60,
-      stat_level: 7,
-      stat_increase: "공격력과 마력 21 증가",
+      stat_point: 85,
+      stat_level: 8,
+      stat_increase: "공격력과 마력 24 증가",
     },
     {
       stat_type: "획득 경험치",
@@ -319,5 +319,5 @@ export const mockCharacterHyperStat: ICharacterHyperStat = {
       stat_increase: null,
     },
   ],
-  hyper_stat_preset_3_remain_point: 54,
+  hyper_stat_preset_3_remain_point: 15,
 };
