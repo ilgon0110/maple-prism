@@ -1,0 +1,166 @@
+import { ICharacterBasicInfo } from "@/types/characters/CharacterBasicInfo";
+import Image from "next/image";
+import MySelect from "./common/MySelect";
+import useEventSKillInfoStore from "@/models/eventSkillInfo";
+import { convertToKoreanNumber } from "@/utils/converToKoreanNumber";
+import { cls } from "@/utils/cls";
+
+type BasicInfoProps = {
+  data: ICharacterBasicInfo;
+  powerRate: number;
+  originPowerRate: number;
+};
+
+const BasicInfo = ({ data, powerRate, originPowerRate }: BasicInfoProps) => {
+  const {
+    bossDamageOption,
+    powerOption,
+    statOption,
+    selectedBossDamageOption,
+    selectedPowerOption,
+    selectedStatOption,
+    setSelectedBossDamageOption,
+    setSelectedPowerOption,
+    setSelectedStatOption,
+  } = useEventSKillInfoStore();
+
+  const onChangeSelectOption = (option: string, type: string) => {
+    switch (type) {
+      case "bossDamage":
+        setSelectedBossDamageOption(option);
+        break;
+      case "power":
+        setSelectedPowerOption(option);
+        break;
+      case "stat":
+        setSelectedStatOption(option);
+        break;
+    }
+  };
+
+  const diffPercent = Math.floor(
+    ((powerRate - originPowerRate) / originPowerRate) * 100
+  );
+
+  return (
+    <>
+      <div className="flex flex-row justify-center items-center">
+        <div className="h-full">
+          <Image
+            src={data.character_image}
+            width={120}
+            height={120}
+            alt="캐릭터이미지"
+            style={{ objectFit: "contain" }}
+            sizes="100%"
+          />
+        </div>
+        <div className="px-4 py-5 sm:p-6">
+          <dt className="text-base font-normal mb-2 text-gray-900 flex flex-row gap-3 items-center">
+            {data.character_name}{" "}
+            <div className="bg-slate-100 w-fit py-[1px] px-4 text-gray-700 rounded-full text-sm">
+              {data.character_class}
+            </div>{" "}
+            Lv. {data.character_level}
+          </dt>
+          {/* <dt className=" text-lg font-normal text-gray-900">전투력</dt> */}
+          <dd className="items-baseline block xs:flex justify-between gap-1 mt-1">
+            <div className="flex items-baseline text-xl font-semibold text-indigo-600">
+              {convertToKoreanNumber(powerRate)}
+              <span className="ml-2 text-xs font-medium text-gray-500">
+                from {convertToKoreanNumber(originPowerRate)}
+              </span>
+            </div>
+            <div
+              className={cls(
+                "inline-flex rounded-full px-2.5 py-0.5 text-sm font-medium text-green-800 mt-2 xs:mt-0 items-center",
+                diffPercent >= 0
+                  ? "bg-green-100 text-green-800"
+                  : "bg-red-100 text-red-800"
+              )}
+            >
+              {diffPercent >= 0 ? (
+                <svg
+                  className="-ml-1 mr-0.5 h-5 w-5 flex-shrink-0 self-center text-green-500"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              ) : (
+                <div className="text-red-500">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="20"
+                    viewBox="0 -960 960 960"
+                    width="20"
+                    fill="currentColor"
+                  >
+                    <path d="M440-800v487L216-537l-56 57 320 320 320-320-56-57-224 224v-487h-80Z" />
+                  </svg>
+                </div>
+              )}
+              <span className="sr-only">
+                {diffPercent >= 0 ? "Increased by" : "Decreased by"}
+              </span>
+              {diffPercent}%
+            </div>
+          </dd>
+        </div>
+      </div>
+      <div className="w-full h-fit text-xs py-2 relative">
+        <div className="absolute w-full h-full inset-0 bg-black opacity-50 z-10 rounded-md" />
+        <div className=" absolute inset-0 w-full h-full object-cover blur-[1px] rounded-md">
+          <Image
+            src="/루시드드림페스타.png"
+            fill
+            sizes="100%"
+            alt="보약스킬"
+            objectFit="cover"
+            style={{ borderRadius: "0.375rem" }}
+          />
+        </div>
+        <span>마약 스킬</span>
+        <div className="w-full flex flex-col gap-4 px-4 justify-center text-white xs:flex-row xs:px-0 xs:gap-2">
+          <div className="z-20 space-y-1">
+            <span>보공</span>
+            <MySelect
+              option={bossDamageOption}
+              selectedOption={selectedBossDamageOption}
+              onChangeSelectOption={(inputString: string) =>
+                onChangeSelectOption(inputString, "bossDamage")
+              }
+            />
+          </div>
+          <div className="z-20 space-y-1">
+            <span>공/마</span>
+            <MySelect
+              option={powerOption}
+              selectedOption={selectedPowerOption}
+              onChangeSelectOption={(inputString: string) =>
+                onChangeSelectOption(inputString, "power")
+              }
+            />
+          </div>
+          <div className="z-20 space-y-1">
+            <span>올스탯</span>
+            <MySelect
+              option={statOption}
+              selectedOption={selectedStatOption}
+              onChangeSelectOption={(inputString: string) =>
+                onChangeSelectOption(inputString, "stat")
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default BasicInfo;
