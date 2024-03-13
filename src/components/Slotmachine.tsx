@@ -1,5 +1,6 @@
 "use client";
 
+import { cls } from "@/utils/cls";
 import { AnimatePresence, Variants, motion } from "framer-motion";
 import React from "react";
 import { useCallback, useEffect, useState } from "react";
@@ -9,6 +10,7 @@ type SlotMachineProps = {
   infinite?: boolean;
   velocity: number;
   randomVelocity?: boolean;
+  endText?: string;
 };
 
 interface VariantProps {
@@ -18,19 +20,29 @@ interface VariantProps {
   filter: string;
 }
 
-const ARRAY_REPEAT = 2;
+const ARRAY_REPEAT = 1;
 
 const SlotMachine = ({
   textData,
   infinite,
   velocity,
   randomVelocity,
+  endText,
 }: SlotMachineProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [randomVelocityValue, setRandomVelocityValue] = useState(0);
-  const textArr = Array(ARRAY_REPEAT).fill(textData).flat();
+  const [textArr, setTextArr] = useState(
+    Array(ARRAY_REPEAT).fill(textData).flat()
+  );
   const lastIndex = textArr.length - 1;
-
+  useEffect(() => {
+    if (!!endText) {
+      setTextArr((prev) => {
+        prev.push(endText);
+        return prev;
+      });
+    }
+  }, [endText]);
   const getDuration = useCallback(
     (base: number, index: number) => {
       if (randomVelocity) {
@@ -69,7 +81,7 @@ const SlotMachine = ({
   };
 
   return (
-    <div className="w-10 h-10 relative">
+    <div className="w-6 h-6 xs:w-10 xs:h-10 relative">
       <div className="w-full h-full overflow-hidden flex justify-center items-center absolute">
         <AnimatePresence mode="popLayout">
           {textArr.map((text, i) => {
@@ -77,7 +89,12 @@ const SlotMachine = ({
             return (
               i === currentIndex && (
                 <motion.p
-                  className="font-bold text-3xl text-center overflow-hidden"
+                  className={cls(
+                    "font-bold text-center overflow-hidden",
+                    Number.isNaN(Number(text))
+                      ? "text-[16px] xs:text-2xl"
+                      : "text-[20px] xs:text-3xl"
+                  )}
                   key={text}
                   custom={{ isLast }}
                   variants={variants}
