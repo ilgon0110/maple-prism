@@ -1,5 +1,6 @@
 import MyFooter from "@/components/MyFooter";
 import NameSearchBox from "@/components/NameSearchBox";
+import SlotMachine from "@/components/SlotMachine";
 import Image from "next/image";
 import React from "react";
 
@@ -9,12 +10,12 @@ export default function Home() {
   return (
     <div className="max-w-xl mx-auto overflow-hidden h-[100vh] shadow mt-12">
       <section className="px-6 pt-8">
-        {/* <div className="flex flex-row gap-1 w-full items-center justify-center">
+        <div className="flex flex-row gap-1 w-full items-center justify-center">
           {Array(9)
             .fill(0)
             .map((_, i) => {
               return (
-                <MemoizedSlotMachine
+                <SlotMachine
                   key={i}
                   velocity={10}
                   textData={textData}
@@ -23,7 +24,7 @@ export default function Home() {
                 />
               );
             })}
-        </div> */}
+        </div>
         <NameSearchBox />
         <div className="w-full flex flex-row justify-center items-center gap-2">
           <Image

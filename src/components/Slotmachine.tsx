@@ -116,4 +116,4 @@ function SlotMachine({
     </div>
   );
 }
-export const MemoizedSlotMachine = React.memo(SlotMachine);
+export default SlotMachine;
