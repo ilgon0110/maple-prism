@@ -1,4 +1,7 @@
-import { IItemEquipment } from "@/types/characters/CharacterItemEquipment";
+import {
+  ICharacterItemEquipment,
+  IItemEquipment,
+} from "@/types/characters/CharacterItemEquipment";
 import { addingMap } from "@/utils/addingMap";
 import { create } from "zustand";
 interface ItemCardInfoStore extends ItemCardInfoState, ItemCardInfoActions {}
@@ -68,7 +71,7 @@ const useItemMakerInfoStore = create<ItemCardInfoStore>((set) => ({
           }
           return [key, String(value)];
         })
-      );
+      ) as IItemEquipment["item_total_option"];
 
       itemData = {
         ...itemData,
