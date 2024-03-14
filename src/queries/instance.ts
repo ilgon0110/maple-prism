@@ -9,7 +9,7 @@ const serverInstance = axios.create({
     Authorization: "",
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
-    "x-nxopen-api-key": process.env.NEXT_PUBLIC_API_KEY!,
+    "x-nxopen-api-key": process.env.NEXT_PUBLIC_PROD_API_KEY!,
   },
 });
 
