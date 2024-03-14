@@ -8,18 +8,24 @@ import { ICharacterHexaStat } from "@/types/characters/CharacterHexaStat";
 import { addingMap } from "./addingMap";
 export const getHexaValue = (characterHexaStat: ICharacterHexaStat) => {
   const hexaStats = new Map<string, number>();
+  if (characterHexaStat.character_class === null) {
+    return { hexaStats };
+  }
   const job = characterHexaStat.character_class;
   const mainStat = CHARACTER_CLASS.find((characterClass) =>
     characterClass.jobs.includes(job)
   )?.mainStat.toUpperCase();
+  console.log("characterHexaStat", characterHexaStat);
   if (mainStat === undefined) {
     throw new Error("HexaStat mainStat is undefined");
   }
 
-  const userHexaStats = characterHexaStat.character_hexa_stat_core
-    ? characterHexaStat.character_hexa_stat_core[0]
-    : null;
-  if (userHexaStats === null) {
+  const userHexaStats =
+    characterHexaStat.character_hexa_stat_core !== null
+      ? characterHexaStat.character_hexa_stat_core[0]
+      : null;
+  console.log("userHexaStats", userHexaStats);
+  if (userHexaStats === null || userHexaStats === undefined) {
     return { hexaStats };
   }
   const mainStats = HEXA_STATS_MAIN.find(
