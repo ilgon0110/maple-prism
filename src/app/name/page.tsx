@@ -114,6 +114,7 @@ const CharacterNamePage = () => {
   } = useItemEquipmentInfoStore();
   useEffect(() => {
     if (itemEquipment.data && setEffect.data) {
+      console.log("hihi");
       setInitialItemEquipment(itemEquipment.data);
       setInitialSetEffect(setEffect.data);
     }

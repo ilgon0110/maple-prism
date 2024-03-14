@@ -72,7 +72,7 @@ const useItemEquipmentInfoStore = create<ItemEquipmentInfoStore>((set) => ({
       if (state.itemEquipments.length > 1) {
         state.itemEquipments.shift();
         return {
-          itemEquipments: [itemEquipment, ...state.itemEquipments],
+          itemEquipments: [itemEquipment],
         };
       } else {
         return {
@@ -117,7 +117,7 @@ const useItemEquipmentInfoStore = create<ItemEquipmentInfoStore>((set) => ({
       if (state.setEffects.length > 1) {
         state.setEffects.shift();
         return {
-          setEffects: [setEffect, ...state.setEffects],
+          setEffects: [setEffect],
         };
       } else {
         return {
