@@ -176,7 +176,8 @@ const getSetEffect = (characterSetEffect: ICharacterSetEffect) => {
 const getPetEquipment = (characterPetEquipment: ICharacterPetEquipment) => {
   let attackPower = 0;
   let magicPower = 0;
-  characterPetEquipment.pet_1_equipment.item_option.forEach((item) => {
+  console.log("characterPetEquipment", characterPetEquipment);
+  characterPetEquipment.pet_1_equipment?.item_option.forEach((item) => {
     if (item.option_type === SKILL_KEYS.attack_power) {
       attackPower += +item.option_value;
     }
@@ -184,7 +185,7 @@ const getPetEquipment = (characterPetEquipment: ICharacterPetEquipment) => {
       magicPower += +item.option_value;
     }
   });
-  characterPetEquipment.pet_2_equipment.item_option.forEach((item) => {
+  characterPetEquipment.pet_2_equipment?.item_option.forEach((item) => {
     if (item.option_type === SKILL_KEYS.attack_power) {
       attackPower += +item.option_value;
     }
@@ -192,7 +193,7 @@ const getPetEquipment = (characterPetEquipment: ICharacterPetEquipment) => {
       magicPower += +item.option_value;
     }
   });
-  characterPetEquipment.pet_3_equipment.item_option.forEach((item) => {
+  characterPetEquipment.pet_3_equipment?.item_option.forEach((item) => {
     if (item.option_type === SKILL_KEYS.attack_power) {
       attackPower += +item.option_value;
     }
