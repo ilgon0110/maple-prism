@@ -19,10 +19,10 @@ const Myheader = () => {
       >
         <div className="flex lg:flex-1">
           <Link className="-m-1.5 p-1.5" href="/">
-            <span className="sr-only">Your Company</span>
+            <span className="sr-only">Logo</span>
             <div className="w-8 h-8 relative">
               <Image
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                src="/maplestory-icon.png"
                 alt=""
                 layout="fill"
                 objectFit="cover"
@@ -60,10 +60,11 @@ const Myheader = () => {
             <button
               onClick={(e) => onClickMenu(e)}
               type="button"
-              className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900"
+              className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900 opacity-20 hover:cursor-not-allowed"
               aria-expanded="false"
+              disabled
             >
-              코디 검색
+              전투력 랭킹
             </button>
           </div>
           {/* <Link
@@ -74,9 +75,10 @@ const Myheader = () => {
           </Link> */}
           <Link
             href="#"
-            className="text-sm font-semibold leading-6 text-gray-900"
+            aria-disabled
+            className="text-sm font-semibold leading-6 text-gray-900 opacity-20 hover:cursor-not-allowed"
           >
-            베스트 염색
+            게시판
           </Link>
           {/* <div className="relative">
             <button
@@ -91,7 +93,8 @@ const Myheader = () => {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link
             href="#"
-            className="text-sm font-semibold leading-6 text-gray-900"
+            className="text-sm font-semibold leading-6 text-gray-900 opacity-20 hover:cursor-not-allowed"
+            aria-disabled
           >
             로그인
           </Link>
@@ -112,11 +115,11 @@ const Myheader = () => {
         >
           <div className="flex items-center justify-between">
             <Link href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
+              <span className="sr-only">Logo</span>
               <div className="w-8 h-8 relative">
                 <Image
                   className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                  src="/maplestory-icon.png"
                   alt=""
                   fill
                 />
@@ -152,18 +155,20 @@ const Myheader = () => {
                 <div className="-mx-3">
                   <button
                     type="button"
-                    className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:cursor-not-allowed opacity-20"
                     aria-controls="disclosure-1"
                     aria-expanded="false"
+                    disabled
                   >
-                    코디 검색
+                    전투력 랭킹
                   </button>
                 </div>
                 <Link
                   href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  aria-disabled
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 opacity-20 hover:cursor-not-allowed"
                 >
-                  베스트 코디
+                  게시판
                 </Link>
                 {/* <Link
                   href="#"
@@ -185,7 +190,8 @@ const Myheader = () => {
               <div className="py-6">
                 <Link
                   href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  aria-disabled
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 opacity-20 hover:cursor-not-allowed"
                 >
                   로그인
                 </Link>

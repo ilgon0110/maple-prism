@@ -344,7 +344,7 @@ const ItemMaker = ({ onClickModalClose }: ItemMakerProps) => {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col lg:flex-row w-full px-3 h-fit py-5 border border-green-500 bg-white">
+            <div className="flex flex-col lg:flex-row w-full px-3 h-fit py-5 bg-white rounded">
               <div className="h-full w-1/2 lg:w-1/3 min-w-64 mx-auto">
                 <ItemCard itemData={itemData} />
                 <button

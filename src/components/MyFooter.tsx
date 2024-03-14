@@ -5,14 +5,14 @@ import Link from "next/link";
 const MyFooter = () => {
   return (
     <footer className="w-full bg-transparent">
-      <div className="mx-auto max-w-7xl py-8 sm:py-12 md:flex md:items-center md:justify-between lg:px-8 md:px-8 space-y-1">
+      <div className="mx-auto max-w-7xl py-8 sm:py-12 md:flex md:items-center md:justify-center lg:px-8 md:px-8 space-y-1">
         <div className="md:order-1 md:mt-0">
           <p className="text-center text-xs leading-5 text-gray-500">
-            &copy; 2023 maple-prism, Inc. All rights reserved.
+            &copy; 2024 maple-prism, Inc. All rights reserved.
           </p>
         </div>
-        <div className="flex justify-center space-x-6 md:order-2">
-          <Link href="/character" className="text-gray-400 hover:text-gray-500">
+        {/* <div className="flex justify-center space-x-6 md:order-2">
+          <Link href="#" className="text-gray-400 hover:text-gray-500">
             <span className="sr-only">Facebook</span>
             <svg
               className="h-6 w-6"
@@ -83,7 +83,7 @@ const MyFooter = () => {
               />
             </svg>
           </a>
-        </div>
+        </div> */}
       </div>
     </footer>
   );
