@@ -15,7 +15,6 @@ export const getHexaValue = (characterHexaStat: ICharacterHexaStat) => {
   const mainStat = CHARACTER_CLASS.find((characterClass) =>
     characterClass.jobs.includes(job)
   )?.mainStat.toUpperCase();
-  console.log("characterHexaStat", characterHexaStat);
   if (mainStat === undefined) {
     throw new Error("HexaStat mainStat is undefined");
   }
@@ -24,7 +23,6 @@ export const getHexaValue = (characterHexaStat: ICharacterHexaStat) => {
     characterHexaStat.character_hexa_stat_core !== null
       ? characterHexaStat.character_hexa_stat_core[0]
       : null;
-  console.log("userHexaStats", userHexaStats);
   if (userHexaStats === null || userHexaStats === undefined) {
     return { hexaStats };
   }

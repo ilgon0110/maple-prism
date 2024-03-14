@@ -132,7 +132,6 @@ const getStatPowerRate = ({
     CHARACTER_CLASS.find((characterClass) => {
       return characterClass.jobs.includes(characterBasicInfo.character_class);
     })?.subStat.toUpperCase() ?? null;
-
   if (mainStat === null || subStat === null) {
     throw new Error("mainStat or subStat is null");
   }

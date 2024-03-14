@@ -230,6 +230,11 @@ const CharacterNamePage = () => {
     redoItemEquipment();
     redoSetEffect();
   };
+
+  // console.log(
+  //   "api PowerRate",
+  //   stats.data.final_stat.find((el) => el.stat_name === "전투력")
+  // );
   return (
     <div
       className={cls(
