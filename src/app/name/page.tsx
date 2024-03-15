@@ -33,6 +33,7 @@ import { mockCharacterArtifact } from "@/mocks/characters/mockCharacterArtifact"
 import useEventSKillInfoStore from "@/models/eventSkillInfo";
 import useItemEquipmentInfoStore from "@/models/itemEquipmentInfo";
 import { ICharacterSetEffect } from "@/types/characters/CharacterSetEffect";
+import Link from "next/link";
 
 const CharacterNamePage = () => {
   const searchParams = useSearchParams();
@@ -99,6 +100,14 @@ const CharacterNamePage = () => {
   // const zeroSkill = { data: mockCharacterZeroSkill };
   // const hexaStat = { data: mockCharacterHexaStat };
   // const artifact = { data: mockCharacterArtifact };
+  const unValidJob = useMemo(
+    () =>
+      basicInfo?.data?.character_class === "제논" ||
+      basicInfo?.data?.character_class === "제로" ||
+      basicInfo?.data?.character_class === "데몬어벤져",
+    [basicInfo?.data?.character_class]
+  );
+
   const eventSkillInfo = useEventSKillInfoStore();
   const {
     setInitialItemEquipment,
@@ -114,24 +123,59 @@ const CharacterNamePage = () => {
   } = useItemEquipmentInfoStore();
   useEffect(() => {
     if (itemEquipment.data && setEffect.data) {
-      console.log("hihi");
       setInitialItemEquipment(itemEquipment.data);
       setInitialSetEffect(setEffect.data);
     }
   }, [itemEquipment.data, setEffect.data]);
 
-  if (allLoadingFalse) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
+  if (allLoadingFalse || !allSuccess) {
     return (
+      //Skeleton UI
       <div className="text-2xl mx-auto text-center font-bold text-red-500">
-        {error.response?.data.error.message}
+        Loading...
       </div>
     );
   }
-  if (!allSuccess) {
-    return <div>데이터를 불러오는 중입니다.</div>;
+  if (error) {
+    return (
+      <div className="w-full max-w-xl mx-auto shadow h-screen relative flex justify-center items-center px-6">
+        <div className="mx-auto text-center flex justify-center flex-col items-center">
+          <Image
+            src="/라라티콘.png"
+            width={100}
+            height={100}
+            alt="캐릭터정보를찾을수없습니다"
+          />
+          <span className="font-bold">{name}</span>캐릭터 정보를 찾을 수
+          없습니다.
+          <div className="w-full h-8 mt-2 border flex items-center justify-center px-3 py-1 rounded-md text-sm hover:bg-orange-500 hover:text-white hover:border-none transform ease-in-out duration-300">
+            <Link href="/">검색화면으로 돌아가기</Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (unValidJob) {
+    return (
+      <div className="w-full max-w-xl mx-auto shadow h-screen relative flex justify-center items-center px-6">
+        <div className="mx-auto text-center flex justify-center flex-col items-center space-y-1">
+          <Image
+            src="/우는라라티콘.jpeg"
+            width={100}
+            height={100}
+            alt="캐릭터정보를찾을수없습니다"
+          />
+          <span className="font-bold text-lg">
+            {basicInfo.data.character_class}
+          </span>
+          직업은 현재 전투력 공식이 달라 사용할 수 없습니다ㅠㅠ
+          <div className="w-full h-8 mt-2 border flex items-center justify-center px-3 py-1 rounded-md text-sm hover:bg-orange-500 hover:text-white hover:border-none transform ease-in-out duration-300">
+            <Link href="/">검색화면으로 돌아가기</Link>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   const originPowerRate = getPowerRate({
@@ -152,9 +196,9 @@ const CharacterNamePage = () => {
   });
   //true powerRate : 183542806(2024-03-11)
 
-  if (itemEquipments.length === 0 || setEffects.length === 0) {
-    return <div>Loading...</div>;
-  }
+  // if (itemEquipments.length === 0 || setEffects.length === 0) {
+  //   return <div>Loading...</div>;
+  // }
 
   const powerRate = getPowerRate({
     characterBasicInfo: basicInfo.data,
@@ -206,10 +250,8 @@ const CharacterNamePage = () => {
   });
   const isUnDoExist = itemEquipments.length > 1;
   const isReDoExist = itemEquipmentCallStack.length > 0;
-  // appendItemEquipment(itemEquipment.data);
-  // appendSetEffect(setEffect.data);
-
   const characterJob = basicInfo.data.character_class;
+
   const onClickMakerModalOpen = () => {
     setMakerModalOpen(true);
   };
