@@ -121,6 +121,7 @@ const CharacterNamePage = () => {
     itemEquipmentCallStack,
     setEffectCallStack,
   } = useItemEquipmentInfoStore();
+
   useEffect(() => {
     if (itemEquipment.data && setEffect.data) {
       setInitialItemEquipment(itemEquipment.data);
@@ -128,14 +129,6 @@ const CharacterNamePage = () => {
     }
   }, [itemEquipment.data, setEffect.data]);
 
-  if (allLoadingFalse || !allSuccess) {
-    return (
-      //Skeleton UI
-      <div className="text-2xl mx-auto text-center font-bold text-red-500">
-        Loading...
-      </div>
-    );
-  }
   if (error) {
     return (
       <div className="w-full max-w-xl mx-auto shadow h-screen relative flex justify-center items-center px-6">
@@ -152,6 +145,15 @@ const CharacterNamePage = () => {
             <Link href="/">검색화면으로 돌아가기</Link>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  if (allLoadingFalse || !allSuccess) {
+    return (
+      //Skeleton UI
+      <div className="text-2xl mx-auto text-center font-bold text-red-500">
+        Loading...
       </div>
     );
   }
