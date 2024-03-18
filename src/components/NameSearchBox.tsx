@@ -3,13 +3,22 @@
 import useInput from "@/hooks/useInput";
 import Link from "next/link";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 const NameSearchBox = () => {
   const [name, onChangeName] = useInput("");
   const queryClient = useQueryClient();
+  const router = useRouter();
   const onClick = () => {
     queryClient.invalidateQueries();
     queryClient.cancelQueries();
+  };
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      router.push(`/name?name=${name}`);
+      queryClient.invalidateQueries();
+      queryClient.cancelQueries();
+    }
   };
 
   return (
@@ -28,6 +37,7 @@ const NameSearchBox = () => {
               autoComplete="name"
               value={name}
               onChange={onChangeName}
+              onKeyDown={onKeyDown}
               placeholder="캐릭터 닉네임 입력"
               className="block w-full rounded-full border-0 py-2 pl-5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 outline-none focus:ring-2 focus:ring-inset focus:ring-[#F68500] transform ease-in-out duration-200 sm:text-sm sm:leading-6"
             />
