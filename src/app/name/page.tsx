@@ -276,10 +276,16 @@ const CharacterNamePage = () => {
     redoSetEffect();
   };
 
-  // console.log(
-  //   "api PowerRate",
-  //   stats.data.final_stat.find((el) => el.stat_name === "전투력")
-  // );
+  console.log(
+    "api PowerRate",
+    convertToKoreanNumber(
+      Number(
+        stats.data.final_stat.find((el) => el.stat_name === "전투력")
+          ?.stat_value
+      )
+    )
+  );
+
   return (
     <div
       className={cls(
