@@ -4,14 +4,10 @@ import {
 } from "@/types/characters/CharacterHyperStat";
 
 export const getExceptHyperStat = (
-  characterHyperStat: ICharacterHyperStat,
+  selectedHyperStat: ICharacterHyperStat["hyper_stat_preset_1"],
   targetStat: string
 ) => {
-  const useHyperStat = characterHyperStat[
-    `hyper_stat_preset_${characterHyperStat.use_preset_no}` as keyof ICharacterHyperStat
-  ] as ICharacterHyperStatPreset[];
-
-  return useHyperStat.reduce((acc, cur) => {
+  return selectedHyperStat.reduce((acc, cur) => {
     if (cur.stat_type === targetStat) {
       const match = cur.stat_increase?.match(/\b\d+\b/);
       const extractNumber = match ? Number(match[0]) : 0;

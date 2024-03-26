@@ -6,13 +6,14 @@ import { ICharacterBasicInfo } from "@/types/characters/CharacterBasicInfo";
 import { addingMap } from "./addingMap";
 
 export const getAbilityValue = (
-  characterAbility: ICharacterAbility,
+  selectedAbility: ICharacterAbility["ability_preset_1"],
   characterStat: ICharacterStat,
   characterBasicInfo: ICharacterBasicInfo
 ) => {
   const baseStats = new Map<string, number>();
   const exceptStats = new Map<string, number>();
-  characterAbility.ability_info.forEach((ability) => {
+
+  selectedAbility.ability_info.forEach((ability) => {
     const effects = ability.ability_value
       .split(/\n|\r|,/)
       .map((v) => removeSpace(v).trim());

@@ -5,7 +5,9 @@ import {
 import { extractValue } from "./extractValue";
 import { SKILL_KEYS } from "@/constants/skills";
 
-export const getHyperValue = (characterHyperStat: ICharacterHyperStat) => {
+export const getHyperValue = (
+  selectedHyperStat: ICharacterHyperStat["hyper_stat_preset_1"]
+) => {
   const values = new Map<string, number>();
   const meaningStats = [
     "STR",
@@ -18,12 +20,7 @@ export const getHyperValue = (characterHyperStat: ICharacterHyperStat) => {
     SKILL_KEYS.damage,
     SKILL_KEYS.critical_damage,
   ];
-  const usePreset = characterHyperStat.use_preset_no;
-  const myHypers = characterHyperStat[
-    `hyper_stat_preset_${usePreset}` as keyof ICharacterHyperStat
-  ] as ICharacterHyperStatPreset[];
-
-  myHypers.forEach((hyper) => {
+  selectedHyperStat.forEach((hyper) => {
     const { type, value } = extractHyperValue(
       hyper.stat_increase,
       hyper.stat_type

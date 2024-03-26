@@ -28,6 +28,7 @@ export type PowerRateProps = {
   characterHexaStat: ICharacterHexaStat;
   characterArtifact: ICharacterArtifact;
   eventSkillInfo: eventSkillInfoStore;
+  presets: { ability: number; hyperStat: number; union: number };
 };
 
 export type getStatPowerRateProps = {
@@ -44,6 +45,7 @@ export type getStatPowerRateProps = {
   characterHexaStat: ICharacterHexaStat;
   characterArtifact: ICharacterArtifact;
   eventSkillInfo: eventSkillInfoStore;
+  presets: { ability: number; hyperStat: number; union: number };
 };
 
 export type getAttackValueRateProps = {
@@ -60,6 +62,7 @@ export type getAttackValueRateProps = {
   characterHexaStat: ICharacterHexaStat;
   characterArtifact: ICharacterArtifact;
   eventSkillInfo: eventSkillInfoStore;
+  presets: { ability: number; hyperStat: number; union: number };
 };
 
 export type getBossDamageRateProps = {
@@ -76,6 +79,7 @@ export type getBossDamageRateProps = {
   characterHexaStat: ICharacterHexaStat;
   characterArtifact: ICharacterArtifact;
   eventSkillInfo: eventSkillInfoStore;
+  presets: { ability: number; hyperStat: number; union: number };
 };
 
 export type isUserHasGenesisWeaponProps = {
@@ -95,4 +99,5 @@ export type getCriticalDamageRateProps = {
   characterBasicInfo: ICharacterBasicInfo;
   characterHexaStat: ICharacterHexaStat;
   characterArtifact: ICharacterArtifact;
+  presets: { ability: number; hyperStat: number; union: number };
 };

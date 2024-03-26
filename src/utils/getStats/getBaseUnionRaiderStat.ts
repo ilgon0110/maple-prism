@@ -4,14 +4,14 @@ import { ICharacterBasicInfo } from "@/types/characters/CharacterBasicInfo";
 import { CHARACTER_CLASS } from "@/constants/characterClass";
 
 export const getBaseUnionRaiderStat = (
-  characterUnionRaider: ICharacterUnionRaider,
+  selectedUnionRaider: ICharacterUnionRaider["union_raider_preset_1"],
   targetStat: string
 ) => {
   if (targetStat === null) {
     throw new Error("targetStat is null");
   }
 
-  return characterUnionRaider.union_occupied_stat.reduce((acc, cur) => {
+  return selectedUnionRaider.union_occupied_stat.reduce((acc, cur) => {
     return acc + extractUnionValue(cur, targetStat);
   }, 0);
 };

@@ -39,6 +39,11 @@ const CharacterNamePage = () => {
   const searchParams = useSearchParams();
   const name = searchParams.get("name");
   const { data, error } = useGetOcidQuery(name);
+  const [presets, setPresets] = useState({
+    ability: 0,
+    hyperStat: 0,
+    union: 0,
+  });
   const [
     basicInfo,
     stats,
@@ -53,7 +58,7 @@ const CharacterNamePage = () => {
     hexaStat,
     unionRaider,
     artifact,
-  ] = useCharacterQueries(data?.ocid);
+  ] = useCharacterQueries(data?.ocid, presets);
   const allLoadingFalse =
     basicInfo.isLoading ||
     stats.isLoading ||
@@ -67,7 +72,10 @@ const CharacterNamePage = () => {
     zeroSkill.isLoading ||
     hexaStat.isLoading ||
     unionRaider.isLoading ||
-    artifact.isLoading;
+    artifact.isLoading ||
+    presets.ability === 0 ||
+    presets.hyperStat === 0 ||
+    presets.union === 0;
   const allSuccess =
     basicInfo.isSuccess &&
     stats.isSuccess &&
@@ -129,6 +137,16 @@ const CharacterNamePage = () => {
     }
   }, [itemEquipment.data, setEffect.data]);
 
+  useEffect(() => {
+    if (ability.data && hyperStats.data && unionRaider.data) {
+      setPresets({
+        ability: ability.data.preset_no,
+        hyperStat: +hyperStats.data.use_preset_no,
+        union: unionRaider.data.use_preset_no,
+      });
+    }
+  }, [ability.data, hyperStats.data, unionRaider.data]);
+  console.log(presets);
   if (error) {
     return (
       <div className="w-full max-w-xl mx-auto shadow h-screen relative flex justify-center items-center px-6">
@@ -195,6 +213,7 @@ const CharacterNamePage = () => {
     characterHexaStat: hexaStat.data,
     characterArtifact: artifact.data,
     eventSkillInfo,
+    presets,
   });
   //true powerRate : 183542806(2024-03-11)
 
@@ -217,6 +236,7 @@ const CharacterNamePage = () => {
     characterHexaStat: hexaStat.data,
     characterArtifact: artifact.data,
     eventSkillInfo,
+    presets,
   });
   const undoPowerRate = getPowerRate({
     characterBasicInfo: basicInfo.data,
@@ -233,6 +253,7 @@ const CharacterNamePage = () => {
     characterHexaStat: hexaStat.data,
     characterArtifact: artifact.data,
     eventSkillInfo,
+    presets,
   });
   const redoPowerRate = getPowerRate({
     characterBasicInfo: basicInfo.data,
@@ -249,6 +270,7 @@ const CharacterNamePage = () => {
     characterHexaStat: hexaStat.data,
     characterArtifact: artifact.data,
     eventSkillInfo,
+    presets,
   });
   const isUnDoExist = itemEquipments.length > 1;
   const isReDoExist = itemEquipmentCallStack.length > 0;
@@ -274,6 +296,16 @@ const CharacterNamePage = () => {
   const onClickRedo = () => {
     redoItemEquipment();
     redoSetEffect();
+  };
+
+  const onClickPreset = (name: string, presetNo: number) => {
+    if (name === "ability") {
+      setPresets({ ...presets, ability: presetNo });
+    } else if (name === "hyperStat") {
+      setPresets({ ...presets, hyperStat: presetNo });
+    } else if (name === "union") {
+      setPresets({ ...presets, union: presetNo });
+    }
   };
 
   console.log(
@@ -309,6 +341,8 @@ const CharacterNamePage = () => {
             data={basicInfo.data}
             powerRate={powerRate}
             originPowerRate={originPowerRate}
+            presets={presets}
+            onClickPreset={onClickPreset}
           />
           <button
             className="w-full h-8 border border-slate-200 rounded"

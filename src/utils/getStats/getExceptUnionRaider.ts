@@ -2,12 +2,12 @@ import { ICharacterUnionRaider } from "@/types/characters/CharacterUnionRaider";
 import { extractValue } from "../extractValue";
 
 export const getExceptUnionRaider = (
-  characterUnionRaider: ICharacterUnionRaider,
+  selectedUnionRaider: ICharacterUnionRaider["union_raider_preset_1"],
   targetStat: string
 ) => {
   //"STR, DEX, LUK 40 증가",
 
-  return characterUnionRaider.union_raider_stat.reduce((acc, cur) => {
+  return selectedUnionRaider.union_raider_stat.reduce((acc, cur) => {
     return acc + extractUnionValue(cur, targetStat);
   }, 0);
 };

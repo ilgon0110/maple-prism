@@ -4,7 +4,9 @@ import { SKILL_KEYS } from "@/constants/skills";
 import { checkSameClassInUnion } from "./getCheckSameClassInUnion";
 import { addingMap } from "./addingMap";
 
-export const getUnionValue = (characterUnionRaider: ICharacterUnionRaider) => {
+export const getUnionValue = (
+  selectedUnionRaider: ICharacterUnionRaider["union_raider_preset_1"]
+) => {
   const unionStats = new Map<string, number>();
   const exceptUnionStats = new Map<string, number>();
   let str = 0;
@@ -16,7 +18,8 @@ export const getUnionValue = (characterUnionRaider: ICharacterUnionRaider) => {
   let bossDamage = 0;
   let damage = 0;
   let criticalDamage = 0;
-  characterUnionRaider.union_occupied_stat.forEach((unionEffect) => {
+
+  selectedUnionRaider.union_occupied_stat.forEach((unionEffect) => {
     // str += extractValue(unionEffect, "STR ", " 증가");
     // dex += extractValue(unionEffect, "DEX ", " 증가");
     // int += extractValue(unionEffect, "INT ", " 증가");
@@ -43,8 +46,11 @@ export const getUnionValue = (characterUnionRaider: ICharacterUnionRaider) => {
       "% 증가"
     );
   });
+  console.log("selectedUnionRaider", selectedUnionRaider);
+  console.log(selectedUnionRaider.union_occupied_stat);
+  console.log("1", attackPower, magicPower, bossDamage, damage, criticalDamage);
 
-  characterUnionRaider.union_raider_stat.forEach((unionEffect) => {
+  selectedUnionRaider.union_raider_stat.forEach((unionEffect) => {
     if (unionEffect.startsWith("공격력/마력 ")) {
       attackPower += extractValue(unionEffect, "공격력/마력 ", " 증가");
       magicPower += extractValue(unionEffect, "공격력/마력 ", " 증가");
@@ -93,6 +99,7 @@ export const getUnionValue = (characterUnionRaider: ICharacterUnionRaider) => {
   //   damage -= extractValue(effect, "몬스터 공격 시 데미지 ", "% 증가");
   //   criticalDamage -= extractValue(effect, "크리티컬 데미지 ", "% 증가");
   // });
+
   addingMap(exceptUnionStats, "STR", str);
   addingMap(exceptUnionStats, "DEX", dex);
   addingMap(exceptUnionStats, "INT", int);
@@ -102,6 +109,7 @@ export const getUnionValue = (characterUnionRaider: ICharacterUnionRaider) => {
   addingMap(unionStats, SKILL_KEYS.boss_damage, bossDamage);
   addingMap(unionStats, SKILL_KEYS.damage, damage);
   addingMap(unionStats, SKILL_KEYS.critical_damage, criticalDamage);
+  console.log(unionStats, exceptUnionStats);
   return {
     unionStats,
     exceptUnionStats,

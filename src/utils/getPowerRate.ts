@@ -5,7 +5,6 @@ import { getStatPercentByPotential } from "./getStats/getStatPercentByPotential"
 import { getBaseTitleStat } from "./getStats/getBaseTitleStat";
 import { getBaseUnionRaiderStat } from "./getStats/getBaseUnionRaiderStat";
 import { getBasePureStat } from "./getStats/getBasePureStat";
-import { getExceptUnionRaider } from "./getStats/getExceptUnionRaider";
 import { getExceptHyperStat } from "./getStats/getExceptHyperStat";
 import { getExceptSymbolStat } from "./getStats/getExceptSymbolStat";
 import { getAbilityValue } from "./getAbilityValue";
@@ -26,7 +25,9 @@ import {
 } from "@/types/powerRate";
 import { getHexaValue } from "./getHexaValue";
 import { getArtifactValue } from "./getArtifactValue";
-import useEventSKillInfoStore from "@/models/eventSkillInfo";
+import { ICharacterUnionRaider } from "@/types/characters/CharacterUnionRaider";
+import { ICharacterAbility } from "@/types/characters/CharacterAbility";
+import { ICharacterHyperStat } from "@/types/characters/CharacterHyperStat";
 
 export const getPowerRate = ({
   characterBasicInfo,
@@ -43,6 +44,7 @@ export const getPowerRate = ({
   characterHexaStat,
   characterArtifact,
   eventSkillInfo,
+  presets,
 }: PowerRateProps) => {
   const statValue = getStatPowerRate({
     characterBasicInfo,
@@ -58,6 +60,7 @@ export const getPowerRate = ({
     characterHexaStat,
     characterArtifact,
     eventSkillInfo,
+    presets,
   });
   const attackValue = getAttackValueRate({
     characterItemEquipment,
@@ -73,6 +76,7 @@ export const getPowerRate = ({
     characterHexaStat,
     characterArtifact,
     eventSkillInfo,
+    presets,
   });
   const bossDamageValue = getBossDamageRate({
     characterItemEquipment,
@@ -88,6 +92,7 @@ export const getPowerRate = ({
     characterHexaStat,
     characterArtifact,
     eventSkillInfo,
+    presets,
   });
   const criticalDamageValue = getCriticalDamageRate({
     characterItemEquipment,
@@ -102,6 +107,7 @@ export const getPowerRate = ({
     characterBasicInfo,
     characterHexaStat,
     characterArtifact,
+    presets,
   });
   const isGenesis = isUserHasGenesisWeapon({ characterItemEquipment });
   return Math.floor(
@@ -123,6 +129,7 @@ const getStatPowerRate = ({
   characterHexaStat,
   characterArtifact,
   eventSkillInfo,
+  presets,
 }: getStatPowerRateProps) => {
   const mainStat =
     CHARACTER_CLASS.find((characterClass) => {
@@ -141,13 +148,25 @@ const getStatPowerRate = ({
   ) {
     return 0;
   }
+
+  const selectedAbility = characterAbility[
+    `ability_preset_${presets.ability}` as keyof ICharacterAbility
+  ] as ICharacterAbility["ability_preset_1"];
+  const selectedHyperStat = characterHyperStat[
+    `hyper_stat_preset_${presets.hyperStat}` as keyof ICharacterHyperStat
+  ] as ICharacterHyperStat["hyper_stat_preset_1"];
+  const selectedUnionRaider = characterUnionRaider[
+    `union_raider_preset_${presets.union}` as keyof ICharacterUnionRaider
+  ] as ICharacterUnionRaider["union_raider_preset_1"];
+  console.log("selectedUnionRaider", selectedUnionRaider, presets.hyperStat);
   const { baseStats: baseAbilityStats, exceptStats: exceptAbilityStats } =
-    getAbilityValue(characterAbility, characterStat, characterBasicInfo);
+    getAbilityValue(selectedAbility, characterStat, characterBasicInfo);
   const { artifactStats } = getArtifactValue(
     characterBasicInfo,
     characterArtifact
   );
-  const { exceptUnionStats } = getUnionValue(characterUnionRaider);
+
+  const { exceptUnionStats } = getUnionValue(selectedUnionRaider);
   const { hexaStats } = getHexaValue(characterHexaStat);
   const baseAbilityMainStat = baseAbilityStats.get(mainStat) ?? 0;
   const baseAbilitySubStat = baseAbilityStats.get(subStat) ?? 0;
@@ -169,11 +188,10 @@ const getStatPowerRate = ({
       mainStat
     ) +
     getBaseTitleStat(characterItemEquipment, mainStat) +
-    getBaseUnionRaiderStat(characterUnionRaider, mainStat) +
+    getBaseUnionRaiderStat(selectedUnionRaider, mainStat) +
     baseAbilityMainStat +
     baseArtifactMainStat +
     EVENT_STAT;
-
   const mainStatPercent = getStatPercentByPotential(
     characterItemEquipment,
     mainStat
@@ -182,7 +200,7 @@ const getStatPowerRate = ({
     hexaMainStat +
     exceptUnionMainStat +
     exceptAbilityMainStat +
-    getExceptHyperStat(characterHyperStat, mainStat) +
+    getExceptHyperStat(selectedHyperStat, mainStat) +
     getExceptSymbolStat(characterSymbol, mainStat);
 
   const subStatValue =
@@ -195,7 +213,7 @@ const getStatPowerRate = ({
       subStat
     ) +
     getBaseTitleStat(characterItemEquipment, subStat) +
-    getBaseUnionRaiderStat(characterUnionRaider, subStat) +
+    getBaseUnionRaiderStat(selectedUnionRaider, subStat) +
     baseAbilitySubStat +
     baseArtifactSubStat +
     EVENT_STAT;
@@ -206,7 +224,7 @@ const getStatPowerRate = ({
   const subExceptStatValue =
     exceptUnionSubStat +
     exceptAbilitySubStat +
-    getExceptHyperStat(characterHyperStat, subStat);
+    getExceptHyperStat(selectedHyperStat, subStat);
 
   const finalMain =
     (Math.floor(mainStatValue * (mainStatPercent + 100) * 0.01) +
@@ -233,6 +251,7 @@ const getAttackValueRate = ({
   characterHexaStat,
   characterArtifact,
   eventSkillInfo,
+  presets,
 }: getAttackValueRateProps) => {
   if (
     characterItemEquipment === undefined ||
@@ -260,8 +279,18 @@ const getAttackValueRate = ({
     characterPetEquipment,
     characterSetEffect
   );
-  const { unionStats } = getUnionValue(characterUnionRaider);
-  const { hyperStats } = getHyperValue(characterHyperStat);
+  const selectedAbility = characterAbility[
+    `ability_preset_${presets.ability}` as keyof ICharacterAbility
+  ] as ICharacterAbility["ability_preset_1"];
+  const selectedHyperStat = characterHyperStat[
+    `hyper_stat_preset_${presets.hyperStat}` as keyof ICharacterHyperStat
+  ] as ICharacterHyperStat["hyper_stat_preset_1"];
+  const selectedUnionRaider = characterUnionRaider[
+    `union_raider_preset_${presets.union}` as keyof ICharacterUnionRaider
+  ] as ICharacterUnionRaider["union_raider_preset_1"];
+
+  const { unionStats } = getUnionValue(selectedUnionRaider);
+  const { hyperStats } = getHyperValue(selectedHyperStat);
   const { skillStats } = getBaseSkillValue(characterSkill);
   const { artifactStats } = getArtifactValue(
     characterBasicInfo,
@@ -269,7 +298,7 @@ const getAttackValueRate = ({
   );
   const { titleStats } = getTitleValue(title);
   const { baseStats, exceptStats } = getAbilityValue(
-    characterAbility,
+    selectedAbility,
     characterStat,
     characterBasicInfo
   );
@@ -337,6 +366,7 @@ const getBossDamageRate = ({
   characterHexaStat,
   characterArtifact,
   eventSkillInfo,
+  presets,
 }: getBossDamageRateProps) => {
   if (
     characterItemEquipment === undefined ||
@@ -351,15 +381,24 @@ const getBossDamageRate = ({
     characterPetEquipment,
     characterSetEffect
   );
-  const { unionStats } = getUnionValue(characterUnionRaider);
-  const { hyperStats } = getHyperValue(characterHyperStat);
+  const selectedAbility = characterAbility[
+    `ability_preset_${presets.ability}` as keyof ICharacterAbility
+  ] as ICharacterAbility["ability_preset_1"];
+  const selectedHyperStat = characterHyperStat[
+    `hyper_stat_preset_${presets.hyperStat}` as keyof ICharacterHyperStat
+  ] as ICharacterHyperStat["hyper_stat_preset_1"];
+  const selectedUnionRaider = characterUnionRaider[
+    `union_raider_preset_${presets.union}` as keyof ICharacterUnionRaider
+  ] as ICharacterUnionRaider["union_raider_preset_1"];
+  const { unionStats } = getUnionValue(selectedUnionRaider);
+  const { hyperStats } = getHyperValue(selectedHyperStat);
   const { artifactStats } = getArtifactValue(
     characterBasicInfo,
     characterArtifact
   );
   const { titleStats } = getTitleValue(title);
   const { baseStats } = getAbilityValue(
-    characterAbility,
+    selectedAbility,
     characterStat,
     characterBasicInfo
   );
@@ -424,6 +463,7 @@ const getCriticalDamageRate = ({
   characterBasicInfo,
   characterHexaStat,
   characterArtifact,
+  presets,
 }: getCriticalDamageRateProps) => {
   if (
     characterItemEquipment === undefined ||
@@ -438,15 +478,24 @@ const getCriticalDamageRate = ({
     characterPetEquipment,
     characterSetEffect
   );
-  const { unionStats } = getUnionValue(characterUnionRaider);
-  const { hyperStats } = getHyperValue(characterHyperStat);
+  const selectedAbility = characterAbility[
+    `ability_preset_${presets.ability}` as keyof ICharacterAbility
+  ] as ICharacterAbility["ability_preset_1"];
+  const selectedHyperStat = characterHyperStat[
+    `hyper_stat_preset_${presets.hyperStat}` as keyof ICharacterHyperStat
+  ] as ICharacterHyperStat["hyper_stat_preset_1"];
+  const selectedUnionRaider = characterUnionRaider[
+    `union_raider_preset_${presets.union}` as keyof ICharacterUnionRaider
+  ] as ICharacterUnionRaider["union_raider_preset_1"];
+  const { unionStats } = getUnionValue(selectedUnionRaider);
+  const { hyperStats } = getHyperValue(selectedHyperStat);
   const { artifactStats } = getArtifactValue(
     characterBasicInfo,
     characterArtifact
   );
   const { titleStats } = getTitleValue(title);
   const { baseStats } = getAbilityValue(
-    characterAbility,
+    selectedAbility,
     characterStat,
     characterBasicInfo
   );

@@ -9,9 +9,17 @@ type BasicInfoProps = {
   data: ICharacterBasicInfo;
   powerRate: number;
   originPowerRate: number;
+  presets: { ability: number; hyperStat: number; union: number };
+  onClickPreset: (name: string, presetNo: number) => void;
 };
 
-const BasicInfo = ({ data, powerRate, originPowerRate }: BasicInfoProps) => {
+const BasicInfo = ({
+  data,
+  powerRate,
+  originPowerRate,
+  presets,
+  onClickPreset,
+}: BasicInfoProps) => {
   const {
     bossDamageOption,
     powerOption,
@@ -37,6 +45,8 @@ const BasicInfo = ({ data, powerRate, originPowerRate }: BasicInfoProps) => {
         break;
     }
   };
+
+  const isEventDuration = false;
 
   const diffPercent = Math.floor(
     ((powerRate - originPowerRate) / originPowerRate) * 100
@@ -113,50 +123,127 @@ const BasicInfo = ({ data, powerRate, originPowerRate }: BasicInfoProps) => {
           </dd>
         </div>
       </div>
-      <div className="w-full h-fit text-xs py-2 relative">
+      <div className="w-full flex flex-row">
+        <div className="flex flex-col gap-2">
+          <span>어빌리티</span>
+          <span>하이퍼스탯</span>
+          <span>유니온</span>
+        </div>
+        <div className="flex flex-col gap-2 ml-2">
+          <span>:</span>
+          <span>:</span>
+          <span>:</span>
+        </div>
+        <div className="flex flex-col gap-2 ml-2">
+          <div className="space-x-1 flex flex-row">
+            {[1, 2, 3].map((v) => (
+              <button
+                key={v}
+                className={cls(
+                  "w-6 h-6 rounded border border-slate-400 text-white bg-slate-300 text-sm flex justify-center items-center pt-[1px]",
+                  presets.ability === v
+                    ? "shadow-inner bg-slate-500"
+                    : "shadow border-slate-500"
+                )}
+                onClick={() => onClickPreset("ability", v)}
+              >
+                {v}
+              </button>
+            ))}
+          </div>
+          <div className="space-x-1 flex flex-row">
+            {[1, 2, 3].map((v) => (
+              <button
+                key={v}
+                className={cls(
+                  "w-6 h-6 rounded border border-slate-400 text-white bg-slate-300 text-sm flex justify-center items-center pt-[1px]",
+                  presets.hyperStat === v
+                    ? "shadow-inner bg-slate-500"
+                    : "shadow border-slate-500"
+                )}
+                onClick={() => onClickPreset("hyperStat", v)}
+              >
+                {v}
+              </button>
+            ))}
+          </div>
+          <div className="space-x-1 flex flex-row">
+            {[1, 2, 3].map((v) => (
+              <button
+                key={v}
+                className={cls(
+                  "w-6 h-6 rounded border border-slate-400 text-white bg-slate-300 text-sm flex justify-center items-center pt-[1px]",
+                  presets.union === v
+                    ? "shadow-inner bg-slate-500"
+                    : "shadow border-slate-500"
+                )}
+                onClick={() => onClickPreset("union", v)}
+              >
+                {v}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div
+        className={cls(
+          "w-full text-xs py-2 relative",
+          isEventDuration ? "h-fit" : "h-16"
+        )}
+      >
         <div className="absolute w-full h-full inset-0 bg-black opacity-50 z-10 rounded-md" />
-        <div className=" absolute inset-0 w-full h-full object-cover blur-[1px] rounded-md">
+        <span>마약 스킬</span>
+        {isEventDuration ? (
+          <div className="w-full flex flex-col gap-4 px-4 justify-center text-white xs:flex-row xs:px-0 xs:gap-2">
+            <div className="z-20 space-y-1">
+              <span>보공</span>
+              <MySelect
+                option={bossDamageOption}
+                selectedOption={selectedBossDamageOption}
+                onChangeSelectOption={(inputString: string) =>
+                  onChangeSelectOption(inputString, "bossDamage")
+                }
+              />
+            </div>
+            <div className="z-20 space-y-1">
+              <span>공/마</span>
+              <MySelect
+                option={powerOption}
+                selectedOption={selectedPowerOption}
+                onChangeSelectOption={(inputString: string) =>
+                  onChangeSelectOption(inputString, "power")
+                }
+              />
+            </div>
+            <div className="z-20 space-y-1">
+              <span>올스탯</span>
+              <MySelect
+                option={statOption}
+                selectedOption={selectedStatOption}
+                onChangeSelectOption={(inputString: string) =>
+                  onChangeSelectOption(inputString, "stat")
+                }
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="text-white z-20 w-full text-center xs:text-base absolute">
+            <span className="z-20">보약스킬 이벤트 기간이 아닙니다</span>
+          </div>
+        )}
+        <div className="absolute inset-0 w-full h-full object-cover blur-[1px] rounded-md">
           <Image
-            src="/루시드드림페스타.png"
+            src={
+              isEventDuration
+                ? "/루시드드림페스타.png"
+                : "/maplestory_noEvent.jpeg"
+            }
             fill
             sizes="100%"
             alt="보약스킬"
             objectFit="cover"
             style={{ borderRadius: "0.375rem" }}
           />
-        </div>
-        <span>마약 스킬</span>
-        <div className="w-full flex flex-col gap-4 px-4 justify-center text-white xs:flex-row xs:px-0 xs:gap-2">
-          <div className="z-20 space-y-1">
-            <span>보공</span>
-            <MySelect
-              option={bossDamageOption}
-              selectedOption={selectedBossDamageOption}
-              onChangeSelectOption={(inputString: string) =>
-                onChangeSelectOption(inputString, "bossDamage")
-              }
-            />
-          </div>
-          <div className="z-20 space-y-1">
-            <span>공/마</span>
-            <MySelect
-              option={powerOption}
-              selectedOption={selectedPowerOption}
-              onChangeSelectOption={(inputString: string) =>
-                onChangeSelectOption(inputString, "power")
-              }
-            />
-          </div>
-          <div className="z-20 space-y-1">
-            <span>올스탯</span>
-            <MySelect
-              option={statOption}
-              selectedOption={selectedStatOption}
-              onChangeSelectOption={(inputString: string) =>
-                onChangeSelectOption(inputString, "stat")
-              }
-            />
-          </div>
         </div>
       </div>
     </>
