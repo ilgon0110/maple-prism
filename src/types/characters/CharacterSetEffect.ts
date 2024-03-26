@@ -1,5 +1,5 @@
 export interface ICharacterSetEffect {
-  date: string;
+  date: string | null;
   set_effect: {
     set_name: string;
     total_set_count: number;

@@ -17,7 +17,10 @@ import { ICharacterHexaStat } from "@/types/characters/CharacterHexaStat";
 import { ICharacterUnionRaider } from "@/types/characters/CharacterUnionRaider";
 import { ICharacterArtifact } from "@/types/characters/CharacterArtifact";
 
-export const useCharacterQueries = (ocid: string | undefined) => {
+export const useCharacterQueries = (
+  ocid: string | undefined,
+  presets: { ability: number; hyperStat: number; union: number }
+) => {
   const serverInstance = getServerInstance();
   //const yesterday = dayjs().add(-2, "day").format("YYYY-MM-DD");
   const id = ocid ?? "wrongOcid";

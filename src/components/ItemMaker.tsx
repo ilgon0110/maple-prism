@@ -279,7 +279,6 @@ const ItemMaker = ({ onClickModalClose }: ItemMakerProps) => {
 
     //map을 가지고 세트효과 계산
     genSetEffect();
-    resetAll();
 
     return result;
   };

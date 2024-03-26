@@ -1,5 +1,5 @@
 export interface ICharacterLinkSkill {
-  date: string;
+  date: string | null;
   character_class: string;
   character_link_skill: {
     skill_name: string;

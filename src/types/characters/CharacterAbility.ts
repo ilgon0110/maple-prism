@@ -1,5 +1,5 @@
 export interface ICharacterAbility {
-  date: string;
+  date: string | null;
   ability_grade: string;
   ability_info: {
     ability_no: string;
@@ -27,4 +27,3 @@ interface ICharacterAbilityPreset {
   ability_grade: string;
   ability_value: string;
 }
-[];

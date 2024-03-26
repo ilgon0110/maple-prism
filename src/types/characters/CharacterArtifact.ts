@@ -1,5 +1,5 @@
 export interface ICharacterArtifact {
-  date: string;
+  date: string | null;
   union_artifact_effect: {
     name: string;
     level: number;

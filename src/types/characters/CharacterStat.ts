@@ -1,5 +1,5 @@
 export interface ICharacterStat {
-  date: string;
+  date: string | null;
   character_class: string;
   final_stat: {
     stat_name: string;
