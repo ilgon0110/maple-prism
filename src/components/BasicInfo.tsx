@@ -66,9 +66,9 @@ const BasicInfo = ({
           />
         </div>
         <div className="px-4 py-5 sm:p-6">
-          <dt className="text-base font-normal mb-2 text-gray-900 flex flex-row gap-3 items-center">
+          <dt className="text-sm font-normal mb-2 text-gray-900 flex flex-row gap-3 items-center">
             {data.character_name}{" "}
-            <div className="bg-slate-100 w-fit py-[1px] px-4 text-gray-700 rounded-full text-sm">
+            <div className="bg-slate-100 w-fit py-[1px] px-4 text-gray-700 rounded-full text-xs">
               {data.character_class}
             </div>{" "}
             Lv. {data.character_level}

@@ -215,11 +215,6 @@ const CharacterNamePage = () => {
     eventSkillInfo,
     presets,
   });
-  //true powerRate : 183542806(2024-03-11)
-
-  // if (itemEquipments.length === 0 || setEffects.length === 0) {
-  //   return <div>Loading...</div>;
-  // }
 
   const powerRate = getPowerRate({
     characterBasicInfo: basicInfo.data,
