@@ -1,5 +1,4 @@
-import { CHARACTER_CLASS } from "@/constants/characterClass";
-import { ICharacterBasicInfo } from "@/types/characters/CharacterBasicInfo";
+import { removeSpace } from "./../removeSpace";
 import { ICharacterItemEquipment } from "@/types/characters/CharacterItemEquipment";
 
 export const getBaseTitleStat = (
@@ -9,16 +8,16 @@ export const getBaseTitleStat = (
   return characterItemEquipment.title.title_description
     .split(/, |\n/)
     .reduce((acc, cur) => {
-      return acc + extractTitleValue(cur, `${targetStat} `, "%");
+      return acc + extractTitleValue(removeSpace(cur), `${targetStat}`, "%");
     }, 0);
 };
 
 const extractTitleValue = (
-  inputString: string | null,
+  inputString: string,
   prefix: string,
   suffix: string
 ) => {
-  const allStatPrefix = "올스탯 ";
+  const allStatPrefix = "올스탯";
   if (inputString === null) return 0;
   if (
     (inputString.startsWith(prefix) || inputString.startsWith(allStatPrefix)) &&

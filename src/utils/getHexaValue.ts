@@ -1,3 +1,4 @@
+import { removeSpace } from "./removeSpace";
 import { CHARACTER_CLASS } from "@/constants/characterClass";
 import {
   HEXA_STATS_MAIN,
@@ -6,6 +7,8 @@ import {
 } from "@/constants/skills";
 import { ICharacterHexaStat } from "@/types/characters/CharacterHexaStat";
 import { addingMap } from "./addingMap";
+
+//skills 상수와 연결되어서 POWER_RATE상수 사용하지 않음, map은 POWER_RATE상수와 동일하게 removeSpace함수로 공백제거
 export const getHexaValue = (characterHexaStat: ICharacterHexaStat) => {
   const hexaStats = new Map<string, number>();
   if (characterHexaStat.character_class === null) {
@@ -46,13 +49,13 @@ export const getHexaValue = (characterHexaStat: ICharacterHexaStat) => {
   );
   //메인만 있고 서브는 없는 경우 있는지 검증 필요
   if (mainStats !== undefined) {
-    addingMap(hexaStats, mainStats?.statName, mainStats?.value);
+    addingMap(hexaStats, removeSpace(mainStats?.statName), mainStats?.value);
   }
   if (subStatOne !== undefined) {
-    addingMap(hexaStats, subStatOne?.statName, subStatOne?.value);
+    addingMap(hexaStats, removeSpace(subStatOne?.statName), subStatOne?.value);
   }
   if (subStatTwo !== undefined) {
-    addingMap(hexaStats, subStatTwo?.statName, subStatTwo?.value);
+    addingMap(hexaStats, removeSpace(subStatTwo?.statName), subStatTwo?.value);
   }
   return { hexaStats };
 };

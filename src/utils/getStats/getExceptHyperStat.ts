@@ -1,7 +1,4 @@
-import {
-  ICharacterHyperStat,
-  ICharacterHyperStatPreset,
-} from "@/types/characters/CharacterHyperStat";
+import { ICharacterHyperStat } from "@/types/characters/CharacterHyperStat";
 
 export const getExceptHyperStat = (
   selectedHyperStat: ICharacterHyperStat["hyper_stat_preset_1"],

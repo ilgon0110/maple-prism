@@ -1,9 +1,10 @@
 import { ICharacterAbility } from "@/types/characters/CharacterAbility";
 import { extractValue } from "./extractValue";
 import { ICharacterStat } from "@/types/characters/CharacterStat";
-import { SKILL_KEYS } from "@/constants/skills";
 import { ICharacterBasicInfo } from "@/types/characters/CharacterBasicInfo";
 import { addingMap } from "./addingMap";
+import { removeSpace } from "./removeSpace";
+import { POWER_RATE } from "@/constants/powerRate";
 
 export const getAbilityValue = (
   selectedAbility: ICharacterAbility["ability_preset_1"],
@@ -46,18 +47,18 @@ export const getAbilityValue = (
         const increased = Number(increaseValue) * n * 0.01;
         addingMap(baseStats, increasedAP, increased);
       }
-      if (effect.startsWith(SKILL_KEYS.attack_power)) {
-        const type = SKILL_KEYS.attack_power;
+      if (effect.startsWith(POWER_RATE.attack_power)) {
+        const type = POWER_RATE.attack_power;
         const n = extractValue(effect, `${type}`, "증가");
         addingMap(baseStats, type, n);
       }
-      if (effect.startsWith(SKILL_KEYS.magic_power)) {
-        const type = SKILL_KEYS.magic_power;
+      if (effect.startsWith(POWER_RATE.magic_power)) {
+        const type = POWER_RATE.magic_power;
         const n = extractValue(effect, `${type}`, "증가");
         addingMap(baseStats, type, n);
       }
-      if (effect.startsWith(removeSpace(SKILL_KEYS.boss_damage))) {
-        const type = SKILL_KEYS.boss_damage;
+      if (effect.startsWith(removeSpace(POWER_RATE.boss_damage))) {
+        const type = POWER_RATE.boss_damage;
         const match = effect.match(/\b\d+\b/);
         const n = match ? Number(match[0]) : 0;
         addingMap(baseStats, type, n);
@@ -65,22 +66,18 @@ export const getAbilityValue = (
       if (effect.includes("레벨마다공격력1증가")) {
         const match = effect.match(/\b\d+\b/);
         const level = match ? Number(match[0]) : 0;
-        const type = SKILL_KEYS.attack_power;
+        const type = POWER_RATE.attack_power;
         const value = Math.floor(characterBasicInfo.character_level / level);
         addingMap(exceptStats, type, value);
       }
       if (effect.includes("레벨마다마력1증가")) {
         const match = effect.match(/\b\d+\b/);
         const level = match ? Number(match[0]) : 0;
-        const type = SKILL_KEYS.magic_power;
+        const type = POWER_RATE.magic_power;
         const value = Math.floor(characterBasicInfo.character_level / level);
         addingMap(exceptStats, type, value);
       }
     });
   });
   return { baseStats, exceptStats };
-};
-
-const removeSpace = (inputString: string) => {
-  return inputString.replace(/\s/g, "");
 };

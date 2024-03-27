@@ -6,7 +6,6 @@ import {
 } from "@/constants/weaponInfo";
 import { ICharacterItemEquipment } from "@/types/characters/CharacterItemEquipment";
 import { getWeaponItemLevel } from "./getWeaponItemLevel";
-import { getAddAttackPower } from "./getAddAttackPower";
 
 type weaponInfoType = ICharacterItemEquipment["item_equipment"][0];
 

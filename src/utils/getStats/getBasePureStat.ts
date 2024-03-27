@@ -1,4 +1,4 @@
-import { CHARACTER_CLASS } from "@/constants/characterClass";
+import { removeSpace } from "./../removeSpace";
 import { ICharacterStat } from "@/types/characters/CharacterStat";
 
 export const getBasePureStat = (
@@ -6,7 +6,7 @@ export const getBasePureStat = (
   targetStat: string
 ) => {
   const pureStat = characterStat.final_stat.find(
-    (stat) => stat.stat_name === `AP 배분 ${targetStat}`
+    (stat) => removeSpace(stat.stat_name) === `AP배분${targetStat}`
   )?.stat_value;
 
   if (pureStat === undefined) {

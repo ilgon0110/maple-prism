@@ -1,9 +1,6 @@
-import {
-  ICharacterHyperStat,
-  ICharacterHyperStatPreset,
-} from "@/types/characters/CharacterHyperStat";
-import { extractValue } from "./extractValue";
-import { SKILL_KEYS } from "@/constants/skills";
+import { removeSpace } from "./removeSpace";
+import { ICharacterHyperStat } from "@/types/characters/CharacterHyperStat";
+import { POWER_RATE } from "@/constants/powerRate";
 
 export const getHyperValue = (
   selectedHyperStat: ICharacterHyperStat["hyper_stat_preset_1"]
@@ -15,20 +12,20 @@ export const getHyperValue = (
     "INT",
     "LUK",
     "공격력/마력",
-    SKILL_KEYS.magic_power,
-    SKILL_KEYS.boss_damage,
-    SKILL_KEYS.damage,
-    SKILL_KEYS.critical_damage,
+    POWER_RATE.magic_power,
+    POWER_RATE.boss_damage,
+    POWER_RATE.damage,
+    POWER_RATE.critical_damage,
   ];
   selectedHyperStat.forEach((hyper) => {
     const { type, value } = extractHyperValue(
       hyper.stat_increase,
       hyper.stat_type
     );
-    const editedType = type.replace("증가", "").trim();
+    const editedType = removeSpace(type.replace("증가", "").trim());
     if (editedType === "공격력/마력") {
-      values.set(SKILL_KEYS.attack_power, value);
-      values.set(SKILL_KEYS.magic_power, value);
+      values.set(POWER_RATE.attack_power, value);
+      values.set(POWER_RATE.magic_power, value);
     } else if (meaningStats.includes(editedType)) {
       values.set(editedType, value);
     }

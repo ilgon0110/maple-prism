@@ -1,4 +1,4 @@
-import { LINK_SKILLS, SKILL_KEYS } from "@/constants/skills";
+import { LINK_SKILLS } from "@/constants/skills";
 import { ICharacterLinkSkill } from "@/types/characters/CharacterLinkSkill";
 
 export const getLinkSkillStat = (characterLinkSkill: ICharacterLinkSkill) => {

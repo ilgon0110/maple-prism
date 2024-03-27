@@ -1,6 +1,5 @@
-import { CHARACTER_CLASS } from "@/constants/characterClass";
+import { removeSpace } from "./../removeSpace";
 import { ICharacterItemEquipment } from "@/types/characters/CharacterItemEquipment";
-import { extractValue } from "../extractValue";
 import { ICharacterSetEffect } from "@/types/characters/CharacterSetEffect";
 import { ICharacterCashItemEquipment } from "@/types/characters/CharacterCashItemEquipment";
 import { ICharacterBasicInfo } from "@/types/characters/CharacterBasicInfo";
@@ -15,6 +14,7 @@ export const getBaseEquipmentStat = (
   const characterLevel = characterBasicInfo.character_level;
   const capitalTargetStat = targetStat.toUpperCase();
   const suffix = "%";
+
   if (targetStat === null) {
     throw new Error("targetStat is null");
   }
@@ -27,37 +27,37 @@ export const getBaseEquipmentStat = (
       );
       const potentialStat =
         extractEquipmentValue(
-          cur.potential_option_1,
+          removeSpace(cur.potential_option_1),
           capitalTargetStat,
           characterLevel
         ) +
         extractEquipmentValue(
-          cur.potential_option_2,
+          removeSpace(cur.potential_option_2),
           capitalTargetStat,
           characterLevel
         ) +
         extractEquipmentValue(
-          cur.potential_option_3,
+          removeSpace(cur.potential_option_3),
           capitalTargetStat,
           characterLevel
         ) +
         extractEquipmentValue(
-          cur.additional_potential_option_1,
+          removeSpace(cur.additional_potential_option_1),
           capitalTargetStat,
           characterLevel
         ) +
         extractEquipmentValue(
-          cur.additional_potential_option_2,
+          removeSpace(cur.additional_potential_option_2),
           capitalTargetStat,
           characterLevel
         ) +
         extractEquipmentValue(
-          cur.additional_potential_option_3,
+          removeSpace(cur.additional_potential_option_3),
           capitalTargetStat,
           characterLevel
         ) +
         extractEquipmentValue(
-          cur.soul_option,
+          removeSpace(cur.soul_option),
           capitalTargetStat,
           characterLevel
         );
@@ -73,8 +73,8 @@ export const getBaseEquipmentStat = (
             acc +
             Math.floor(
               extractSetEffectValue(
-                cur,
-                `${targetStat.toUpperCase()} : `,
+                removeSpace(cur),
+                `${targetStat.toUpperCase()}:`,
                 suffix
               )
             )
@@ -111,10 +111,10 @@ const extractEquipmentValue = (
   targetStat: string | undefined,
   level: number | undefined
 ) => {
-  const prefix = `${targetStat} : `;
+  const prefix = `${targetStat}:`;
   const suffix = "%";
-  const allStatPrefix = "올스탯 : ";
-  const statPerLevelPrefix = `캐릭터 기준 9레벨 당 ${targetStat} : `;
+  const allStatPrefix = "올스탯:";
+  const statPerLevelPrefix = `캐릭터기준9레벨당${targetStat}:`;
   if (inputString === null) return 0;
   if (inputString.startsWith(statPerLevelPrefix)) {
     if (level === undefined) {
@@ -143,11 +143,11 @@ const extractEquipmentValue = (
 };
 
 const extractSetEffectValue = (
-  inputString: string | null,
+  inputString: string,
   prefix: string,
   suffix: string
 ) => {
-  const allStatPrefix = "올스탯 : ";
+  const allStatPrefix = "올스탯:";
   if (inputString === null) return 0;
   if (
     (inputString.startsWith(prefix) || inputString.startsWith(allStatPrefix)) &&

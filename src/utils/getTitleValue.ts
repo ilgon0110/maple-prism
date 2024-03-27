@@ -1,6 +1,7 @@
-import { SKILL_KEYS } from "@/constants/skills";
 import { extractValue } from "./extractValue";
 import { addingMap } from "./addingMap";
+import { removeSpace } from "./removeSpace";
+import { POWER_RATE } from "@/constants/powerRate";
 
 interface Title {
   title_name: string;
@@ -22,64 +23,48 @@ export const getTitleValue = (title: Title) => {
   titleEffects.forEach((effect) => {
     const removeSpaceEffect = removeSpace(effect);
 
-    if (removeSpaceEffect.startsWith(removeSpace(SKILL_KEYS.attack_power))) {
+    if (removeSpaceEffect.startsWith(POWER_RATE.attack_power)) {
       attackPower += extractValue(
         removeSpaceEffect,
-        `${removeSpace(SKILL_KEYS.attack_power)}+`,
+        `${POWER_RATE.attack_power}+`,
         ""
       );
     }
-    if (removeSpaceEffect.startsWith(removeSpace(SKILL_KEYS.magic_power))) {
+    if (removeSpaceEffect.startsWith(POWER_RATE.magic_power)) {
       magicPower += extractValue(
         removeSpaceEffect,
-        `${removeSpace(SKILL_KEYS.magic_power)}+`,
+        `${POWER_RATE.magic_power}+`,
         ""
       );
     }
     if (removeSpaceEffect.startsWith("공격력/마력")) {
-      attackPower += extractValue(
-        removeSpaceEffect,
-        `${removeSpace("공격력/마력")}+`,
-        ""
-      );
-      magicPower += extractValue(
-        removeSpaceEffect,
-        `${removeSpace("공격력/마력")}+`,
-        ""
-      );
+      attackPower += extractValue(removeSpaceEffect, `${"공격력/마력"}+`, "");
+      magicPower += extractValue(removeSpaceEffect, `${"공격력/마력"}+`, "");
     }
-    if (removeSpaceEffect.startsWith(removeSpace(SKILL_KEYS.boss_damage))) {
+    if (removeSpaceEffect.startsWith(POWER_RATE.boss_damage)) {
       bossDamage += extractValue(
         removeSpaceEffect,
-        `${removeSpace(SKILL_KEYS.boss_damage)}+`,
+        `${POWER_RATE.boss_damage}+`,
         "%"
       );
     }
-    if (removeSpaceEffect.startsWith(removeSpace(SKILL_KEYS.damage))) {
-      damage += extractValue(
-        removeSpaceEffect,
-        `${removeSpace(SKILL_KEYS.damage)}+`,
-        "%"
-      );
+    if (removeSpaceEffect.startsWith(POWER_RATE.damage)) {
+      damage += extractValue(removeSpaceEffect, `${POWER_RATE.damage}+`, "%");
     }
-    if (removeSpaceEffect.startsWith(removeSpace(SKILL_KEYS.critical_damage))) {
+    if (removeSpaceEffect.startsWith(POWER_RATE.critical_damage)) {
       criticalDamage += extractValue(
         removeSpaceEffect,
-        `${removeSpace(SKILL_KEYS.critical_damage)}+`,
+        `${POWER_RATE.critical_damage}+`,
         "%"
       );
     }
   });
-  addingMap(titleStats, SKILL_KEYS.attack_power, attackPower);
-  addingMap(titleStats, SKILL_KEYS.magic_power, magicPower);
-  addingMap(titleStats, SKILL_KEYS.boss_damage, bossDamage);
-  addingMap(titleStats, SKILL_KEYS.damage, damage);
-  addingMap(titleStats, SKILL_KEYS.critical_damage, criticalDamage);
+  addingMap(titleStats, POWER_RATE.attack_power, attackPower);
+  addingMap(titleStats, POWER_RATE.magic_power, magicPower);
+  addingMap(titleStats, POWER_RATE.boss_damage, bossDamage);
+  addingMap(titleStats, POWER_RATE.damage, damage);
+  addingMap(titleStats, POWER_RATE.critical_damage, criticalDamage);
   return {
     titleStats,
   };
-};
-
-const removeSpace = (inputString: string) => {
-  return inputString.replace(/\s/g, "");
 };

@@ -12,7 +12,6 @@ import { getBaseSkillValue } from "./getBaseSkillValue";
 import { getUnionValue } from "./getUnionValue";
 import { getAttackPowerPercent } from "./getAttackPowers/getAttackPowerPercent";
 import { getEquipmentValue } from "./getEquipmentValue";
-import { SKILL_KEYS } from "@/constants/skills";
 import { getHyperValue } from "./getHyperValue";
 import { getTitleValue } from "./getTitleValue";
 import {
@@ -28,6 +27,7 @@ import { getArtifactValue } from "./getArtifactValue";
 import { ICharacterUnionRaider } from "@/types/characters/CharacterUnionRaider";
 import { ICharacterAbility } from "@/types/characters/CharacterAbility";
 import { ICharacterHyperStat } from "@/types/characters/CharacterHyperStat";
+import { POWER_RATE } from "@/constants/powerRate";
 
 export const getPowerRate = ({
   characterBasicInfo,
@@ -125,7 +125,6 @@ const getStatPowerRate = ({
   characterHyperStat,
   characterSymbol,
   characterAbility,
-  characterSkill,
   characterHexaStat,
   characterArtifact,
   eventSkillInfo,
@@ -158,7 +157,7 @@ const getStatPowerRate = ({
   const selectedUnionRaider = characterUnionRaider[
     `union_raider_preset_${presets.union}` as keyof ICharacterUnionRaider
   ] as ICharacterUnionRaider["union_raider_preset_1"];
-  console.log("selectedUnionRaider", selectedUnionRaider, presets.hyperStat);
+
   const { baseStats: baseAbilityStats, exceptStats: exceptAbilityStats } =
     getAbilityValue(selectedAbility, characterStat, characterBasicInfo);
   const { artifactStats } = getArtifactValue(
@@ -279,6 +278,7 @@ const getAttackValueRate = ({
     characterPetEquipment,
     characterSetEffect
   );
+  console.log("equipmentValues", equipmentValues);
   const selectedAbility = characterAbility[
     `ability_preset_${presets.ability}` as keyof ICharacterAbility
   ] as ICharacterAbility["ability_preset_1"];
@@ -297,36 +297,37 @@ const getAttackValueRate = ({
     characterArtifact
   );
   const { titleStats } = getTitleValue(title);
-  const { baseStats, exceptStats } = getAbilityValue(
+  const { baseStats } = getAbilityValue(
     selectedAbility,
     characterStat,
     characterBasicInfo
   );
+  console.log("getAbilityValue", baseStats);
   const { hexaStats } = getHexaValue(characterHexaStat);
   const equipmentPower = isMagician
-    ? equipmentValues.get(SKILL_KEYS.magic_power) ?? 0
-    : equipmentValues.get(SKILL_KEYS.attack_power) ?? 0;
+    ? equipmentValues.get(POWER_RATE.magic_power) ?? 0
+    : equipmentValues.get(POWER_RATE.attack_power) ?? 0;
   const unionPower = isMagician
-    ? unionStats.get(SKILL_KEYS.magic_power) ?? 0
-    : unionStats.get(SKILL_KEYS.attack_power) ?? 0;
+    ? unionStats.get(POWER_RATE.magic_power) ?? 0
+    : unionStats.get(POWER_RATE.attack_power) ?? 0;
   const hyperPower = isMagician
-    ? hyperStats.get(SKILL_KEYS.magic_power) ?? 0
-    : hyperStats.get(SKILL_KEYS.attack_power) ?? 0;
+    ? hyperStats.get(POWER_RATE.magic_power) ?? 0
+    : hyperStats.get(POWER_RATE.attack_power) ?? 0;
   const artifactPower = isMagician
-    ? artifactStats.get(SKILL_KEYS.magic_power) ?? 0
-    : artifactStats.get(SKILL_KEYS.attack_power) ?? 0;
+    ? artifactStats.get(POWER_RATE.magic_power) ?? 0
+    : artifactStats.get(POWER_RATE.attack_power) ?? 0;
   const titlePower = isMagician
-    ? titleStats.get(SKILL_KEYS.magic_power) ?? 0
-    : titleStats.get(SKILL_KEYS.attack_power) ?? 0;
+    ? titleStats.get(POWER_RATE.magic_power) ?? 0
+    : titleStats.get(POWER_RATE.attack_power) ?? 0;
   const myWeaponPower = isMagician
     ? +weaponInfo.item_total_option.magic_power
     : +weaponInfo?.item_total_option.attack_power;
   const transWeaponPower = transWeaponStat(weaponInfo, isMagician);
   const abilityPower = isMagician
-    ? baseStats.get(SKILL_KEYS.magic_power) ?? 0
-    : baseStats.get(SKILL_KEYS.attack_power) ?? 0;
-  const hexaAttackPower = hexaStats.get(SKILL_KEYS.attack_power) ?? 0;
-  const hexaMagicPower = hexaStats.get(SKILL_KEYS.magic_power) ?? 0;
+    ? baseStats.get(POWER_RATE.magic_power) ?? 0
+    : baseStats.get(POWER_RATE.attack_power) ?? 0;
+  const hexaAttackPower = hexaStats.get(POWER_RATE.attack_power) ?? 0;
+  const hexaMagicPower = hexaStats.get(POWER_RATE.magic_power) ?? 0;
   const hexaPower = isMagician ? hexaMagicPower : hexaAttackPower;
   const baseAttackPower =
     equipmentPower +
@@ -336,8 +337,8 @@ const getAttackValueRate = ({
     titlePower +
     abilityPower;
   const addBaseAttackPower = isMagician
-    ? skillStats.get(SKILL_KEYS.magic_power) ?? 0
-    : skillStats.get(SKILL_KEYS.attack_power) ?? 0;
+    ? skillStats.get(POWER_RATE.magic_power) ?? 0
+    : skillStats.get(POWER_RATE.attack_power) ?? 0;
   const EVENT_ATTACK_POWER = +eventSkillInfo.selectedPowerOption;
 
   return Math.floor(
@@ -358,7 +359,6 @@ const getBossDamageRate = ({
   characterPetEquipment,
   characterSetEffect,
   characterUnionRaider,
-  characterSkill,
   characterHyperStat,
   characterAbility,
   characterStat,
@@ -403,13 +403,13 @@ const getBossDamageRate = ({
     characterBasicInfo
   );
   const { hexaStats } = getHexaValue(characterHexaStat);
-  const equipmentBossDamage = equipmentValues.get(SKILL_KEYS.boss_damage) ?? 0;
-  const unionBossDamage = unionStats.get(SKILL_KEYS.boss_damage) ?? 0;
-  const hyperBossDamage = hyperStats.get(SKILL_KEYS.boss_damage) ?? 0;
-  const artifactBossDamage = artifactStats.get(SKILL_KEYS.boss_damage) ?? 0;
-  const titleBossDamage = titleStats.get(SKILL_KEYS.boss_damage) ?? 0;
-  const baseBossDamage = baseStats.get(SKILL_KEYS.boss_damage) ?? 0;
-  const hexaBossDamage = hexaStats.get(SKILL_KEYS.boss_damage) ?? 0;
+  const equipmentBossDamage = equipmentValues.get(POWER_RATE.boss_damage) ?? 0;
+  const unionBossDamage = unionStats.get(POWER_RATE.boss_damage) ?? 0;
+  const hyperBossDamage = hyperStats.get(POWER_RATE.boss_damage) ?? 0;
+  const artifactBossDamage = artifactStats.get(POWER_RATE.boss_damage) ?? 0;
+  const titleBossDamage = titleStats.get(POWER_RATE.boss_damage) ?? 0;
+  const baseBossDamage = baseStats.get(POWER_RATE.boss_damage) ?? 0;
+  const hexaBossDamage = hexaStats.get(POWER_RATE.boss_damage) ?? 0;
   const sumBossDamage =
     equipmentBossDamage +
     unionBossDamage +
@@ -418,13 +418,13 @@ const getBossDamageRate = ({
     titleBossDamage +
     baseBossDamage +
     hexaBossDamage;
-  const equipmentDamage = equipmentValues.get(SKILL_KEYS.damage) ?? 0;
-  const unionDamage = unionStats.get(SKILL_KEYS.damage) ?? 0;
-  const hyperDamage = hyperStats.get(SKILL_KEYS.damage) ?? 0;
-  const artifactDamage = artifactStats.get(SKILL_KEYS.damage) ?? 0;
-  const titleDamage = titleStats.get(SKILL_KEYS.damage) ?? 0;
-  const baseDamage = baseStats.get(SKILL_KEYS.damage) ?? 0;
-  const hexaDamage = hexaStats.get(SKILL_KEYS.damage) ?? 0;
+  const equipmentDamage = equipmentValues.get(POWER_RATE.damage) ?? 0;
+  const unionDamage = unionStats.get(POWER_RATE.damage) ?? 0;
+  const hyperDamage = hyperStats.get(POWER_RATE.damage) ?? 0;
+  const artifactDamage = artifactStats.get(POWER_RATE.damage) ?? 0;
+  const titleDamage = titleStats.get(POWER_RATE.damage) ?? 0;
+  const baseDamage = baseStats.get(POWER_RATE.damage) ?? 0;
+  const hexaDamage = hexaStats.get(POWER_RATE.damage) ?? 0;
 
   const sumDamage =
     equipmentDamage +
@@ -459,7 +459,6 @@ const getCriticalDamageRate = ({
   characterUnionRaider,
   characterHyperStat,
   characterAbility,
-  characterSkill,
   characterBasicInfo,
   characterHexaStat,
   characterArtifact,
@@ -501,14 +500,14 @@ const getCriticalDamageRate = ({
   );
   const { hexaStats } = getHexaValue(characterHexaStat);
   const equipmentCriticalDamage =
-    equipmentValues.get(SKILL_KEYS.critical_damage) ?? 0;
-  const unionCriticalDamage = unionStats.get(SKILL_KEYS.critical_damage) ?? 0;
-  const hyperCriticalDamage = hyperStats.get(SKILL_KEYS.critical_damage) ?? 0;
+    equipmentValues.get(POWER_RATE.critical_damage) ?? 0;
+  const unionCriticalDamage = unionStats.get(POWER_RATE.critical_damage) ?? 0;
+  const hyperCriticalDamage = hyperStats.get(POWER_RATE.critical_damage) ?? 0;
   const artifactCriticalDamage =
-    artifactStats.get(SKILL_KEYS.critical_damage) ?? 0;
-  const titleCriticalDamage = titleStats.get(SKILL_KEYS.critical_damage) ?? 0;
-  const baseCriticalDamage = baseStats.get(SKILL_KEYS.critical_damage) ?? 0;
-  const hexaCriticalDamage = hexaStats.get(SKILL_KEYS.critical_damage) ?? 0;
+    artifactStats.get(POWER_RATE.critical_damage) ?? 0;
+  const titleCriticalDamage = titleStats.get(POWER_RATE.critical_damage) ?? 0;
+  const baseCriticalDamage = baseStats.get(POWER_RATE.critical_damage) ?? 0;
+  const hexaCriticalDamage = hexaStats.get(POWER_RATE.critical_damage) ?? 0;
   const sumCriticalDamage =
     equipmentCriticalDamage +
     unionCriticalDamage +

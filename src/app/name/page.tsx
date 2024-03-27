@@ -146,7 +146,7 @@ const CharacterNamePage = () => {
       });
     }
   }, [ability.data, hyperStats.data, unionRaider.data]);
-  console.log(presets);
+
   if (error) {
     return (
       <div className="w-full max-w-xl mx-auto shadow h-screen relative flex justify-center items-center px-6">

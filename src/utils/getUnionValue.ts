@@ -3,6 +3,8 @@ import { extractValue } from "./extractValue";
 import { SKILL_KEYS } from "@/constants/skills";
 import { checkSameClassInUnion } from "./getCheckSameClassInUnion";
 import { addingMap } from "./addingMap";
+import { removeSpace } from "./removeSpace";
+import { POWER_RATE } from "@/constants/powerRate";
 
 export const getUnionValue = (
   selectedUnionRaider: ICharacterUnionRaider["union_raider_preset_1"]
@@ -19,66 +21,65 @@ export const getUnionValue = (
   let damage = 0;
   let criticalDamage = 0;
 
-  selectedUnionRaider.union_occupied_stat.forEach((unionEffect) => {
+  selectedUnionRaider.union_occupied_stat.forEach((effect) => {
     // str += extractValue(unionEffect, "STR ", " 증가");
     // dex += extractValue(unionEffect, "DEX ", " 증가");
     // int += extractValue(unionEffect, "INT ", " 증가");
     // luk += extractValue(unionEffect, "LUK ", " 증가");
+    const unionEffect = removeSpace(effect);
     attackPower += extractValue(
       unionEffect,
-      `${SKILL_KEYS.attack_power} `,
-      " 증가"
+      `${POWER_RATE.attack_power}`,
+      "증가"
     );
     magicPower += extractValue(
       unionEffect,
-      `${SKILL_KEYS.magic_power} `,
-      " 증가"
+      `${POWER_RATE.magic_power}`,
+      "증가"
     );
     bossDamage += extractValue(
       unionEffect,
-      `${SKILL_KEYS.boss_damage} `,
-      "% 증가"
+      `${POWER_RATE.boss_damage}`,
+      "%증가"
     );
-    damage += extractValue(unionEffect, `${SKILL_KEYS.damage} `, "% 증가");
+    damage += extractValue(unionEffect, `${POWER_RATE.damage}`, "%증가");
     criticalDamage += extractValue(
       unionEffect,
-      `${SKILL_KEYS.critical_damage} `,
-      "% 증가"
+      `${POWER_RATE.critical_damage}`,
+      "%증가"
     );
   });
-  console.log("selectedUnionRaider", selectedUnionRaider);
-  console.log(selectedUnionRaider.union_occupied_stat);
-  console.log("1", attackPower, magicPower, bossDamage, damage, criticalDamage);
 
-  selectedUnionRaider.union_raider_stat.forEach((unionEffect) => {
-    if (unionEffect.startsWith("공격력/마력 ")) {
-      attackPower += extractValue(unionEffect, "공격력/마력 ", " 증가");
-      magicPower += extractValue(unionEffect, "공격력/마력 ", " 증가");
+  selectedUnionRaider.union_raider_stat.forEach((effect) => {
+    const unionEffect = removeSpace(effect);
+    if (unionEffect.startsWith("공격력/마력")) {
+      attackPower += extractValue(unionEffect, "공격력/마력", "증가");
+      magicPower += extractValue(unionEffect, "공격력/마력", "증가");
     }
     str += extractStatBlockUnionValue(unionEffect, "STR");
     dex += extractStatBlockUnionValue(unionEffect, "DEX");
-    int += extractValue(unionEffect, "INT ", " 증가");
+    int += extractValue(unionEffect, "INT", "증가");
     luk += extractStatBlockUnionValue(unionEffect, "LUK");
     attackPower += extractValue(
       unionEffect,
-      `${SKILL_KEYS.attack_power} `,
-      " 증가"
+      `${POWER_RATE.attack_power}`,
+      "증가"
     );
     magicPower += extractValue(
       unionEffect,
-      `${SKILL_KEYS.magic_power} `,
-      " 증가"
+      `${POWER_RATE.magic_power}`,
+      "증가"
     );
     bossDamage += extractValue(
       unionEffect,
-      `${SKILL_KEYS.boss_damage} `,
-      "% 증가"
+      `${POWER_RATE.boss_damage}`,
+      "%증가"
     );
-    damage += extractValue(unionEffect, `${SKILL_KEYS.damage} `, "% 증가");
+    damage += extractValue(unionEffect, `${POWER_RATE.damage}`, "%증가");
     criticalDamage += extractValue(
       unionEffect,
-      `${SKILL_KEYS.critical_damage} `,
-      "% 증가"
+      `${POWER_RATE.critical_damage}`,
+      "%증가"
     );
   });
   //API초기엔 중복 유니온 블럭 제거 로직이 없어서 직접 구현했으나 API버전업으로 인해 중복제거 로직이 추가되어 주석처리
@@ -104,12 +105,12 @@ export const getUnionValue = (
   addingMap(exceptUnionStats, "DEX", dex);
   addingMap(exceptUnionStats, "INT", int);
   addingMap(exceptUnionStats, "LUK", luk);
-  addingMap(unionStats, SKILL_KEYS.attack_power, attackPower);
-  addingMap(unionStats, SKILL_KEYS.magic_power, magicPower);
-  addingMap(unionStats, SKILL_KEYS.boss_damage, bossDamage);
-  addingMap(unionStats, SKILL_KEYS.damage, damage);
-  addingMap(unionStats, SKILL_KEYS.critical_damage, criticalDamage);
-  console.log(unionStats, exceptUnionStats);
+  addingMap(unionStats, POWER_RATE.attack_power, attackPower);
+  addingMap(unionStats, POWER_RATE.magic_power, magicPower);
+  addingMap(unionStats, POWER_RATE.boss_damage, bossDamage);
+  addingMap(unionStats, POWER_RATE.damage, damage);
+  addingMap(unionStats, POWER_RATE.critical_damage, criticalDamage);
+
   return {
     unionStats,
     exceptUnionStats,
@@ -120,9 +121,9 @@ const extractStatBlockUnionValue = (
   inputString: string,
   targetStat: string | null
 ) => {
-  const prefix = `${targetStat?.toUpperCase()} `;
-  const suffix = " 증가";
-  const expectPrefix = "STR, DEX, LUK ";
+  const prefix = `${targetStat?.toUpperCase()}`;
+  const suffix = "증가";
+  const expectPrefix = "STR,DEX,LUK";
   if (inputString.startsWith(expectPrefix)) {
     const valueString = inputString.substring(expectPrefix.length);
     const numericValue = parseFloat(valueString);

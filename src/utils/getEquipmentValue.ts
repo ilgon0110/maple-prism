@@ -1,15 +1,14 @@
-import { SKILL_KEYS } from "@/constants/skills";
-import { ICharacterBasicInfo } from "@/types/characters/CharacterBasicInfo";
 import { ICharacterCashItemEquipment } from "@/types/characters/CharacterCashItemEquipment";
 import {
   ICharacterItemEquipment,
   IItemEquipment,
 } from "@/types/characters/CharacterItemEquipment";
 import { ICharacterSetEffect } from "@/types/characters/CharacterSetEffect";
-import { useState } from "react";
 import { extractValue } from "./extractValue";
 import { ICharacterPetEquipment } from "@/types/characters/CharacterPetEquipment";
 import { addingMap } from "./addingMap";
+import { removeSpace } from "./removeSpace";
+import { POWER_RATE } from "@/constants/powerRate";
 
 export const getEquipmentValue = (
   characterItemEquipment: ICharacterItemEquipment,
@@ -41,23 +40,23 @@ export const getEquipmentValue = (
 
   addingMap(
     equipmentValues,
-    SKILL_KEYS.attack_power,
+    POWER_RATE.attack_power,
     mesoAttackPower + cashAttackPower + setAttackPower + petAttackPower
   );
   addingMap(
     equipmentValues,
-    SKILL_KEYS.magic_power,
+    POWER_RATE.magic_power,
     mesoMagicPower + cashMagicPower + setMagicPower + petMagicPower
   );
   addingMap(
     equipmentValues,
-    SKILL_KEYS.boss_damage,
+    POWER_RATE.boss_damage,
     mesoBossDamage + setBossDamage
   );
-  addingMap(equipmentValues, SKILL_KEYS.damage, mesoDamage + setDamage);
+  addingMap(equipmentValues, POWER_RATE.damage, mesoDamage + setDamage);
   addingMap(
     equipmentValues,
-    SKILL_KEYS.critical_damage,
+    POWER_RATE.critical_damage,
     mesoCriticalDamage + setCriticalDamage
   );
   return { equipmentValues };
@@ -69,11 +68,11 @@ const getMesoEquipment = (characterItemEquipment: ICharacterItemEquipment) => {
   let bossDamage = 0;
   let damage = 0;
   let criticalDamage = 0;
-  const attackPrefix = `${SKILL_KEYS.attack_power} : `;
-  const magicPrefix = `${SKILL_KEYS.magic_power} : `;
-  const bossPrefix = `${SKILL_KEYS.boss_damage} : `;
-  const damagePrefix = `${SKILL_KEYS.damage} : `;
-  const criticalPrefix = `${SKILL_KEYS.critical_damage} : `;
+  const attackPrefix = `${POWER_RATE.attack_power}:`;
+  const magicPrefix = `${POWER_RATE.magic_power}:`;
+  const bossPrefix = `${POWER_RATE.boss_damage}:`;
+  const damagePrefix = `${POWER_RATE.damage}:`;
+  const criticalPrefix = `${POWER_RATE.critical_damage}:`;
   characterItemEquipment.item_equipment.forEach((item) => {
     attackPower +=
       +item.item_total_option.attack_power +
@@ -104,12 +103,24 @@ const getValueByPotentialOption = (
   suffix: string
 ) => {
   return (
-    extractValue(item.potential_option_1, prefix, suffix) +
-    extractValue(item.potential_option_2, prefix, suffix) +
-    extractValue(item.potential_option_3, prefix, suffix) +
-    extractValue(item.additional_potential_option_1, prefix, suffix) +
-    extractValue(item.additional_potential_option_2, prefix, suffix) +
-    extractValue(item.additional_potential_option_3, prefix, suffix)
+    extractValue(removeSpace(item.potential_option_1), prefix, suffix) +
+    extractValue(removeSpace(item.potential_option_2), prefix, suffix) +
+    extractValue(removeSpace(item.potential_option_3), prefix, suffix) +
+    extractValue(
+      removeSpace(item.additional_potential_option_1),
+      prefix,
+      suffix
+    ) +
+    extractValue(
+      removeSpace(item.additional_potential_option_2),
+      prefix,
+      suffix
+    ) +
+    extractValue(
+      removeSpace(item.additional_potential_option_3),
+      prefix,
+      suffix
+    )
   );
 };
 
@@ -124,10 +135,10 @@ const getCashEquipment = (
   ] as ICharacterCashItemEquipment["cash_item_equipment_preset_1"];
   cashItems.forEach((item) => {
     item.cash_item_option.forEach((option) => {
-      if (option.option_type === SKILL_KEYS.attack_power) {
+      if (option.option_type === POWER_RATE.attack_power) {
         attackPower += +option.option_value;
       }
-      if (option.option_type === SKILL_KEYS.magic_power) {
+      if (option.option_type === POWER_RATE.magic_power) {
         magicPower += +option.option_value;
       }
     });
@@ -149,16 +160,28 @@ const getSetEffect = (characterSetEffect: ICharacterSetEffect) => {
       const effects = setEffectInfo.set_option.split(", ");
       effects.forEach((effect) => {
         attackPower += extractValue(
-          effect,
-          `${SKILL_KEYS.attack_power} : `,
+          removeSpace(effect),
+          `${POWER_RATE.attack_power}:`,
           ""
         );
-        magicPower += extractValue(effect, `${SKILL_KEYS.magic_power} : `, "");
-        bossDamage += extractValue(effect, `${SKILL_KEYS.boss_damage} : `, "%");
-        damage += extractValue(effect, `${SKILL_KEYS.damage} : `, "%");
+        magicPower += extractValue(
+          removeSpace(effect),
+          `${POWER_RATE.magic_power}:`,
+          ""
+        );
+        bossDamage += extractValue(
+          removeSpace(effect),
+          `${POWER_RATE.boss_damage}:`,
+          "%"
+        );
+        damage += extractValue(
+          removeSpace(effect),
+          `${POWER_RATE.damage}:`,
+          "%"
+        );
         criticalDamage += extractValue(
-          effect,
-          `${SKILL_KEYS.critical_damage} : `,
+          removeSpace(effect),
+          `${POWER_RATE.critical_damage}:`,
           "%"
         );
       });
@@ -177,26 +200,26 @@ const getPetEquipment = (characterPetEquipment: ICharacterPetEquipment) => {
   let attackPower = 0;
   let magicPower = 0;
   characterPetEquipment.pet_1_equipment?.item_option.forEach((item) => {
-    if (item.option_type === SKILL_KEYS.attack_power) {
+    if (removeSpace(item.option_type) === POWER_RATE.attack_power) {
       attackPower += +item.option_value;
     }
-    if (item.option_type === SKILL_KEYS.magic_power) {
+    if (removeSpace(item.option_type) === POWER_RATE.magic_power) {
       magicPower += +item.option_value;
     }
   });
   characterPetEquipment.pet_2_equipment?.item_option.forEach((item) => {
-    if (item.option_type === SKILL_KEYS.attack_power) {
+    if (removeSpace(item.option_type) === POWER_RATE.attack_power) {
       attackPower += +item.option_value;
     }
-    if (item.option_type === SKILL_KEYS.magic_power) {
+    if (removeSpace(item.option_type) === POWER_RATE.magic_power) {
       magicPower += +item.option_value;
     }
   });
   characterPetEquipment.pet_3_equipment?.item_option.forEach((item) => {
-    if (item.option_type === SKILL_KEYS.attack_power) {
+    if (removeSpace(item.option_type) === POWER_RATE.attack_power) {
       attackPower += +item.option_value;
     }
-    if (item.option_type === SKILL_KEYS.magic_power) {
+    if (removeSpace(item.option_type) === POWER_RATE.magic_power) {
       magicPower += +item.option_value;
     }
   });

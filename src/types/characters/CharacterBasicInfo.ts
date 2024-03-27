@@ -1,5 +1,5 @@
 export interface ICharacterBasicInfo {
-  date: string;
+  date: string | null;
   character_name: string;
   world_name: string;
   character_gender: string;
