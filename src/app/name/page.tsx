@@ -338,6 +338,9 @@ const CharacterNamePage = () => {
             originPowerRate={originPowerRate}
             presets={presets}
             onClickPreset={onClickPreset}
+            abilityData={ability.data}
+            hyperStatData={hyperStats.data}
+            unionRaiderData={unionRaider.data}
           />
           <button
             className="w-full h-8 border border-slate-200 rounded"

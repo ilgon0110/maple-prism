@@ -4,6 +4,11 @@ import MySelect from "./common/MySelect";
 import useEventSKillInfoStore from "@/models/eventSkillInfo";
 import { convertToKoreanNumber } from "@/utils/converToKoreanNumber";
 import { cls } from "@/utils/cls";
+import { Tooltip } from "antd";
+import { ICharacterAbility } from "@/types/characters/CharacterAbility";
+import { ICharacterHyperStat } from "@/types/characters/CharacterHyperStat";
+import { ICharacterUnionRaider } from "@/types/characters/CharacterUnionRaider";
+import uuid from "react-uuid";
 
 type BasicInfoProps = {
   data: ICharacterBasicInfo;
@@ -11,6 +16,9 @@ type BasicInfoProps = {
   originPowerRate: number;
   presets: { ability: number; hyperStat: number; union: number };
   onClickPreset: (name: string, presetNo: number) => void;
+  abilityData: ICharacterAbility;
+  hyperStatData: ICharacterHyperStat;
+  unionRaiderData: ICharacterUnionRaider;
 };
 
 const BasicInfo = ({
@@ -19,6 +27,9 @@ const BasicInfo = ({
   originPowerRate,
   presets,
   onClickPreset,
+  abilityData,
+  hyperStatData,
+  unionRaiderData,
 }: BasicInfoProps) => {
   const {
     bossDamageOption,
@@ -51,6 +62,24 @@ const BasicInfo = ({
   const diffPercent = Math.floor(
     ((powerRate - originPowerRate) / originPowerRate) * 100
   );
+
+  const fillUnionBlocks = (
+    unionBlock: ICharacterUnionRaider["union_block"]
+  ): number[][] => {
+    const unionBlocks: Array<Array<number>> = Array.from({ length: 20 }, () =>
+      Array.from({ length: 22 }).fill(0)
+    ) as Array<Array<number>>;
+    unionBlock.forEach((block) => {
+      const blocks: [number, number][] = [];
+      block.block_position.forEach((position) => {
+        blocks.push([10 - position.y, 11 + position.x]);
+      });
+      blocks.forEach(([x, y]) => {
+        unionBlocks[x][y] = 1;
+      });
+    });
+    return unionBlocks;
+  };
 
   return (
     <>
@@ -137,50 +166,118 @@ const BasicInfo = ({
         <div className="flex flex-col gap-2 ml-2">
           <div className="space-x-1 flex flex-row">
             {[1, 2, 3].map((v) => (
-              <button
+              <Tooltip
                 key={v}
-                className={cls(
-                  "w-6 h-6 rounded border border-slate-400 text-white bg-slate-300 text-sm flex justify-center items-center pt-[1px]",
-                  presets.ability === v
-                    ? "shadow-inner bg-slate-500"
-                    : "shadow border-slate-500"
+                title={() => (
+                  <div className="w-full space-y-1">
+                    {abilityData[
+                      `ability_preset_${v}` as
+                        | "ability_preset_1"
+                        | "ability_preset_2"
+                        | "ability_preset_3"
+                    ].ability_info.map((info) => (
+                      <div key={info.ability_no}>{info.ability_value}</div>
+                    ))}
+                  </div>
                 )}
-                onClick={() => onClickPreset("ability", v)}
               >
-                {v}
-              </button>
+                <button
+                  className={cls(
+                    "w-6 h-6 rounded border border-slate-400 text-white bg-slate-300 text-sm flex justify-center items-center pt-[1px] transform ease-in-out duration-200",
+                    presets.ability === v
+                      ? "shadow-inner bg-slate-500"
+                      : "shadow border-slate-500"
+                  )}
+                  onClick={() => onClickPreset("ability", v)}
+                >
+                  {v}
+                </button>
+              </Tooltip>
             ))}
           </div>
           <div className="space-x-1 flex flex-row">
             {[1, 2, 3].map((v) => (
-              <button
+              <Tooltip
                 key={v}
-                className={cls(
-                  "w-6 h-6 rounded border border-slate-400 text-white bg-slate-300 text-sm flex justify-center items-center pt-[1px]",
-                  presets.hyperStat === v
-                    ? "shadow-inner bg-slate-500"
-                    : "shadow border-slate-500"
+                title={() => (
+                  <div className="w-full">
+                    {hyperStatData[
+                      `hyper_stat_preset_${v}` as
+                        | "hyper_stat_preset_1"
+                        | "hyper_stat_preset_2"
+                        | "hyper_stat_preset_3"
+                    ].map((hyperStat) => (
+                      <div key={hyperStat.stat_type}>
+                        {hyperStat.stat_increase !== null
+                          ? hyperStat.stat_increase
+                          : null}
+                      </div>
+                    ))}
+                  </div>
                 )}
-                onClick={() => onClickPreset("hyperStat", v)}
               >
-                {v}
-              </button>
+                <button
+                  className={cls(
+                    "w-6 h-6 rounded border border-slate-400 text-white bg-slate-300 text-sm flex justify-center items-center pt-[1px] transform ease-in-out duration-200",
+                    presets.hyperStat === v
+                      ? "shadow-inner bg-slate-500"
+                      : "shadow border-slate-500"
+                  )}
+                  onClick={() => onClickPreset("hyperStat", v)}
+                >
+                  {v}
+                </button>
+              </Tooltip>
             ))}
           </div>
           <div className="space-x-1 flex flex-row">
-            {[1, 2, 3].map((v) => (
-              <button
+            {[1, 2, 3, 4, 5].map((v) => (
+              <Tooltip
                 key={v}
-                className={cls(
-                  "w-6 h-6 rounded border border-slate-400 text-white bg-slate-300 text-sm flex justify-center items-center pt-[1px]",
-                  presets.union === v
-                    ? "shadow-inner bg-slate-500"
-                    : "shadow border-slate-500"
-                )}
-                onClick={() => onClickPreset("union", v)}
+                title={() => {
+                  const unionBlocks = fillUnionBlocks(
+                    unionRaiderData[
+                      `union_raider_preset_${v}` as
+                        | "union_raider_preset_1"
+                        | "union_raider_preset_2"
+                        | "union_raider_preset_3"
+                        | "union_raider_preset_4"
+                        | "union_raider_preset_5"
+                    ].union_block
+                  );
+                  return (
+                    <div className="w-full">
+                      {unionBlocks.map((block) => {
+                        return (
+                          <div key={uuid()} className="flex flex-row">
+                            {block.map((el) => (
+                              <div
+                                key={uuid()}
+                                className={cls(
+                                  "w-1 h-1 m-[0.5px]",
+                                  el ? " bg-orange-200" : "bg-slate-100"
+                                )}
+                              />
+                            ))}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }}
               >
-                {v}
-              </button>
+                <button
+                  className={cls(
+                    "w-6 h-6 rounded border border-slate-400 text-white bg-slate-300 text-sm flex justify-center items-center pt-[1px] transform ease-in-out duration-200",
+                    presets.union === v
+                      ? "shadow-inner bg-slate-500"
+                      : "shadow border-slate-500"
+                  )}
+                  onClick={() => onClickPreset("union", v)}
+                >
+                  {v}
+                </button>
+              </Tooltip>
             ))}
           </div>
         </div>
