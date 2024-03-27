@@ -278,7 +278,7 @@ const getAttackValueRate = ({
     characterPetEquipment,
     characterSetEffect
   );
-  console.log("equipmentValues", equipmentValues);
+
   const selectedAbility = characterAbility[
     `ability_preset_${presets.ability}` as keyof ICharacterAbility
   ] as ICharacterAbility["ability_preset_1"];
@@ -302,7 +302,7 @@ const getAttackValueRate = ({
     characterStat,
     characterBasicInfo
   );
-  console.log("getAbilityValue", baseStats);
+
   const { hexaStats } = getHexaValue(characterHexaStat);
   const equipmentPower = isMagician
     ? equipmentValues.get(POWER_RATE.magic_power) ?? 0

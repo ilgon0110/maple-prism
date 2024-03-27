@@ -33,13 +33,13 @@ export const getArtifactValue = (
     if (effectName.includes("마력")) {
       addingMap(artifactStats, POWER_RATE.magic_power, value);
     }
-    if (effect.name.includes("보스몬스터")) {
+    if (effectName.includes("보스몬스터")) {
       addingMap(artifactStats, POWER_RATE.boss_damage, value);
-    } else if (effect.name.includes("크리티컬데미지")) {
+    } else if (effectName.includes("크리티컬데미지")) {
       addingMap(artifactStats, POWER_RATE.critical_damage, value);
     } else if (
-      !effect.name.includes("보스몬스터") &&
-      effect.name.includes("데미지")
+      !effectName.includes("보스몬스터") &&
+      effectName.includes("데미지")
     ) {
       addingMap(artifactStats, POWER_RATE.damage, value);
     }
