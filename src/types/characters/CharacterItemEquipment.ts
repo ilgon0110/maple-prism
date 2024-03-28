@@ -13,7 +13,7 @@ export interface ICharacterItemEquipment {
     title_description: string;
     date_expire: null;
     date_option_expire: null;
-  };
+  } | null;
   dragon_equipment: [];
   mechanic_equipment: [];
 }
