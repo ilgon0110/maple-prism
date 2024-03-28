@@ -66,7 +66,6 @@ const BasicInfo = ({
   const fillUnionBlocks = (
     unionBlock: ICharacterUnionRaider["union_block"] | undefined
   ): number[][] => {
-    console.log("unionBlock", unionBlock);
     const unionBlocks: Array<Array<number>> = Array.from({ length: 21 }, () =>
       Array.from({ length: 23 }).fill(0)
     ) as Array<Array<number>>;
@@ -97,18 +96,19 @@ const BasicInfo = ({
           />
         </div>
         <div className="px-4 py-5 sm:p-6">
-          <dt className="text-sm font-normal mb-2 text-gray-900 flex flex-row gap-3 items-center">
-            {data.character_name}{" "}
-            <div className="bg-slate-100 w-fit py-[1px] px-4 text-gray-700 rounded-full text-xs">
-              {data.character_class}
-            </div>{" "}
-            Lv. {data.character_level}
+          <dt className="text-sm font-normal mb-2 text-gray-900 block xs:flex flex-row gap-3 items-center">
+            <span className="ml-1 xs:ml-0">{data.character_name}</span>
+            <div className="flex flex-row gap-3 mt-1 xs:mt-0">
+              <div className="bg-slate-100 w-fit py-[1px] px-4 text-gray-700 rounded-full text-xs">
+                {data.character_class}
+              </div>
+              Lv. {data.character_level}
+            </div>
           </dt>
-          {/* <dt className=" text-lg font-normal text-gray-900">전투력</dt> */}
-          <dd className="items-baseline block xs:flex justify-between gap-1 mt-1">
-            <div className="flex items-baseline text-xl font-semibold text-indigo-600">
+          <dd className="items-center block xs:flex justify-between gap-4 xs:mt-0 mt-1">
+            <div className="flex flex-col items-baseline text-lg font-semibold text-indigo-600">
               {convertToKoreanNumber(powerRate)}
-              <span className="ml-2 text-xs font-medium text-gray-500">
+              <span className="text-xs font-medium text-gray-500">
                 from {convertToKoreanNumber(originPowerRate)}
               </span>
             </div>
