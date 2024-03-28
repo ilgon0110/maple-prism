@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   ADD_OPTIONS_150_EQUIPMENT,
   ADD_OPTIONS_160_EQUIPMENT,
@@ -25,43 +24,7 @@ const AddOption = ({ itemLevel }: { itemLevel: number | undefined }) => {
     setSelectedLeftOptions,
     setSelectedRightOptions,
   } = useAddOptionInfoStore();
-  // const addOptions = ADD_OPTIONS_150_EQUIPMENT.map((item) => item.kind).flat();
-  // const weaponAddOptions = [
-  //   ...ADD_OPTIONS_150_EQUIPMENT.map((item) => item.kind).flat(),
-  //   ...ADD_OPTIONS_WEAPON.map((item) => item.kind).flat(),
-  // ].filter((option) => option !== "이동속도" && option !== "점프력");
-  // const otherAddOptions = [
-  //   "최대 HP",
-  //   "최대 MP",
-  //   "공격력",
-  //   "마력",
-  //   "방어력",
-  //   "이동속도",
-  //   "점프력",
-  //   "올스탯 %",
-  //   "보스 몬스터 공격 시 데미지 %",
-  //   "데미지 %",
-  //   "착용 레벨 감소",
-  // ];
-  // const [rightOptions, setRightOptions] = useState([
-  //   ["---"],
-  //   ["---"],
-  //   ["---"],
-  //   ["---"],
-  // ]);
 
-  // const [selectedLeftOptions, setSelectedLeftOptions] = useState([
-  //   "---",
-  //   "---",
-  //   "---",
-  //   "---",
-  // ]);
-  // const [selectedRightOptions, setSelectedRightOptions] = useState([
-  //   "---",
-  //   "---",
-  //   "---",
-  //   "---",
-  // ]);
   const genEquipmentRightOptionsByItemLevel = (
     itemLevel: number | undefined,
     leftOption: string
@@ -93,13 +56,13 @@ const AddOption = ({ itemLevel }: { itemLevel: number | undefined }) => {
     itemData?.item_base_option.attack_power !== "0"
       ? Number(itemData?.item_base_option.attack_power)
       : Number(itemData?.item_base_option.magic_power),
-    itemLevel || null
+    itemLevel || undefined
   );
   const magicPowers = getAddAttackPower(
     itemData?.item_base_option.magic_power !== "0"
       ? Number(itemData?.item_base_option.magic_power)
       : Number(itemData.item_base_option.attack_power),
-    itemLevel || null
+    itemLevel || undefined
   );
   const genWeaponRightOptionsByItemLevel = (
     itemLevel: number | undefined,
@@ -140,11 +103,7 @@ const AddOption = ({ itemLevel }: { itemLevel: number | undefined }) => {
     if (itemSlot === "무기") {
       result = genWeaponRightOptionsByItemLevel(itemLevel, leftOption);
     }
-    // setRightOptions((prev) => {
-    //   const temp = [...prev];
-    //   temp[index] = result;
-    //   return temp;
-    // });
+
     const copyRightOptions = rightOptions.map((item, idx) => {
       return idx === index ? result : item;
     });
@@ -152,20 +111,12 @@ const AddOption = ({ itemLevel }: { itemLevel: number | undefined }) => {
   };
   const onClickLeftList = (inputString: string, index: number) => {
     onChangeRightOption(inputString, index);
-    // setSelectedLeftOptions((prev) => {
-    //   const temp = [...prev];
-    //   temp[index] = inputString;
-    //   return temp;
-    // });
+
     const copySelectedLeftOptions = selectedLeftOptions.map((item, idx) => {
       return idx === index ? inputString : item;
     });
     setSelectedLeftOptions(copySelectedLeftOptions);
-    // setSelectedRightOptions((prev) => {
-    //   const temp = [...prev];
-    //   temp[index] = "---";
-    //   return temp;
-    // });
+
     const copySelectedRightOptions = selectedRightOptions.map((item, idx) => {
       return idx === index ? "---" : item;
     });
@@ -173,11 +124,6 @@ const AddOption = ({ itemLevel }: { itemLevel: number | undefined }) => {
   };
 
   const onChangeSelectRightOption = (inputString: string, index: number) => {
-    // setSelectedRightOptions((prev) => {
-    //   const temp = [...prev];
-    //   temp[index] = inputString;
-    //   return temp;
-    // });
     const copySelectedRightOptions = selectedRightOptions.map((item, idx) => {
       return idx === index ? inputString : item;
     });
