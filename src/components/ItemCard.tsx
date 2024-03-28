@@ -211,8 +211,12 @@ const ItemCard = ({ itemData }: ItemCardProps) => {
     }
   };
 
+  const isNotExceptionalReinforce = !!Object.entries(
+    itemData?.item_exceptional_option
+  ).every(([key, value]: [key: string, value: string]) => +value === 0);
+  console.log("isNotExceptionalReinforce", isNotExceptionalReinforce);
   if (!itemData) return null;
-
+  console.log("itemData", itemData);
   return (
     <div className="w-full px-10 py-5 rounded border-2 border-black text-white bg-slate-700">
       {isNotStarForceItem ? null : (
@@ -298,6 +302,11 @@ const ItemCard = ({ itemData }: ItemCardProps) => {
       <div className="text-center text-xs">
         {itemGrade !== "" ? itemGrade + " 아이템" : null}
       </div>
+      {isNotExceptionalReinforce === false ? (
+        <div className="text-xs text-center mt-1 text-red-500">
+          익셉셔널 강화 적용
+        </div>
+      ) : null}
       <div className="flex flex-row items-end gap-3 mt-2">
         <div className={cls("w-14 h-14 relative rounded", getRingColor())}>
           <Image
@@ -438,12 +447,31 @@ const ItemCard = ({ itemData }: ItemCardProps) => {
                 )
               )}
             >
-              잠재옵션
+              에디셔널 잠재옵션
             </span>
           </div>
           <div>{itemData.additional_potential_option_1}</div>
           <div>{itemData.additional_potential_option_2}</div>
           <div>{itemData.additional_potential_option_3}</div>
+        </div>
+      ) : null}
+      {isNotExceptionalReinforce === false ? (
+        <div className="text-xs space-y-[2px]">
+          <div className="w-full h-[1px] bg-slate-300 my-3" />
+          <div className="flex flex-row gap-1 items-center">
+            <div className="border-2 border-white px-1 rounded bg-red-500 text-white">
+              EX
+            </div>
+            <span className="text-red-500 font-bold">익셉셔널</span>
+          </div>
+          <div>{"올스탯 : +" + itemData.item_exceptional_option.dex}</div>
+          <div>
+            {"최대 HP/MP : +" + itemData.item_exceptional_option.max_hp}
+          </div>
+          <div>
+            {"공격력 / 마력 : +" +
+              itemData.item_exceptional_option.attack_power}
+          </div>
         </div>
       ) : null}
     </div>
