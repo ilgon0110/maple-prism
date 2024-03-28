@@ -1,6 +1,7 @@
 import { IItemEquipment } from "./../../types/characters/CharacterItemEquipment";
 import { transStarforceAttackPower } from "@/utils/getAttackPowers/transStarforceAttackPower";
 import { transAddAttackPower } from "@/utils/getAttackPowers/transAddAttackPower";
+import { ERROR_MESSAGES } from "@/constants/error";
 
 export const transWeaponStat = (
   weaponInfo: IItemEquipment,
@@ -12,7 +13,7 @@ export const transWeaponStat = (
     isMagician
   );
   if (transAddAttackPowerValue === undefined) {
-    throw new Error("transAddAttackPowerValue is undefined");
+    throw new Error(ERROR_MESSAGES.weaponInfo.invalidWeaponToBow);
   }
   return transAddAttackPowerValue + transStarforceAttackPowerValue;
 };

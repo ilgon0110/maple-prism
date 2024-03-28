@@ -1,13 +1,15 @@
+import { ERROR_MESSAGES } from "@/constants/error";
+
 export const getAddAttackPower = (
   pureAttackValue: number | undefined,
-  itemLevel: number | null
+  itemLevel: number | undefined
 ) => {
   const add_attack_powers = [];
   if (pureAttackValue === undefined) {
-    throw new Error("pureAttackValue is undefined");
+    throw new Error(ERROR_MESSAGES.weaponInfo.invalidWeaponToBow);
   }
-  if (itemLevel === null) {
-    throw new Error("itemLevel is null");
+  if (itemLevel === undefined) {
+    throw new Error(ERROR_MESSAGES.weaponInfo.noItemLevel);
   }
   for (let step = 1; step <= 5; step++) {
     const value = Math.ceil(

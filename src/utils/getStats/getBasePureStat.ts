@@ -1,3 +1,4 @@
+import { ERROR_MESSAGES } from "@/constants/error";
 import { removeSpace } from "./../removeSpace";
 import { ICharacterStat } from "@/types/characters/CharacterStat";
 
@@ -10,7 +11,7 @@ export const getBasePureStat = (
   )?.stat_value;
 
   if (pureStat === undefined) {
-    throw new Error("pureStat is undefined");
+    throw new Error(ERROR_MESSAGES.statInfo);
   }
 
   return Number(pureStat);

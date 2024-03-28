@@ -15,9 +15,6 @@ export const getBaseEquipmentStat = (
   const capitalTargetStat = targetStat.toUpperCase();
   const suffix = "%";
 
-  if (targetStat === null) {
-    throw new Error("targetStat is null");
-  }
   const equipmentStat = characterItemEquipment?.item_equipment.reduce(
     (acc, cur) => {
       const equipStat = Number(
