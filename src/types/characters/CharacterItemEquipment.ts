@@ -14,8 +14,8 @@ export interface ICharacterItemEquipment {
     date_expire: null;
     date_option_expire: null;
   } | null;
-  dragon_equipment: [];
-  mechanic_equipment: [];
+  dragon_equipment: IItemEquipment[];
+  mechanic_equipment: IItemEquipment[];
 }
 
 export interface IItemEquipment {

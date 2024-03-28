@@ -82,6 +82,125 @@ export const getBaseEquipmentStat = (
     },
     0
   );
+  const mechanicStat = characterItemEquipment.mechanic_equipment.reduce(
+    (acc, cur) => {
+      const equipStat = Number(
+        cur.item_total_option[
+          targetStat.toLowerCase() as keyof typeof cur.item_total_option
+        ]
+      );
+      const exceptionalStat = Number(
+        cur.item_exceptional_option[
+          targetStat.toLowerCase() as keyof typeof cur.item_exceptional_option
+        ]
+      );
+      const potentialStat =
+        extractEquipmentValue(
+          removeSpace(cur.potential_option_1),
+          capitalTargetStat,
+          characterLevel
+        ) +
+        extractEquipmentValue(
+          removeSpace(cur.potential_option_2),
+          capitalTargetStat,
+          characterLevel
+        ) +
+        extractEquipmentValue(
+          removeSpace(cur.potential_option_3),
+          capitalTargetStat,
+          characterLevel
+        ) +
+        extractEquipmentValue(
+          removeSpace(cur.additional_potential_option_1),
+          capitalTargetStat,
+          characterLevel
+        ) +
+        extractEquipmentValue(
+          removeSpace(cur.additional_potential_option_2),
+          capitalTargetStat,
+          characterLevel
+        ) +
+        extractEquipmentValue(
+          removeSpace(cur.additional_potential_option_3),
+          capitalTargetStat,
+          characterLevel
+        );
+
+      const soulStat = extractEquipmentValue(
+        removeSpace(cur.soul_option),
+        capitalTargetStat,
+        characterLevel
+      );
+      return (
+        acc +
+        Math.floor(equipStat) +
+        Math.floor(exceptionalStat) +
+        Math.floor(potentialStat) +
+        Math.floor(soulStat)
+      );
+    },
+    0
+  );
+  const evanStat = characterItemEquipment.dragon_equipment.reduce(
+    (acc, cur) => {
+      const equipStat = Number(
+        cur.item_total_option[
+          targetStat.toLowerCase() as keyof typeof cur.item_total_option
+        ]
+      );
+      const exceptionalStat = Number(
+        cur.item_exceptional_option[
+          targetStat.toLowerCase() as keyof typeof cur.item_exceptional_option
+        ]
+      );
+      const potentialStat =
+        extractEquipmentValue(
+          removeSpace(cur.potential_option_1),
+          capitalTargetStat,
+          characterLevel
+        ) +
+        extractEquipmentValue(
+          removeSpace(cur.potential_option_2),
+          capitalTargetStat,
+          characterLevel
+        ) +
+        extractEquipmentValue(
+          removeSpace(cur.potential_option_3),
+          capitalTargetStat,
+          characterLevel
+        ) +
+        extractEquipmentValue(
+          removeSpace(cur.additional_potential_option_1),
+          capitalTargetStat,
+          characterLevel
+        ) +
+        extractEquipmentValue(
+          removeSpace(cur.additional_potential_option_2),
+          capitalTargetStat,
+          characterLevel
+        ) +
+        extractEquipmentValue(
+          removeSpace(cur.additional_potential_option_3),
+          capitalTargetStat,
+          characterLevel
+        );
+
+      const soulStat = extractEquipmentValue(
+        removeSpace(cur.soul_option),
+        capitalTargetStat,
+        characterLevel
+      );
+      return (
+        acc +
+        Math.floor(equipStat) +
+        Math.floor(exceptionalStat) +
+        Math.floor(potentialStat) +
+        Math.floor(soulStat)
+      );
+    },
+    0
+  );
+
   console.log("characterSetEffect", characterSetEffect.set_effect);
   const setEffectStatResult = characterSetEffect.set_effect.reduce(
     (acc, cur) => {
@@ -122,6 +241,8 @@ export const getBaseEquipmentStat = (
   console.log("setEffectStatResult", setEffectStatResult);
   return (
     Math.floor(equipmentStat) +
+    Math.floor(mechanicStat) +
+    Math.floor(evanStat) +
     Math.floor(cashEquipmentStat) +
     Math.floor(setEffectStatResult)
   );

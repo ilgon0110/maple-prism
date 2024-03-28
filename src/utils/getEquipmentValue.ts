@@ -112,6 +112,85 @@ const getMesoEquipment = (characterItemEquipment: ICharacterItemEquipment) => {
     });
   });
 
+  //메카닉 장비도 더해준다.
+  const mechanicEquipment = characterItemEquipment.mechanic_equipment;
+  mechanicEquipment.forEach((item) => {
+    attackPower +=
+      +item.item_total_option.attack_power +
+      getValueByPotentialOption(item, attackPrefix, "") +
+      extractValue(removeSpace(item.soul_option), attackPrefix, "") +
+      +item.item_exceptional_option.attack_power;
+    magicPower +=
+      +item.item_total_option.magic_power +
+      getValueByPotentialOption(item, magicPrefix, "") +
+      extractValue(removeSpace(item.soul_option), magicPrefix, "") +
+      +item.item_exceptional_option.magic_power;
+    bossDamage +=
+      +item.item_total_option.boss_damage +
+      getValueByPotentialOption(item, bossPrefix, "%") +
+      extractValue(removeSpace(item.soul_option), bossPrefix, "%");
+    damage +=
+      +item.item_total_option.damage +
+      getValueByPotentialOption(item, damagePrefix, "%") +
+      extractValue(removeSpace(item.soul_option), damagePrefix, "%");
+    criticalDamage +=
+      getValueByPotentialOption(item, criticalPrefix, "%") +
+      extractValue(removeSpace(item.soul_option), criticalPrefix, "%");
+
+    //아이템 설명에 있는 값들을 더해준다.
+    const descriptions = item.item_description?.split("\n");
+    descriptions?.forEach((description) => {
+      attackPower += extractValue(removeSpace(description), attackPrefix, "");
+      magicPower += extractValue(removeSpace(description), magicPrefix, "");
+      bossDamage += extractValue(removeSpace(description), bossPrefix, "%");
+      damage += extractValue(removeSpace(description), damagePrefix, "%");
+      criticalDamage += extractValue(
+        removeSpace(description),
+        criticalPrefix,
+        "%"
+      );
+    });
+  });
+
+  //에반 장비도 더해준다.
+  const evanEquipment = characterItemEquipment.dragon_equipment;
+  evanEquipment.forEach((item) => {
+    attackPower +=
+      +item.item_total_option.attack_power +
+      getValueByPotentialOption(item, attackPrefix, "") +
+      extractValue(removeSpace(item.soul_option), attackPrefix, "") +
+      +item.item_exceptional_option.attack_power;
+    magicPower +=
+      +item.item_total_option.magic_power +
+      getValueByPotentialOption(item, magicPrefix, "") +
+      extractValue(removeSpace(item.soul_option), magicPrefix, "") +
+      +item.item_exceptional_option.magic_power;
+    bossDamage +=
+      +item.item_total_option.boss_damage +
+      getValueByPotentialOption(item, bossPrefix, "%") +
+      extractValue(removeSpace(item.soul_option), bossPrefix, "%");
+    damage +=
+      +item.item_total_option.damage +
+      getValueByPotentialOption(item, damagePrefix, "%") +
+      extractValue(removeSpace(item.soul_option), damagePrefix, "%");
+    criticalDamage +=
+      getValueByPotentialOption(item, criticalPrefix, "%") +
+      extractValue(removeSpace(item.soul_option), criticalPrefix, "%");
+
+    //아이템 설명에 있는 값들을 더해준다.
+    const descriptions = item.item_description?.split("\n");
+    descriptions?.forEach((description) => {
+      attackPower += extractValue(removeSpace(description), attackPrefix, "");
+      magicPower += extractValue(removeSpace(description), magicPrefix, "");
+      bossDamage += extractValue(removeSpace(description), bossPrefix, "%");
+      damage += extractValue(removeSpace(description), damagePrefix, "%");
+      criticalDamage += extractValue(
+        removeSpace(description),
+        criticalPrefix,
+        "%"
+      );
+    });
+  });
   return {
     mesoAttackPower: attackPower,
     mesoMagicPower: magicPower,
