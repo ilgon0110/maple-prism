@@ -1,3 +1,4 @@
+import { ERROR_MESSAGES } from "@/constants/error";
 import {
   WEAPON_INFO_BOW,
   WEAPON_STARFORCE_150,
@@ -5,7 +6,6 @@ import {
   WEAPON_STARFORCE_200,
 } from "@/constants/weaponInfo";
 import { ICharacterItemEquipment } from "@/types/characters/CharacterItemEquipment";
-import { getWeaponItemLevel } from "./getWeaponItemLevel";
 
 type weaponInfoType = ICharacterItemEquipment["item_equipment"][0];
 
@@ -15,7 +15,7 @@ export const transStarforceAttackPower = (
   isMagician: boolean
 ) => {
   let initialLevel = 0;
-  const itemLevel = getWeaponItemLevel(weaponInfo?.item_name);
+  const itemLevel = weaponInfo?.item_base_option.base_equipment_level;
   const targetLevel = Number(weaponInfo?.starforce);
   const prefix = "제네시스 ";
   const isGenesis = weaponInfo?.item_name.startsWith(prefix);
@@ -24,10 +24,10 @@ export const transStarforceAttackPower = (
   )?.origin_attack_power;
 
   if (bowOriginAttackPower === undefined) {
-    throw new Error("bowOriginAttackPower is undefined");
+    throw new Error(ERROR_MESSAGES.weaponInfo.invalidWeaponToBow);
   }
-  if (itemLevel === null) {
-    throw new Error("itemLevel is null");
+  if (itemLevel === undefined) {
+    throw new Error(ERROR_MESSAGES.weaponInfo.noItemLevel);
   }
   let attackPower = isMagician
     ? bowOriginAttackPower + Number(weaponInfo?.item_etc_option.magic_power)

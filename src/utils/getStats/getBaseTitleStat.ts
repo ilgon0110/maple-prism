@@ -5,11 +5,13 @@ export const getBaseTitleStat = (
   characterItemEquipment: ICharacterItemEquipment,
   targetStat: string
 ) => {
-  return characterItemEquipment.title.title_description
-    .split(/, |\n/)
-    .reduce((acc, cur) => {
-      return acc + extractTitleValue(removeSpace(cur), `${targetStat}`, "%");
-    }, 0);
+  console.log("characterItemEquipment", characterItemEquipment);
+  const title = characterItemEquipment.title;
+  if (title === null) return 0;
+  if (title.date_option_expire === "expired") return 0;
+  return title.title_description.split(/, |\n/).reduce((acc, cur) => {
+    return acc + extractTitleValue(removeSpace(cur), `${targetStat}`, "%");
+  }, 0);
 };
 
 const extractTitleValue = (

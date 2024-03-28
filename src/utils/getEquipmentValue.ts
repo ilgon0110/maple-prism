@@ -16,6 +16,7 @@ export const getEquipmentValue = (
   characterPetEquipment: ICharacterPetEquipment,
   characterSetEffect: ICharacterSetEffect
 ) => {
+  console.log("characterItemEquipment", characterItemEquipment);
   const equipmentValues = new Map<string, number>();
   const {
     mesoAttackPower,
@@ -76,18 +77,39 @@ const getMesoEquipment = (characterItemEquipment: ICharacterItemEquipment) => {
   characterItemEquipment.item_equipment.forEach((item) => {
     attackPower +=
       +item.item_total_option.attack_power +
-      getValueByPotentialOption(item, attackPrefix, "");
+      getValueByPotentialOption(item, attackPrefix, "") +
+      extractValue(removeSpace(item.soul_option), attackPrefix, "");
     magicPower +=
       +item.item_total_option.magic_power +
-      getValueByPotentialOption(item, magicPrefix, "");
+      getValueByPotentialOption(item, magicPrefix, "") +
+      extractValue(removeSpace(item.soul_option), magicPrefix, "");
     bossDamage +=
       +item.item_total_option.boss_damage +
-      getValueByPotentialOption(item, bossPrefix, "%");
+      getValueByPotentialOption(item, bossPrefix, "%") +
+      extractValue(removeSpace(item.soul_option), bossPrefix, "%");
     damage +=
       +item.item_total_option.damage +
-      getValueByPotentialOption(item, damagePrefix, "%");
-    criticalDamage += getValueByPotentialOption(item, criticalPrefix, "%");
+      getValueByPotentialOption(item, damagePrefix, "%") +
+      extractValue(removeSpace(item.soul_option), damagePrefix, "%");
+    criticalDamage +=
+      getValueByPotentialOption(item, criticalPrefix, "%") +
+      extractValue(removeSpace(item.soul_option), criticalPrefix, "%");
+
+    //아이템 설명에 있는 값들을 더해준다.
+    const descriptions = item.item_description?.split("\n");
+    descriptions?.forEach((description) => {
+      attackPower += extractValue(removeSpace(description), attackPrefix, "");
+      magicPower += extractValue(removeSpace(description), magicPrefix, "");
+      bossDamage += extractValue(removeSpace(description), bossPrefix, "%");
+      damage += extractValue(removeSpace(description), damagePrefix, "%");
+      criticalDamage += extractValue(
+        removeSpace(description),
+        criticalPrefix,
+        "%"
+      );
+    });
   });
+
   return {
     mesoAttackPower: attackPower,
     mesoMagicPower: magicPower,
@@ -129,16 +151,18 @@ const getCashEquipment = (
 ) => {
   let attackPower = 0;
   let magicPower = 0;
-  const targetPreset = characterCashItemEquipment.preset_no;
-  const cashItems = characterCashItemEquipment[
-    `cash_item_equipment_preset_${targetPreset}` as keyof typeof characterCashItemEquipment
-  ] as ICharacterCashItemEquipment["cash_item_equipment_preset_1"];
+  // const targetPreset = characterCashItemEquipment.preset_no;
+  // const cashItems = characterCashItemEquipment[
+  //   `cash_item_equipment_preset_${targetPreset}` as keyof typeof characterCashItemEquipment
+  // ] as ICharacterCashItemEquipment["cash_item_equipment_preset_1"];
+  const cashItems = characterCashItemEquipment.cash_item_equipment_base;
+  console.log("characterCashItemEquipment", characterCashItemEquipment);
   cashItems.forEach((item) => {
     item.cash_item_option.forEach((option) => {
-      if (option.option_type === POWER_RATE.attack_power) {
+      if (removeSpace(option.option_type) === POWER_RATE.attack_power) {
         attackPower += +option.option_value;
       }
-      if (option.option_type === POWER_RATE.magic_power) {
+      if (removeSpace(option.option_type) === POWER_RATE.magic_power) {
         magicPower += +option.option_value;
       }
     });

@@ -11,18 +11,26 @@ interface Title {
   date_option_expire: string | null;
 }
 
-export const getTitleValue = (title: Title) => {
+export const getTitleValue = (title: Title | null) => {
   const titleStats = new Map<string, number>();
   let attackPower = 0;
   let magicPower = 0;
   let bossDamage = 0;
   let damage = 0;
   let criticalDamage = 0;
-  const { title_description } = title;
-  const titleEffects = title_description.split(/\n|\r/);
+  console.log("title", title);
+  if (title === null) {
+    return { titleStats };
+  }
+  const { title_description, date_option_expire } = title;
+  console.log("title_description", title_description);
+  const titleEffects = title_description.split(/\n|\r|,/);
+  console.log("titleEffects", titleEffects);
+  if (date_option_expire === "expired") {
+    return { titleStats };
+  }
   titleEffects.forEach((effect) => {
     const removeSpaceEffect = removeSpace(effect);
-
     if (removeSpaceEffect.startsWith(POWER_RATE.attack_power)) {
       attackPower += extractValue(
         removeSpaceEffect,

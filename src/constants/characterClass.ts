@@ -69,16 +69,12 @@ export const CHARACTER_CLASS = [
     class: "해적",
     mainStat: "STR",
     subStat: "DEX",
-    jobs: [
-      "바이퍼",
-      "캡틴",
-      "캐논슈터",
-      "스트라이커",
-      "메카닉",
-      "제논",
-      "은월",
-      "엔젤릭버스터",
-      "아크",
-    ],
+    jobs: ["바이퍼", "캐논슈터", "스트라이커", "은월", "아크"],
+  },
+  {
+    class: "해적",
+    mainStat: "DEX",
+    subStat: "STR",
+    jobs: ["캡틴", "메카닉", "제논", "엔젤릭버스터"],
   },
 ];

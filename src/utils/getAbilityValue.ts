@@ -5,6 +5,7 @@ import { ICharacterBasicInfo } from "@/types/characters/CharacterBasicInfo";
 import { addingMap } from "./addingMap";
 import { removeSpace } from "./removeSpace";
 import { POWER_RATE } from "@/constants/powerRate";
+import { extractNumbers } from "./extractNumbers";
 
 export const getAbilityValue = (
   selectedAbility: ICharacterAbility["ability_preset_1"],
@@ -19,25 +20,36 @@ export const getAbilityValue = (
       .split(/\n|\r|,/)
       .map((v) => removeSpace(v).trim());
     effects.forEach((effect) => {
-      if (effect.startsWith("STR" || "DEX" || "INT" || "LUK")) {
-        const type = effect.split("+")[0];
-        const match = effect.match(/\b\d+\b/);
-        const n = match ? Number(match[0]) : 0;
-        addingMap(exceptStats, type, n);
+      if (effect.startsWith("STR")) {
+        const value = extractNumbers(effect);
+        addingMap(exceptStats, "STR", value);
+      }
+      if (effect.startsWith("DEX")) {
+        const value = extractNumbers(effect);
+        addingMap(exceptStats, "DEX", value);
+      }
+      if (effect.startsWith("INT")) {
+        const type = effect.substring(0, 3);
+        const value = extractNumbers(effect);
+        addingMap(exceptStats, "INT", value);
+      }
+      if (effect.startsWith("LUK")) {
+        const value = extractNumbers(effect);
+        addingMap(exceptStats, "LUK", value);
       }
       if (effect.startsWith("모든능력치")) {
         const match = effect.match(/\b\d+\b/);
+        const value = extractNumbers(effect);
         const n = match ? Number(match[0]) : 0;
         const allTypes = ["STR", "DEX", "INT", "LUK"];
         allTypes.forEach((type) => {
-          addingMap(exceptStats, type, n);
+          addingMap(exceptStats, type, value);
         });
       }
       if (effect.startsWith("AP를직접투자한")) {
         const investAP = effect.substring(8).substring(0, 3);
         const increasedAP = effect.split("만큼")[1].substring(0, 3);
-        const match = effect.match(/\b\d+\b/);
-        const n = match ? Number(match[0]) : 0;
+        const n = extractNumbers(effect);
         const increaseValue = characterStat.final_stat.find(
           (el) => el.stat_name === `AP 배분 ${investAP}`
         )?.stat_value;
@@ -64,15 +76,13 @@ export const getAbilityValue = (
         addingMap(baseStats, type, n);
       }
       if (effect.includes("레벨마다공격력1증가")) {
-        const match = effect.match(/\b\d+\b/);
-        const level = match ? Number(match[0]) : 0;
+        const level = extractNumbers(effect);
         const type = POWER_RATE.attack_power;
         const value = Math.floor(characterBasicInfo.character_level / level);
         addingMap(exceptStats, type, value);
       }
       if (effect.includes("레벨마다마력1증가")) {
-        const match = effect.match(/\b\d+\b/);
-        const level = match ? Number(match[0]) : 0;
+        const level = extractNumbers(effect);
         const type = POWER_RATE.magic_power;
         const value = Math.floor(characterBasicInfo.character_level / level);
         addingMap(exceptStats, type, value);

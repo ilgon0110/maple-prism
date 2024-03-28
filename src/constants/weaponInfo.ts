@@ -24,6 +24,7 @@ export const WEAPON_INFO_ONE_HAND_SWORD = {
   ],
 };
 
+//150제 미만 무기는 다양해서 추가하지 않음
 export const WEAPON_INFO_BOW = {
   jobs: ["보우마스터", "윈드브레이커"],
   value: [
