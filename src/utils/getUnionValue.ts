@@ -20,7 +20,7 @@ export const getUnionValue = (
   let bossDamage = 0;
   let damage = 0;
   let criticalDamage = 0;
-
+  if (selectedUnionRaider === null) return { unionStats, exceptUnionStats };
   selectedUnionRaider.union_occupied_stat.forEach((effect) => {
     // str += extractValue(unionEffect, "STR ", " 증가");
     // dex += extractValue(unionEffect, "DEX ", " 증가");

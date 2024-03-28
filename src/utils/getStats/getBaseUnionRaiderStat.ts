@@ -6,10 +6,8 @@ export const getBaseUnionRaiderStat = (
   selectedUnionRaider: ICharacterUnionRaider["union_raider_preset_1"],
   targetStat: string
 ) => {
-  if (targetStat === null) {
-    throw new Error("targetStat is null");
-  }
-
+  console.log("selectedUnionRaider", selectedUnionRaider);
+  if (selectedUnionRaider === null) return 0;
   return selectedUnionRaider.union_occupied_stat.reduce((acc, cur) => {
     return acc + extractUnionValue(removeSpace(cur), targetStat);
   }, 0);

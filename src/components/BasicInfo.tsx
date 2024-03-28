@@ -62,13 +62,15 @@ const BasicInfo = ({
   const diffPercent = Math.floor(
     ((powerRate - originPowerRate) / originPowerRate) * 100
   );
-
+  console.log("chatacterUnionRaider", unionRaiderData);
   const fillUnionBlocks = (
-    unionBlock: ICharacterUnionRaider["union_block"]
+    unionBlock: ICharacterUnionRaider["union_block"] | undefined
   ): number[][] => {
-    const unionBlocks: Array<Array<number>> = Array.from({ length: 20 }, () =>
-      Array.from({ length: 22 }).fill(0)
+    console.log("unionBlock", unionBlock);
+    const unionBlocks: Array<Array<number>> = Array.from({ length: 21 }, () =>
+      Array.from({ length: 23 }).fill(0)
     ) as Array<Array<number>>;
+    if (unionBlock === undefined) return unionBlocks;
     unionBlock.forEach((block) => {
       const blocks: [number, number][] = [];
       block.block_position.forEach((position) => {
@@ -243,7 +245,7 @@ const BasicInfo = ({
                         | "union_raider_preset_3"
                         | "union_raider_preset_4"
                         | "union_raider_preset_5"
-                    ].union_block
+                    ]?.union_block
                   );
                   return (
                     <div className="w-full">

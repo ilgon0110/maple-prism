@@ -7,7 +7,7 @@ export const getExceptUnionRaider = (
   targetStat: string
 ) => {
   //"STR, DEX, LUK 40 증가",
-
+  if (selectedUnionRaider === null) return 0;
   return selectedUnionRaider.union_raider_stat.reduce((acc, cur) => {
     return acc + extractUnionValue(removeSpace(cur), targetStat);
   }, 0);

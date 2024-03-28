@@ -20,11 +20,11 @@ export interface ICharacterUnionRaider {
     }[];
   }[];
   use_preset_no: number;
-  union_raider_preset_1: IUnionRaider;
-  union_raider_preset_2: IUnionRaider;
-  union_raider_preset_3: IUnionRaider;
-  union_raider_preset_4: IUnionRaider;
-  union_raider_preset_5: IUnionRaider;
+  union_raider_preset_1: IUnionRaider | null;
+  union_raider_preset_2: IUnionRaider | null;
+  union_raider_preset_3: IUnionRaider | null;
+  union_raider_preset_4: IUnionRaider | null;
+  union_raider_preset_5: IUnionRaider | null;
 }
 
 interface IUnionRaider {
