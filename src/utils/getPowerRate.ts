@@ -160,6 +160,10 @@ const getStatPowerRate = ({
     `union_raider_preset_${presets.union}` as keyof ICharacterUnionRaider
   ] as ICharacterUnionRaider["union_raider_preset_1"];
   console.log("selectedAbility", selectedAbility);
+  const duKaSe =
+    characterBasicInfo.character_class === "듀얼블레이더" ||
+    characterBasicInfo.character_class === "카데나" ||
+    characterBasicInfo.character_class === "섀도어";
   const { baseStats: baseAbilityStats, exceptStats: exceptAbilityStats } =
     getAbilityValue(selectedAbility, characterStat, characterBasicInfo);
   const { artifactStats } = getArtifactValue(
@@ -173,19 +177,13 @@ const getStatPowerRate = ({
   console.log("artifactStats", artifactStats);
   console.log("exceptUnionStats", exceptUnionStats);
   console.log("hexaStats", hexaStats);
-
+  //주스탯
   const baseAbilityMainStat = baseAbilityStats.get(mainStat) ?? 0;
-  const baseAbilitySubStat = baseAbilityStats.get(subStat) ?? 0;
   const hexaMainStat = hexaStats.get(mainStat) ?? 0;
   const exceptAbilityMainStat = exceptAbilityStats.get(mainStat) ?? 0;
-  const exceptAbilitySubStat = exceptAbilityStats.get(subStat) ?? 0;
   const baseArtifactMainStat = artifactStats.get(mainStat) ?? 0;
-  const baseArtifactSubStat = artifactStats.get(subStat) ?? 0;
   const exceptUnionMainStat = exceptUnionStats.get(mainStat) ?? 0;
-  const exceptUnionSubStat = exceptUnionStats.get(subStat) ?? 0;
-  const EVENT_STAT = +eventSkillInfo.selectedStatOption;
   const pureMainStat = getBasePureStat(characterStat, mainStat);
-  const pureSubStat = getBasePureStat(characterStat, subStat);
   const baseEquipmentMainStat = getBaseEquipmentStat(
     characterBasicInfo,
     characterItemEquipment,
@@ -193,6 +191,21 @@ const getStatPowerRate = ({
     characterSetEffect,
     mainStat
   );
+  const baseTitleMainStat = getBaseTitleStat(characterItemEquipment, mainStat);
+  const baseUnionRaiderMainStat = getBaseUnionRaiderStat(
+    selectedUnionRaider,
+    mainStat
+  );
+  const exceptHyperMainStat = getExceptHyperStat(selectedHyperStat, mainStat);
+  const exceptSymbolMainStat = getExceptSymbolStat(characterSymbol, mainStat);
+  const EVENT_STAT = +eventSkillInfo.selectedStatOption;
+
+  //부스탯
+  const baseAbilitySubStat = baseAbilityStats.get(subStat) ?? 0;
+  const exceptAbilitySubStat = exceptAbilityStats.get(subStat) ?? 0;
+  const baseArtifactSubStat = artifactStats.get(subStat) ?? 0;
+  const exceptUnionSubStat = exceptUnionStats.get(subStat) ?? 0;
+  const pureSubStat = getBasePureStat(characterStat, subStat);
   const baseEquipmentSubStat = getBaseEquipmentStat(
     characterBasicInfo,
     characterItemEquipment,
@@ -200,16 +213,52 @@ const getStatPowerRate = ({
     characterSetEffect,
     subStat
   );
-  const baseTitleMainStat = getBaseTitleStat(characterItemEquipment, mainStat);
   const baseTitleSubStat = getBaseTitleStat(characterItemEquipment, subStat);
-  const baseUnionRaiderMainStat = getBaseUnionRaiderStat(
-    selectedUnionRaider,
-    mainStat
-  );
   const baseUnionRaiderSubStat = getBaseUnionRaiderStat(
     selectedUnionRaider,
     subStat
   );
+  const exceptHyperSubStat = getExceptHyperStat(selectedHyperStat, subStat);
+
+  //듀카세일때 필요한 힘스탯
+  const STR = "STR";
+  const baseAbilityStrStat = baseAbilityStats.get(STR) ?? 0;
+  const exceptAbilityStrStat = exceptAbilityStats.get(STR) ?? 0;
+  const baseArtifactStrStat = artifactStats.get(STR) ?? 0;
+  const exceptUnionStrStat = exceptUnionStats.get(STR) ?? 0;
+  const pureStrStat = getBasePureStat(characterStat, STR);
+  const baseEquipmentStrStat = getBaseEquipmentStat(
+    characterBasicInfo,
+    characterItemEquipment,
+    characterCashItemEquipment,
+    characterSetEffect,
+    STR
+  );
+  const baseTitleStrStat = getBaseTitleStat(characterItemEquipment, STR);
+  const baseUnionRaiderStrStat = getBaseUnionRaiderStat(
+    selectedUnionRaider,
+    STR
+  );
+  const exceptHyperStrStat = getExceptHyperStat(selectedHyperStat, STR);
+  const strStatValue =
+    pureStrStat +
+    baseEquipmentStrStat +
+    baseTitleStrStat +
+    baseUnionRaiderStrStat +
+    baseAbilityStrStat +
+    baseArtifactStrStat +
+    EVENT_STAT;
+
+  const strStatPercent = getStatPercentByPotential(
+    characterItemEquipment,
+    "STR"
+  );
+  const strExceptStatValue =
+    exceptUnionStrStat + exceptAbilityStrStat + exceptHyperStrStat;
+  const finalStrSub =
+    Math.floor(strStatValue * (strStatPercent + 100) * 0.01) +
+    strExceptStatValue;
+
   console.log("baseAbilityMainStat", baseAbilityMainStat);
   console.log("baseAbilitySubStat", baseAbilitySubStat);
   console.log("hexaMainStat", hexaMainStat);
@@ -245,8 +294,8 @@ const getStatPowerRate = ({
     hexaMainStat +
     exceptUnionMainStat +
     exceptAbilityMainStat +
-    getExceptHyperStat(selectedHyperStat, mainStat) +
-    getExceptSymbolStat(characterSymbol, mainStat);
+    exceptHyperMainStat +
+    exceptSymbolMainStat;
 
   const subStatValue =
     pureSubStat +
@@ -261,9 +310,7 @@ const getStatPowerRate = ({
     subStat
   );
   const subExceptStatValue =
-    exceptUnionSubStat +
-    exceptAbilitySubStat +
-    getExceptHyperStat(selectedHyperStat, subStat);
+    exceptUnionSubStat + exceptAbilitySubStat + exceptHyperSubStat;
   console.log("mainStatValue", mainStatValue);
   console.log("mainStatPercent", mainStatPercent);
   console.log("mainExceptStatValue", mainExceptStatValue);
@@ -275,9 +322,12 @@ const getStatPowerRate = ({
     (Math.floor(mainStatValue * (mainStatPercent + 100) * 0.01) +
       mainExceptStatValue) *
     4;
-  const finalSub =
-    Math.floor(subStatValue * (subStatPercent + 100) * 0.01) +
-    subExceptStatValue;
+  const finalSub = duKaSe
+    ? finalStrSub +
+      (Math.floor(subStatValue * (subStatPercent + 100) * 0.01) +
+        subExceptStatValue)
+    : Math.floor(subStatValue * (subStatPercent + 100) * 0.01) +
+      subExceptStatValue;
 
   return (finalMain + finalSub) * 0.01;
 };

@@ -20,7 +20,7 @@ const extractTitleValue = (
   suffix: string
 ) => {
   const allStatPrefix = "올스탯";
-  if (inputString === null) return 0;
+  inputString = inputString.replace("-", "");
   if (
     (inputString.startsWith(prefix) || inputString.startsWith(allStatPrefix)) &&
     !inputString.endsWith(suffix)

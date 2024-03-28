@@ -78,11 +78,13 @@ const getMesoEquipment = (characterItemEquipment: ICharacterItemEquipment) => {
     attackPower +=
       +item.item_total_option.attack_power +
       getValueByPotentialOption(item, attackPrefix, "") +
-      extractValue(removeSpace(item.soul_option), attackPrefix, "");
+      extractValue(removeSpace(item.soul_option), attackPrefix, "") +
+      +item.item_exceptional_option.attack_power;
     magicPower +=
       +item.item_total_option.magic_power +
       getValueByPotentialOption(item, magicPrefix, "") +
-      extractValue(removeSpace(item.soul_option), magicPrefix, "");
+      extractValue(removeSpace(item.soul_option), magicPrefix, "") +
+      +item.item_exceptional_option.magic_power;
     bossDamage +=
       +item.item_total_option.boss_damage +
       getValueByPotentialOption(item, bossPrefix, "%") +

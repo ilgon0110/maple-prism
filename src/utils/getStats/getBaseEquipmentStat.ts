@@ -3,6 +3,7 @@ import { ICharacterItemEquipment } from "@/types/characters/CharacterItemEquipme
 import { ICharacterSetEffect } from "@/types/characters/CharacterSetEffect";
 import { ICharacterCashItemEquipment } from "@/types/characters/CharacterCashItemEquipment";
 import { ICharacterBasicInfo } from "@/types/characters/CharacterBasicInfo";
+import { ERROR_MESSAGES } from "@/constants/error";
 
 export const getBaseEquipmentStat = (
   characterBasicInfo: ICharacterBasicInfo,
@@ -20,6 +21,11 @@ export const getBaseEquipmentStat = (
       const equipStat = Number(
         cur.item_total_option[
           targetStat.toLowerCase() as keyof typeof cur.item_total_option
+        ]
+      );
+      const exceptionalStat = Number(
+        cur.item_exceptional_option[
+          targetStat.toLowerCase() as keyof typeof cur.item_exceptional_option
         ]
       );
       const potentialStat =
@@ -52,16 +58,31 @@ export const getBaseEquipmentStat = (
           removeSpace(cur.additional_potential_option_3),
           capitalTargetStat,
           characterLevel
-        ) +
-        extractEquipmentValue(
-          removeSpace(cur.soul_option),
-          capitalTargetStat,
-          characterLevel
         );
-      return acc + Math.floor(equipStat) + Math.floor(potentialStat);
+
+      const soulStat = extractEquipmentValue(
+        removeSpace(cur.soul_option),
+        capitalTargetStat,
+        characterLevel
+      );
+      console.log(
+        cur.item_name,
+        equipStat,
+        exceptionalStat,
+        potentialStat,
+        soulStat
+      );
+      return (
+        acc +
+        Math.floor(equipStat) +
+        Math.floor(exceptionalStat) +
+        Math.floor(potentialStat) +
+        Math.floor(soulStat)
+      );
     },
     0
   );
+  console.log("characterSetEffect", characterSetEffect.set_effect);
   const setEffectStatResult = characterSetEffect.set_effect.reduce(
     (acc, cur) => {
       const setEffectStat = cur.set_effect_info.reduce((acc, cur) => {
@@ -96,6 +117,9 @@ export const getBaseEquipmentStat = (
     }, 0);
     return acc + Math.floor(equipStat);
   }, 0);
+  console.log("equipmentStat", equipmentStat);
+  console.log("cashEquipmentStat", cashEquipmentStat);
+  console.log("setEffectStatResult", setEffectStatResult);
   return (
     Math.floor(equipmentStat) +
     Math.floor(cashEquipmentStat) +
@@ -115,13 +139,19 @@ const extractEquipmentValue = (
   if (inputString === null) return 0;
   if (inputString.startsWith(statPerLevelPrefix)) {
     if (level === undefined) {
-      throw new Error("level is undefined");
+      throw new Error(ERROR_MESSAGES.weaponInfo.noItemLevel);
     }
     const valueString = inputString.substring(statPerLevelPrefix.length);
     const numericValue = parseFloat(valueString);
 
     if (!isNaN(numericValue)) {
-      return Math.floor(numericValue * (level / 9));
+      console.log(
+        inputString,
+        numericValue,
+        level,
+        numericValue * Math.floor(level / 9)
+      );
+      return Math.floor(numericValue * Math.floor(level / 9));
     }
     return 0;
   }
@@ -133,7 +163,7 @@ const extractEquipmentValue = (
     const numericValue = parseFloat(valueString);
 
     if (!isNaN(numericValue)) {
-      return numericValue;
+      return Math.floor(numericValue);
     }
   }
   return 0;
@@ -154,7 +184,7 @@ const extractSetEffectValue = (
     const numericValue = parseFloat(valueString);
 
     if (!isNaN(numericValue)) {
-      return numericValue;
+      return Math.floor(numericValue);
     }
   }
   return 0;

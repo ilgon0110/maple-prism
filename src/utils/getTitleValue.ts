@@ -30,7 +30,7 @@ export const getTitleValue = (title: Title | null) => {
     return { titleStats };
   }
   titleEffects.forEach((effect) => {
-    const removeSpaceEffect = removeSpace(effect);
+    const removeSpaceEffect = removeSpace(effect).replace("-", "");
     if (removeSpaceEffect.startsWith(POWER_RATE.attack_power)) {
       attackPower += extractValue(
         removeSpaceEffect,
