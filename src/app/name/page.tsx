@@ -280,6 +280,7 @@ const CharacterNamePage = () => {
   };
   const onClickEquipment = () => {
     setEquipmentOpen(!equipmentOpen);
+    setModalOpen(false);
   };
   const onClickModalClose = () => {
     setModalOpen(false);
@@ -449,7 +450,7 @@ const CharacterNamePage = () => {
         </div>
         <div
           className={cls(
-            "absolute w-full max-w-md top-full mt-5 md:mt-0 md:top-1/2 flex flex-col justify-center items-center transform duration-200 md:ml-10 ease-in md:translate-x-1/2 opacity-0 delay-300 p-6 shadow",
+            "absolute w-full max-w-md top-full mt-5 md:mt-0 md:top-1/2 flex flex-col justify-center items-center transform duration-200 md:ml-10 ease-in md:translate-x-1/2 opacity-0 p-6 shadow",
             modalOpen ? "opacity-100" : ""
           )}
         >

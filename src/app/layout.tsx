@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Providers from "./providers";
-import Head from "next/head";
 import Myheader from "@/components/Myheader";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const myFont = localFont({
   src: "./NEXON Lv1 Gothic OTF.otf",
@@ -32,6 +32,7 @@ export default function RootLayout({
           </div>
         </Providers>
       </body>
+      <GoogleAnalytics gaId="G-LV519XYDT1" />
     </html>
   );
 }
