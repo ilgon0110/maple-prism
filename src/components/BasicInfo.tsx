@@ -59,17 +59,33 @@ const BasicInfo = ({
 
   const isEventDuration = false;
 
+  let minX = Number.MAX_SAFE_INTEGER;
+  let minY = Number.MAX_SAFE_INTEGER;
+  let maxX = Number.MIN_SAFE_INTEGER;
+  let maxY = Number.MIN_SAFE_INTEGER;
   const diffPercent = Math.floor(
     ((powerRate - originPowerRate) / originPowerRate) * 100
   );
-  console.log("chatacterUnionRaider", unionRaiderData);
+
   const fillUnionBlocks = (
     unionBlock: ICharacterUnionRaider["union_block"] | undefined
   ): number[][] => {
-    const unionBlocks: Array<Array<number>> = Array.from({ length: 21 }, () =>
-      Array.from({ length: 23 }).fill(0)
+    if (unionBlock === undefined || unionBlock.length === 0) return [[]];
+    unionBlock.forEach((block) =>
+      block.block_position.forEach((pos) => {
+        minX = Math.min(minX, pos.x);
+        minY = Math.min(minY, pos.y);
+        maxX = Math.max(maxX, pos.x);
+        maxY = Math.max(maxY, pos.y);
+      })
+    );
+    const width = maxX - minX + 1;
+    const height = maxY - minY + 1;
+
+    const unionBlocks: Array<Array<number>> = Array.from(
+      { length: height },
+      () => Array.from({ length: width }).fill(0)
     ) as Array<Array<number>>;
-    if (unionBlock === undefined) return unionBlocks;
     unionBlock.forEach((block) => {
       const blocks: [number, number][] = [];
       block.block_position.forEach((position) => {
