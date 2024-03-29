@@ -159,17 +159,13 @@ const getStatPowerRate = ({
   const selectedUnionRaider = characterUnionRaider[
     `union_raider_preset_${presets.union}` as keyof ICharacterUnionRaider
   ] as ICharacterUnionRaider["union_raider_preset_1"];
-  console.log("selectedAbility", selectedAbility);
   const duKaSe =
     characterBasicInfo.character_class === "듀얼블레이더" ||
     characterBasicInfo.character_class === "카데나" ||
     characterBasicInfo.character_class === "섀도어";
   const { baseStats: baseAbilityStats, exceptStats: exceptAbilityStats } =
     getAbilityValue(selectedAbility, characterStat, characterBasicInfo);
-  const { artifactStats } = getArtifactValue(
-    characterBasicInfo,
-    characterArtifact
-  );
+  const { artifactStats } = getArtifactValue(characterArtifact);
   const { exceptUnionStats } = getUnionValue(selectedUnionRaider);
   const { hexaStats } = getHexaValue(characterHexaStat);
   console.log("baseAbilityStats", baseAbilityStats);
@@ -258,7 +254,7 @@ const getStatPowerRate = ({
   const finalStrSub =
     Math.floor(strStatValue * (strStatPercent + 100) * 0.01) +
     strExceptStatValue;
-
+  console.log("mainStat", mainStat, "subStat", subStat);
   console.log("baseAbilityMainStat", baseAbilityMainStat);
   console.log("baseAbilitySubStat", baseAbilitySubStat);
   console.log("hexaMainStat", hexaMainStat);
@@ -277,6 +273,20 @@ const getStatPowerRate = ({
   console.log("baseTitleSubStat", baseTitleSubStat);
   console.log("baseUnionRaiderMainStat", baseUnionRaiderMainStat);
   console.log("baseUnionRaiderSubStat", baseUnionRaiderSubStat);
+
+  console.log("baseAbilityStrStat", baseAbilityStrStat);
+  console.log("exceptAbilityStrStat", exceptAbilityStrStat);
+  console.log("baseArtifactStrStat", baseArtifactStrStat);
+  console.log("exceptUnionStrStat", exceptUnionStrStat);
+  console.log("pureStrStat", pureStrStat);
+  console.log("baseEquipmentStrStat", baseEquipmentStrStat);
+  console.log("baseTitleStrStat", baseTitleStrStat);
+  console.log("baseUnionRaiderStrStat", baseUnionRaiderStrStat);
+  console.log("exceptHyperStrStat", exceptHyperStrStat);
+  console.log("strStatValue", strStatValue);
+  console.log("strStatPercent", strStatPercent);
+  console.log("strExceptStatValue", strExceptStatValue);
+  console.log("finalStrSub", finalStrSub);
 
   const mainStatValue =
     pureMainStat +
@@ -389,10 +399,7 @@ const getAttackValueRate = ({
   const { unionStats } = getUnionValue(selectedUnionRaider);
   const { hyperStats } = getHyperValue(selectedHyperStat);
   const { skillStats } = getBaseSkillValue(characterSkill);
-  const { artifactStats } = getArtifactValue(
-    characterBasicInfo,
-    characterArtifact
-  );
+  const { artifactStats } = getArtifactValue(characterArtifact);
   const { titleStats } = getTitleValue(title);
   const { baseStats } = getAbilityValue(
     selectedAbility,
@@ -432,24 +439,39 @@ const getAttackValueRate = ({
   const hexaAttackPower = hexaStats.get(POWER_RATE.attack_power) ?? 0;
   const hexaMagicPower = hexaStats.get(POWER_RATE.magic_power) ?? 0;
   const hexaPower = isMagician ? hexaMagicPower : hexaAttackPower;
-  const baseAttackPower =
+  const totalPower =
     equipmentPower +
     unionPower +
     hyperPower +
     artifactPower +
     titlePower +
     abilityPower;
-  const addBaseAttackPower = isMagician
+  const addSkillAttackPower = isMagician
     ? skillStats.get(POWER_RATE.magic_power) ?? 0
     : skillStats.get(POWER_RATE.attack_power) ?? 0;
   const EVENT_ATTACK_POWER = +eventSkillInfo.selectedPowerOption;
 
+  console.log("equipmentPower", equipmentPower);
+  console.log("unionPower", unionPower);
+  console.log("hyperPower", hyperPower);
+  console.log("artifactPower", artifactPower);
+  console.log("titlePower", titlePower);
+  console.log("myWeaponPower", myWeaponPower);
+  console.log("transWeaponPower", transWeaponPower);
+  console.log("abilityPower", abilityPower);
+  console.log("hexaAttackPower", hexaAttackPower);
+  console.log("hexaMagicPower", hexaMagicPower);
+  console.log("hexaPower", hexaPower);
+  console.log("totalPower", totalPower);
+  console.log("addSkillAttackPower", addSkillAttackPower);
+  console.log("EVENT_ATTACK_POWER", EVENT_ATTACK_POWER);
+
   return Math.floor(
     (hexaPower +
-      baseAttackPower -
+      totalPower -
       myWeaponPower +
       transWeaponPower +
-      addBaseAttackPower +
+      addSkillAttackPower +
       EVENT_ATTACK_POWER) *
       (100 + attackPowerPercent) *
       0.01
@@ -495,10 +517,7 @@ const getBossDamageRate = ({
   ] as ICharacterUnionRaider["union_raider_preset_1"];
   const { unionStats } = getUnionValue(selectedUnionRaider);
   const { hyperStats } = getHyperValue(selectedHyperStat);
-  const { artifactStats } = getArtifactValue(
-    characterBasicInfo,
-    characterArtifact
-  );
+  const { artifactStats } = getArtifactValue(characterArtifact);
   const { titleStats } = getTitleValue(title);
   const { baseStats } = getAbilityValue(
     selectedAbility,
@@ -591,10 +610,7 @@ const getCriticalDamageRate = ({
   ] as ICharacterUnionRaider["union_raider_preset_1"];
   const { unionStats } = getUnionValue(selectedUnionRaider);
   const { hyperStats } = getHyperValue(selectedHyperStat);
-  const { artifactStats } = getArtifactValue(
-    characterBasicInfo,
-    characterArtifact
-  );
+  const { artifactStats } = getArtifactValue(characterArtifact);
   const { titleStats } = getTitleValue(title);
   const { baseStats } = getAbilityValue(
     selectedAbility,

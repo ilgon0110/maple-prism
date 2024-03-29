@@ -12,6 +12,8 @@ export const transWeaponStat = (
     weaponInfo,
     isMagician
   );
+  console.log("transAddAttackPowerValue", transAddAttackPowerValue);
+  console.log("transStarforceAttackPowerValue", transStarforceAttackPowerValue);
   if (transAddAttackPowerValue === undefined) {
     throw new Error(ERROR_MESSAGES.weaponInfo.invalidWeaponToBow);
   }

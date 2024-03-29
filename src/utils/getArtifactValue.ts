@@ -1,31 +1,18 @@
 import { removeSpace } from "./removeSpace";
 import { ICharacterArtifact } from "@/types/characters/CharacterArtifact";
 import { addingMap } from "./addingMap";
-import { CHARACTER_CLASS } from "@/constants/characterClass";
-import { ICharacterBasicInfo } from "@/types/characters/CharacterBasicInfo";
-import { SKILL_KEYS } from "@/constants/skills";
 import { POWER_RATE } from "@/constants/powerRate";
 
-export const getArtifactValue = (
-  characterBasicInfo: ICharacterBasicInfo,
-  characterArtifact: ICharacterArtifact
-) => {
-  const characterJob = characterBasicInfo.character_class;
+export const getArtifactValue = (characterArtifact: ICharacterArtifact) => {
   const artifactStats = new Map<string, number>();
-  const mainStat =
-    CHARACTER_CLASS.find((characterClass) => {
-      return characterClass.jobs.includes(characterJob);
-    })?.mainStat.toUpperCase() ?? "";
-  const subStat =
-    CHARACTER_CLASS.find((characterClass) => {
-      return characterClass.jobs.includes(characterJob);
-    })?.subStat.toUpperCase() ?? "";
   characterArtifact.union_artifact_effect.forEach((effect) => {
     const value = extractNumbersFromString(effect.name);
     const effectName = removeSpace(effect.name);
     if (effectName.includes("올스탯")) {
-      addingMap(artifactStats, mainStat, value);
-      addingMap(artifactStats, subStat, value);
+      addingMap(artifactStats, "STR", value);
+      addingMap(artifactStats, "DEX", value);
+      addingMap(artifactStats, "INT", value);
+      addingMap(artifactStats, "LUK", value);
     }
     if (effectName.includes("공격력")) {
       addingMap(artifactStats, POWER_RATE.attack_power, value);

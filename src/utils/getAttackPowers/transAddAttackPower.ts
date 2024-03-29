@@ -22,7 +22,7 @@ export const transAddAttackPower = (
   const prefix = "제네시스 ";
   const isGenesis = weaponInfo?.item_name.startsWith(prefix);
   const itemLevel = weaponInfo?.item_base_option.base_equipment_level;
-  console.log("weaponInfo", weaponInfo);
+
   const myAddAttackPowerStep =
     getAddAttackPower(myOriginPower, itemLevel).find(
       (item) => item.value === Number(myAddPower)

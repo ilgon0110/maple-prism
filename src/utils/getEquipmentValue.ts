@@ -16,7 +16,6 @@ export const getEquipmentValue = (
   characterPetEquipment: ICharacterPetEquipment,
   characterSetEffect: ICharacterSetEffect
 ) => {
-  console.log("characterItemEquipment", characterItemEquipment);
   const equipmentValues = new Map<string, number>();
   const {
     mesoAttackPower,
@@ -237,7 +236,7 @@ const getCashEquipment = (
   //   `cash_item_equipment_preset_${targetPreset}` as keyof typeof characterCashItemEquipment
   // ] as ICharacterCashItemEquipment["cash_item_equipment_preset_1"];
   const cashItems = characterCashItemEquipment.cash_item_equipment_base;
-  console.log("characterCashItemEquipment", characterCashItemEquipment);
+
   cashItems.forEach((item) => {
     item.cash_item_option.forEach((option) => {
       if (removeSpace(option.option_type) === POWER_RATE.attack_power) {

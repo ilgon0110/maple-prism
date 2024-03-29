@@ -32,7 +32,7 @@ export const transStarforceAttackPower = (
   let attackPower = isMagician
     ? bowOriginAttackPower + Number(weaponInfo?.item_etc_option.magic_power)
     : bowOriginAttackPower + Number(weaponInfo?.item_etc_option.attack_power);
-  while (initialLevel < 15) {
+  while (initialLevel < 15 && initialLevel < targetLevel) {
     let variationValue = Math.floor(attackPower / 50) + 1;
     attackPower += variationValue;
     initialLevel++;

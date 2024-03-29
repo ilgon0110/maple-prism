@@ -65,13 +65,7 @@ export const getBaseEquipmentStat = (
         capitalTargetStat,
         characterLevel
       );
-      console.log(
-        cur.item_name,
-        equipStat,
-        exceptionalStat,
-        potentialStat,
-        soulStat
-      );
+
       return (
         acc +
         Math.floor(equipStat) +
@@ -201,7 +195,6 @@ export const getBaseEquipmentStat = (
     0
   );
 
-  console.log("characterSetEffect", characterSetEffect.set_effect);
   const setEffectStatResult = characterSetEffect.set_effect.reduce(
     (acc, cur) => {
       const setEffectStat = cur.set_effect_info.reduce((acc, cur) => {
@@ -236,9 +229,7 @@ export const getBaseEquipmentStat = (
     }, 0);
     return acc + Math.floor(equipStat);
   }, 0);
-  console.log("equipmentStat", equipmentStat);
-  console.log("cashEquipmentStat", cashEquipmentStat);
-  console.log("setEffectStatResult", setEffectStatResult);
+
   return (
     Math.floor(equipmentStat) +
     Math.floor(mechanicStat) +
@@ -266,12 +257,6 @@ const extractEquipmentValue = (
     const numericValue = parseFloat(valueString);
 
     if (!isNaN(numericValue)) {
-      console.log(
-        inputString,
-        numericValue,
-        level,
-        numericValue * Math.floor(level / 9)
-      );
       return Math.floor(numericValue * Math.floor(level / 9));
     }
     return 0;

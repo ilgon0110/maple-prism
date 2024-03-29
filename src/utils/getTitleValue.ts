@@ -18,14 +18,14 @@ export const getTitleValue = (title: Title | null) => {
   let bossDamage = 0;
   let damage = 0;
   let criticalDamage = 0;
-  console.log("title", title);
+
   if (title === null) {
     return { titleStats };
   }
   const { title_description, date_option_expire } = title;
-  console.log("title_description", title_description);
+
   const titleEffects = title_description.split(/\n|\r|,/);
-  console.log("titleEffects", titleEffects);
+
   if (date_option_expire === "expired") {
     return { titleStats };
   }

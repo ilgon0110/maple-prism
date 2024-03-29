@@ -5,7 +5,6 @@ export const getBaseTitleStat = (
   characterItemEquipment: ICharacterItemEquipment,
   targetStat: string
 ) => {
-  console.log("characterItemEquipment", characterItemEquipment);
   const title = characterItemEquipment.title;
   if (title === null) return 0;
   if (title.date_option_expire === "expired") return 0;
