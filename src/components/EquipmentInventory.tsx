@@ -279,7 +279,7 @@ const ItemBox = ({
         onClick={onClickItem}
       >
         <Image
-          src={itemData?.item_icon ?? "/icons/empty.png"}
+          src={itemData?.item_icon ?? "/라라티콘.png"}
           style={{
             objectFit: "contain",
           }}
