@@ -4,7 +4,6 @@ import { IItemEquipment } from "@/types/characters/CharacterItemEquipment";
 import { cls } from "@/utils/cls";
 import { getItemPotentialRank } from "@/utils/getItemPotentialRank";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import uuid from "react-uuid";
 
 type ItemCardProps = {

@@ -305,21 +305,21 @@ const ItemMaker = ({ onClickModalClose }: ItemMakerProps) => {
 
   return (
     <div className="w-full h-full z-50 md:px-20 px-5 top-0 flex justify-center absolute items-center py-[5%] lg:py-[10%]">
-      <Scrollbars autoHide height="100%">
-        <div className="bg-white w-full h-full rounded shadow relative">
-          <button
-            onClick={onClickClose}
-            className="w-6 h-6 p-3 rounded-full border border-slate-100 absolute flex justify-center items-center top-4 right-4 text-xs hover:border-slate-500 transform duration-300 ease-in-out"
-          >
-            X
-          </button>
-          {itemData === null ? (
-            <div className="h-fit pb-20 pt-10">
-              <div className="flex justify-center items-center mb-10">
-                <div className="text-lg font-bold text-slate-500">
-                  {itemPart} 제작
-                </div>
+      <div className="bg-white w-full h-full rounded shadow relative">
+        <button
+          onClick={onClickClose}
+          className="w-6 h-6 p-3 rounded-full border border-slate-100 absolute flex justify-center items-center top-4 right-4 text-xs hover:border-slate-500 transform duration-300 ease-in-out"
+        >
+          X
+        </button>
+        {itemData === null ? (
+          <div className="h-full pb-20 pt-10">
+            <div className="flex justify-center items-center mb-10">
+              <div className="text-lg font-bold text-slate-500">
+                {itemPart} 제작
               </div>
+            </div>
+            <Scrollbars height="100%">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-20 gap-5">
                 {baseItemList.map((item) => {
                   return (
@@ -341,8 +341,10 @@ const ItemMaker = ({ onClickModalClose }: ItemMakerProps) => {
                   );
                 })}
               </div>
-            </div>
-          ) : (
+            </Scrollbars>
+          </div>
+        ) : (
+          <Scrollbars autoHide>
             <div className="flex flex-col lg:flex-row w-full px-3 h-fit py-5 bg-white rounded">
               <div className="h-full w-1/2 lg:w-1/3 min-w-64 mx-auto">
                 <ItemCard itemData={itemData} />
@@ -351,6 +353,12 @@ const ItemMaker = ({ onClickModalClose }: ItemMakerProps) => {
                   onClick={onSubmit}
                 >
                   장착하기
+                </button>
+                <button
+                  onClick={onClickClose}
+                  className="w-6 h-6 p-3 rounded-full border border-slate-100 absolute flex justify-center items-center top-4 right-4 text-xs hover:border-slate-500 transform duration-300 ease-in-out"
+                >
+                  X
                 </button>
               </div>
               <div className="w-full h-full lg:ml-5">
@@ -361,9 +369,9 @@ const ItemMaker = ({ onClickModalClose }: ItemMakerProps) => {
                 <ItemMakerCategory category={category} itemLevel={itemLevel} />
               </div>
             </div>
-          )}
-        </div>
-      </Scrollbars>
+          </Scrollbars>
+        )}
+      </div>
     </div>
   );
 };
