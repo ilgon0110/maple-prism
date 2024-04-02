@@ -216,8 +216,9 @@ export const getBaseEquipmentStat = (
     },
     0
   );
-  const cashItems = characterCashItemEquipment["cash_item_equipment_base"];
+  const cashItems = characterCashItemEquipment.cash_item_equipment_base;
   const cashEquipmentStat = cashItems.reduce((acc, cur) => {
+    if (cur.date_expire === "expired") return acc;
     const equipStat = cur.cash_item_option.reduce((acc, cur) => {
       const isSameType =
         cur.option_type === `${targetStat.toUpperCase()}` ||

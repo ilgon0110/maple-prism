@@ -547,7 +547,6 @@ const getBossDamageRate = ({
   const titleDamage = titleStats.get(POWER_RATE.damage) ?? 0;
   const baseDamage = baseStats.get(POWER_RATE.damage) ?? 0;
   const hexaDamage = hexaStats.get(POWER_RATE.damage) ?? 0;
-
   const sumDamage =
     equipmentDamage +
     unionDamage +
@@ -557,6 +556,21 @@ const getBossDamageRate = ({
     baseDamage +
     hexaDamage;
   const EVENT_BOSS_DAMAGE = +eventSkillInfo.selectedBossDamageOption;
+  console.log("equipmentBossDamage", equipmentBossDamage);
+  console.log("unionBossDamage", unionBossDamage);
+  console.log("hyperBossDamage", hyperBossDamage);
+  console.log("artifactBossDamage", artifactBossDamage);
+  console.log("titleBossDamage", titleBossDamage);
+  console.log("baseBossDamage", baseBossDamage);
+  console.log("hexaBossDamage", hexaBossDamage);
+  console.log("sumBossDamage", sumBossDamage);
+  console.log("equipmentDamage", equipmentDamage);
+  console.log("unionDamage", unionDamage);
+  console.log("hyperDamage", hyperDamage);
+  console.log("artifactDamage", artifactDamage);
+  console.log("titleDamage", titleDamage);
+  console.log("baseDamage", baseDamage);
+  console.log("hexaDamage", hexaDamage);
   return (100 + sumBossDamage + EVENT_BOSS_DAMAGE + sumDamage) * 0.01;
 };
 

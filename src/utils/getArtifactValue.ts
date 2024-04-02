@@ -8,6 +8,8 @@ export const getArtifactValue = (characterArtifact: ICharacterArtifact) => {
   characterArtifact.union_artifact_effect.forEach((effect) => {
     const value = extractNumbersFromString(effect.name);
     const effectName = removeSpace(effect.name);
+    console.log("effectName : ", effectName);
+    console.log("value : ", value);
     if (effectName.includes("올스탯")) {
       addingMap(artifactStats, "STR", value);
       addingMap(artifactStats, "DEX", value);
@@ -20,14 +22,13 @@ export const getArtifactValue = (characterArtifact: ICharacterArtifact) => {
     if (effectName.includes("마력")) {
       addingMap(artifactStats, POWER_RATE.magic_power, value);
     }
-    if (effectName.includes("보스몬스터")) {
+    if (effectName.startsWith("보스몬스터공격시")) {
       addingMap(artifactStats, POWER_RATE.boss_damage, value);
-    } else if (effectName.includes("크리티컬데미지")) {
+    }
+    if (effectName.startsWith("크리티컬데미지")) {
       addingMap(artifactStats, POWER_RATE.critical_damage, value);
-    } else if (
-      !effectName.includes("보스몬스터") &&
-      effectName.includes("데미지")
-    ) {
+    }
+    if (effectName.startsWith("데미지")) {
       addingMap(artifactStats, POWER_RATE.damage, value);
     }
   });

@@ -238,6 +238,7 @@ const getCashEquipment = (
   const cashItems = characterCashItemEquipment.cash_item_equipment_base;
 
   cashItems.forEach((item) => {
+    if (item.date_expire === "expired") return;
     item.cash_item_option.forEach((option) => {
       if (removeSpace(option.option_type) === POWER_RATE.attack_power) {
         attackPower += +option.option_value;
