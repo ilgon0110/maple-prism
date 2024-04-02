@@ -9,6 +9,9 @@ type ItemMakerCategoryProps = {
 };
 
 const ItemMakerCategory = ({ category, itemLevel }: ItemMakerCategoryProps) => {
+  if (category === "---") {
+    return <div>아이템 제작하기</div>;
+  }
   if (category === "추가옵션") {
     return <AddOption itemLevel={itemLevel} />;
   }

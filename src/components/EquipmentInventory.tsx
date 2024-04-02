@@ -40,25 +40,25 @@ const EquipmentInventory = ({
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "반지4"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
       if (row === 1 && col === 0) {
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "반지3"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
       if (row === 2 && col === 0) {
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "반지2"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
       if (row === 3 && col === 0) {
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "반지1"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
       if (row === 4 && col === 0) {
         const item = itemEquipment.item_equipment.find(
@@ -76,13 +76,13 @@ const EquipmentInventory = ({
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "얼굴장식"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
       if (row === 2 && col === 2) {
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "눈장식"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
       if (row === 3 && col === 2) {
         const item = itemEquipment.item_equipment.find(
@@ -106,13 +106,13 @@ const EquipmentInventory = ({
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "펜던트2"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
       if (row === 2 && col === 1) {
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "펜던트"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
       if (row === 3 && col === 1) {
         const item = itemEquipment.item_equipment.find(
@@ -124,13 +124,13 @@ const EquipmentInventory = ({
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "벨트"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
       if (row === 2 && col === 3) {
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "귀고리"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
       if (row === 3 && col === 3) {
         const item = itemEquipment.item_equipment.find(
@@ -154,7 +154,7 @@ const EquipmentInventory = ({
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "엠블렘"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
       if (row === 1 && col === 4) {
         const item = itemEquipment.item_equipment.find(
@@ -190,7 +190,10 @@ const EquipmentInventory = ({
   });
 
   return (
-    <div className="w-full h-auto bg-slate-100 border-4 border-t-[32px] border-black rounded-lg grid grid-cols-5 gap-3 mt-6 py-6">
+    <div className="w-full h-auto bg-slate-100 border-4 border-black rounded-lg grid grid-cols-5 gap-3 mt-6 pt-10 pb-6 relative shadow">
+      <div className="w-full h-6 bg-black absolute text-xs text-orange-500 font-bold text-center align-middle flex justify-center items-center">
+        EQUIPMENT INVENTORY
+      </div>
       {itemLists.map((row, idx) => {
         return row.map((col) => {
           return col?.slot === 1 ? (

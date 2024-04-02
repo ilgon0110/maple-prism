@@ -167,11 +167,19 @@ const CharacterNamePage = () => {
     );
   }
 
-  if (allLoadingFalse || !allSuccess) {
+  if (allLoadingFalse) {
     return (
       //Skeleton UI
       <div className="text-2xl mx-auto text-center font-bold text-red-500">
         Loading...
+      </div>
+    );
+  }
+
+  if (!allSuccess) {
+    return (
+      <div className="text-2xl mx-auto text-center font-bold text-red-500">
+        API 호출 과정에서 에러가 발생하였습니다.
       </div>
     );
   }

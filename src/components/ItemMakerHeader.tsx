@@ -12,15 +12,26 @@ const ItemMakerHeader = ({
   onClickCategory,
 }: ItemMakerHeaderProps) => {
   const { itemData } = useItemMakerInfoStore();
+  const isNotReinforceItem =
+    itemData?.scroll_upgradeable_count === "0" &&
+    itemData.scroll_upgrade === "0" &&
+    itemData.starforce === "0";
   const isCanStarForce = itemData?.scroll_upgradeable_count === "0";
   return (
     <ul className="w-full space-x-5 text-sm text-gray-300 flex justify-center items-center mt-5 lg:block">
       <li
         className={cls(
-          "float-left hover:cursor-pointer",
-          category === "추가옵션" ? "text-indigo-600" : ""
+          "float-left",
+          category === "추가옵션" ? "text-indigo-600" : "",
+          itemData?.item_equipment_slot === "엠블렘"
+            ? "text-black opacity-10 hover:cursor-not-allowed"
+            : "hover:cursor-pointer"
         )}
-        onClick={(e) => onClickCategory(e)}
+        onClick={(e) =>
+          itemData?.item_equipment_slot === "엠블렘"
+            ? () => {}
+            : onClickCategory(e)
+        }
       >
         추가옵션
         {category === "추가옵션" && (
@@ -32,10 +43,13 @@ const ItemMakerHeader = ({
       </li>
       <li
         className={cls(
-          "float-left hover:cursor-pointer",
-          category === "주문서" ? "text-indigo-600" : ""
+          "float-left",
+          category === "주문서" ? "text-indigo-600" : "",
+          isNotReinforceItem
+            ? "text-black opacity-10 hover:cursor-not-allowed"
+            : "hover:cursor-pointer"
         )}
-        onClick={(e) => onClickCategory(e)}
+        onClick={(e) => (isNotReinforceItem ? () => {} : onClickCategory(e))}
       >
         주문서
         {category === "주문서" && (
@@ -49,11 +63,13 @@ const ItemMakerHeader = ({
         className={cls(
           "float-left",
           category === "스타포스" ? "text-indigo-600" : "",
-          isCanStarForce
+          isCanStarForce && !isNotReinforceItem
             ? "hover:cursor-pointer"
             : "text-black opacity-10 hover:cursor-not-allowed"
         )}
-        onClick={(e) => (isCanStarForce ? onClickCategory(e) : () => {})}
+        onClick={(e) =>
+          isCanStarForce && !isNotReinforceItem ? onClickCategory(e) : () => {}
+        }
       >
         스타포스
         {category === "스타포스" && (
