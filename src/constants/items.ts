@@ -2890,7 +2890,7 @@ export const baseWeapon_150: IBaseConstants[] = [
     name: "파프니르 래피드엣지",
     description: null,
     class: "도적",
-    job: "듀얼블레이드",
+    job: "듀얼블레이더",
     icon: "https://avatar.maplestory.nexon.com/ItemIcon/KEMGJHGD.png",
     base_option: {
       str: "0",
@@ -2917,7 +2917,7 @@ export const baseWeapon_150: IBaseConstants[] = [
     name: "파프니르 다마스커스",
     description: null,
     class: "도적",
-    job: ["섀도어", "듀얼블레이드"],
+    job: ["섀도어", "듀얼블레이더"],
     icon: "https://avatar.maplestory.nexon.com/ItemIcon/KEMBJFHC.png",
     base_option: {
       str: "0",
@@ -3798,7 +3798,7 @@ export const baseWeapon_160: IBaseConstants[] = [
     name: "앱솔랩스 블레이드",
     description: null,
     class: "도적",
-    job: "듀얼블레이드",
+    job: "듀얼블레이더",
     icon: "https://avatar.maplestory.nexon.com/ItemIcon/KEMGJGOE.png",
     base_option: {
       str: "0",
@@ -3825,7 +3825,7 @@ export const baseWeapon_160: IBaseConstants[] = [
     name: "앱솔랩스 슬래셔",
     description: null,
     class: "도적",
-    job: ["섀도어", "듀얼블레이드"],
+    job: ["섀도어", "듀얼블레이더"],
     icon: "https://avatar.maplestory.nexon.com/ItemIcon/KEMBJFGB.png",
     base_option: {
       str: "0",
@@ -4706,7 +4706,7 @@ export const baseWeapon_200: IBaseConstants[] = [
     name: "아케인셰이드 블레이드",
     description: null,
     class: "도적",
-    job: "듀얼블레이드",
+    job: "듀얼블레이더",
     icon: "https://avatar.maplestory.nexon.com/ItemIcon/KEMGJGPB.png",
     base_option: {
       str: "0",
@@ -4733,7 +4733,7 @@ export const baseWeapon_200: IBaseConstants[] = [
     name: "아케인셰이드 대거",
     description: null,
     class: "도적",
-    job: ["섀도어", "듀얼블레이드"],
+    job: ["섀도어", "듀얼블레이더"],
     icon: "https://avatar.maplestory.nexon.com/ItemIcon/KEMBJFHA.png",
     base_option: {
       str: "0",
@@ -5614,7 +5614,7 @@ export const baseWeapon_genesis: IBaseConstants[] = [
     name: "제네시스 대거",
     description: null,
     class: "도적",
-    job: ["섀도어", "듀얼블레이드"],
+    job: ["섀도어", "듀얼블레이더"],
     icon: "https://avatar.maplestory.nexon.com/ItemIcon/KEMBJFGI.png",
     base_option: {
       str: "0",
