@@ -43,7 +43,7 @@ export default function Home() {
             주의사항
           </span>
           <span>
-            데몬어벤져, 제논, 제로{" "}
+            데몬어벤져, 데몬슬레이어, 제논, 제로{" "}
             <span className="text-red-500 font-bold">사용불가</span>
           </span>
           <span>이벤트 스킬(ex. 드림 메신저) 수치는 직접 입력해야 합니다.</span>

@@ -112,7 +112,8 @@ const CharacterNamePage = () => {
     () =>
       basicInfo?.data?.character_class === "제논" ||
       basicInfo?.data?.character_class === "제로" ||
-      basicInfo?.data?.character_class === "데몬어벤져",
+      basicInfo?.data?.character_class === "데몬어벤져" ||
+      basicInfo?.data?.character_class === "데몬슬레이어",
     [basicInfo?.data?.character_class]
   );
 
@@ -321,7 +322,7 @@ const CharacterNamePage = () => {
       )
     )
   );
-
+  console.log("setEffects", setEffects.at(-1));
   return (
     <div
       className={cls(
