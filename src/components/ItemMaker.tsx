@@ -14,10 +14,11 @@ import ItemMakerHeader from "./ItemMakerHeader";
 import useItemEquipmentInfoStore from "@/models/itemEquipmentInfo";
 import { ICharacterSetEffect } from "@/types/characters/CharacterSetEffect";
 import { addingMap } from "@/utils/addingMap";
-import { SET_EFFECTS } from "@/constants/setEffects";
+import { SET_EFFECTS, SET_ITEM_NAME } from "@/constants/setEffects";
 import { CHARACTER_CLASS } from "@/constants/characterClass";
 import useAddOptionInfoStore from "@/models/addOptionInfo";
 import usePotentialOptionInfoStore from "@/models/potentialOptionInfo";
+import { removeSpace } from "@/utils/removeSpace";
 
 type ItemMakerProps = {
   onClickModalClose: () => void;
@@ -100,164 +101,58 @@ const ItemMaker = ({ onClickModalClose }: ItemMakerProps) => {
       ...copyLatestSetEffects,
     };
     const map = new Map<string, number>();
-    const RUTABIS = "루타비스";
-    const ABSOLUTE = "앱솔랩스";
-    const Arcane_Shade = "아케인셰이드";
-    const Eternel = "에테르넬";
+    const RUTABIS = SET_ITEM_NAME.Rutabis;
+    const ABSOLUTE = SET_ITEM_NAME.Absolute;
+    const Arcane_Shade = SET_ITEM_NAME.Arcane_Shade;
+    const Eternel = SET_ITEM_NAME.Eternel;
+    const BOSS = "BOSS";
+    const DAWN = "DAWN";
+    const BLACK = "BLACK";
+    const bossAcc = Object.values(SET_ITEM_NAME.BOSS_ACC);
+    const dawnAcc = Object.values(SET_ITEM_NAME.DAWN_BOSS_ACC);
+    const blackAcc = Object.values(SET_ITEM_NAME.BLACK_BOSS_ACC);
 
     const genGenesisWeaponSetEffect = () => {
       const mapItems = map.entries();
       const mapItemsArr = Array.from(mapItems);
       mapItemsArr.forEach(([key, value]) => {
-        if (value >= 3 && key !== Eternel) {
+        if (
+          value >= 3 &&
+          (key === RUTABIS || key === ABSOLUTE || key === Arcane_Shade)
+        ) {
           addingMap(map, key, 1);
         }
       });
     };
 
-    const genSetEffect = () => {
-      const characterClass =
-        CHARACTER_CLASS.find((characterClass) => {
-          return characterClass.jobs.includes(characterJob);
-        })?.class ?? null;
-      const mapItems = map.entries();
-      const mapItemsArr = Array.from(mapItems);
-      mapItemsArr.forEach(([key, value]) => {
-        if (key === RUTABIS) {
-          const setName = `${RUTABIS} 세트(${characterClass})`;
-          if (result.set_effect.find((el) => el.set_name === setName)) {
-            result.set_effect = result.set_effect.filter(
-              (el) => el.set_name !== setName
-            );
-          }
-          result.set_effect.push({
-            set_name: setName,
-            total_set_count: value,
-            set_effect_info: genSetEffectInfo(setName, value),
-          });
-        } else if (key === ABSOLUTE) {
-          const setName = `${ABSOLUTE} 세트(${characterClass})`;
-          if (result.set_effect.find((el) => el.set_name === setName)) {
-            result.set_effect = result.set_effect.filter(
-              (el) => el.set_name !== setName
-            );
-          }
-          result.set_effect.push({
-            set_name: setName,
-            total_set_count: value,
-            set_effect_info: genSetEffectInfo(`${ABSOLUTE} 세트`, value),
-          });
-        } else if (key === Arcane_Shade) {
-          const setName = `${Arcane_Shade} 세트(${characterClass})`;
-          if (result.set_effect.find((el) => el.set_name === setName)) {
-            result.set_effect = result.set_effect.filter(
-              (el) => el.set_name !== setName
-            );
-          }
-          result.set_effect.push({
-            set_name: setName,
-            total_set_count: value,
-            set_effect_info: genSetEffectInfo(`${Arcane_Shade} 세트`, value),
-          });
-        } else if (key === Eternel) {
-          const setName = `${Eternel} 세트(${characterClass})`;
-          if (result.set_effect.find((el) => el.set_name === setName)) {
-            result.set_effect = result.set_effect.filter(
-              (el) => el.set_name !== setName
-            );
-          }
-          result.set_effect.push({
-            set_name: setName,
-            total_set_count: value,
-            set_effect_info: genSetEffectInfo(`${Eternel} 세트`, value),
-          });
-        }
-      });
-    };
-
-    const genSetEffectInfo = (
-      setName: string,
-      value: number
-    ):
-      | {
-          set_count: number;
-          set_option: string;
-        }[] => {
-      return (
-        SET_EFFECTS.find(
-          (el) => el.set_name === setName
-        )?.set_effect_info.filter((el) => el.set_count <= value) ?? []
-      );
-    };
-
     //방어구 세트효과 계산
     itemEquipment.item_equipment.forEach((el) => {
-      if (el.item_equipment_slot === "모자") {
-        if (el.item_name.includes("하이네스")) {
-          addingMap(map, RUTABIS, 1);
-        } else if (el.item_name.includes(ABSOLUTE)) {
-          addingMap(map, ABSOLUTE, 1);
-        } else if (el.item_name.includes(Arcane_Shade)) {
-          addingMap(map, Arcane_Shade, 1);
-        } else if (el.item_name.includes(Eternel)) {
-          addingMap(map, Eternel, 1);
-        }
-      }
+      const itemName = el.item_name;
+      if (el.item_equipment_slot === "보조무기") return;
       if (
-        el.item_equipment_slot === "상의" ||
-        el.item_equipment_slot === "한벌옷"
+        itemName.includes("하이네스") ||
+        itemName.includes("이글아이") ||
+        itemName.includes("트릭스터")
       ) {
-        if (el.item_name.includes("이글아이")) {
-          addingMap(map, RUTABIS, 1);
-        } else if (el.item_name.includes(ABSOLUTE)) {
-          addingMap(map, ABSOLUTE, 1);
-        } else if (el.item_name.includes(Arcane_Shade)) {
-          addingMap(map, Arcane_Shade, 1);
-        } else if (el.item_name.includes(Eternel)) {
-          addingMap(map, Eternel, 1);
-        }
-      } else if (el.item_equipment_slot === "하의") {
-        if (el.item_name.includes("트릭스터")) {
-          addingMap(map, RUTABIS, 1);
-        } else if (el.item_name.includes(ABSOLUTE)) {
-          addingMap(map, ABSOLUTE, 1);
-        } else if (el.item_name.includes(Arcane_Shade)) {
-          addingMap(map, Arcane_Shade, 1);
-        } else if (el.item_name.includes(Eternel)) {
-          addingMap(map, Eternel, 1);
-        }
-      } else if (el.item_equipment_slot === "신발") {
-        if (el.item_name.includes(ABSOLUTE)) {
-          addingMap(map, ABSOLUTE, 1);
-        } else if (el.item_name.includes(Arcane_Shade)) {
-          addingMap(map, Arcane_Shade, 1);
-        } else if (el.item_name.includes(Eternel)) {
-          addingMap(map, Eternel, 1);
-        }
-      } else if (el.item_equipment_slot === "어깨장식") {
-        if (el.item_name.includes(ABSOLUTE)) {
-          addingMap(map, ABSOLUTE, 1);
-        } else if (el.item_name.includes(Arcane_Shade)) {
-          addingMap(map, Arcane_Shade, 1);
-        } else if (el.item_name.includes(Eternel)) {
-          addingMap(map, Eternel, 1);
-        }
-      } else if (el.item_equipment_slot === "장갑") {
-        if (el.item_name.includes(ABSOLUTE)) {
-          addingMap(map, ABSOLUTE, 1);
-        } else if (el.item_name.includes(Arcane_Shade)) {
-          addingMap(map, Arcane_Shade, 1);
-        } else if (el.item_name.includes(Eternel)) {
-          addingMap(map, Eternel, 1);
-        }
-      } else if (el.item_equipment_slot === "망토") {
-        if (el.item_name.includes(ABSOLUTE)) {
-          addingMap(map, ABSOLUTE, 1);
-        } else if (el.item_name.includes(Arcane_Shade)) {
-          addingMap(map, Arcane_Shade, 1);
-        } else if (el.item_name.includes(Eternel)) {
-          addingMap(map, Eternel, 1);
-        }
+        addingMap(map, RUTABIS, 1);
+      } else if (el.item_name.includes(ABSOLUTE)) {
+        addingMap(map, ABSOLUTE, 1);
+      } else if (el.item_name.includes(Arcane_Shade)) {
+        addingMap(map, Arcane_Shade, 1);
+      } else if (el.item_name.includes(Eternel)) {
+        addingMap(map, Eternel, 1);
+      }
+    });
+
+    //장신구 세트효과 계산
+    itemEquipment.item_equipment.forEach((el) => {
+      const itemName = removeSpace(el.item_name);
+      if (bossAcc.includes(itemName)) {
+        addingMap(map, BOSS, 1);
+      } else if (dawnAcc.includes(itemName)) {
+        addingMap(map, DAWN, 1);
+      } else if (blackAcc.includes(itemName)) {
+        addingMap(map, BLACK, 1);
       }
     });
 
@@ -277,9 +172,73 @@ const ItemMaker = ({ onClickModalClose }: ItemMakerProps) => {
       }
     });
 
+    const genSetName = (key: string, characterClass: string | null) => {
+      let setName = "";
+      let convertSetName = "";
+      if (key === RUTABIS) {
+        setName = `${RUTABIS} 세트(${characterClass})`;
+        convertSetName = `${RUTABIS} 세트(${characterClass})`;
+      } else if (key === ABSOLUTE) {
+        setName = `${ABSOLUTE} 세트(${characterClass})`;
+        convertSetName = `${ABSOLUTE} 세트`;
+      } else if (key === Arcane_Shade) {
+        setName = `${Arcane_Shade} 세트(${characterClass})`;
+        convertSetName = `${Arcane_Shade} 세트`;
+      } else if (key === Eternel) {
+        setName = `${Eternel} 세트(${characterClass})`;
+        convertSetName = `${Eternel} 세트`;
+      } else if (key === BOSS) {
+        setName = `보스 장신구 세트`;
+        convertSetName = `보스 장신구 세트`;
+      } else if (key === DAWN) {
+        setName = "여명의 보스 세트";
+        convertSetName = "여명의 보스 세트";
+      } else if (key == BLACK) {
+        setName = "칠흑의 보스 세트";
+        convertSetName = "칠흑의 보스 세트";
+      }
+      return { setName, convertSetName };
+    };
+
+    const genSetEffect = () => {
+      const characterClass =
+        CHARACTER_CLASS.find((characterClass) => {
+          return characterClass.jobs.includes(characterJob);
+        })?.class ?? null;
+      const mapItems = map.entries();
+      const mapItemsArr = Array.from(mapItems);
+      mapItemsArr.forEach(([key, value]) => {
+        const { setName, convertSetName } = genSetName(key, characterClass);
+        if (result.set_effect.find((el) => el.set_name === setName)) {
+          result.set_effect = result.set_effect.filter(
+            (el) => el.set_name !== setName
+          );
+        }
+        result.set_effect.push({
+          set_name: setName,
+          total_set_count: value,
+          set_effect_info: genSetEffectInfo(convertSetName, value),
+        });
+      });
+    };
+
+    const genSetEffectInfo = (
+      setName: string,
+      value: number
+    ):
+      | {
+          set_count: number;
+          set_option: string;
+        }[] => {
+      return (
+        SET_EFFECTS.find(
+          (el) => el.set_name === setName
+        )?.set_effect_info.filter((el) => el.set_count <= value) ?? []
+      );
+    };
+
     //map을 가지고 세트효과 계산
     genSetEffect();
-
     return result;
   };
 
