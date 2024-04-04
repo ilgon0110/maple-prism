@@ -25,90 +25,127 @@ const AddOption = ({ itemLevel }: { itemLevel: number | undefined }) => {
     setSelectedRightOptions,
   } = useAddOptionInfoStore();
 
-  const genEquipmentRightOptionsByItemLevel = (
+  const genRightOptions = (
     itemLevel: number | undefined,
     leftOption: string
-  ) => {
-    let result: string[] = [];
-    if (itemLevel === 150) {
-      result =
-        ADD_OPTIONS_150_EQUIPMENT.find((item) => item.kind.includes(leftOption))
-          ?.value || [];
+  ): string[] => {
+    itemLevel = itemLevel === 250 ? 220 : itemLevel;
+    const result: string[] = ["---"];
+    const addSingleOptionStats = ["STR", "DEX", "INT", "LUK"];
+    const addDoubleOptionStats = [
+      "STR + DEX",
+      "STR + INT",
+      "STR + LUK",
+      "DEX + INT",
+      "DEX + LUK",
+      "INT + LUK",
+    ];
+    const addSingleOptionStatsWithHPMP = ["최대 HP", "최대 MP"];
+    const addSingleOptionStatsWithArmor = ["방어력"];
+    const addSingleOptionStatsWithSpeedJump = ["이동속도", "점프력"];
+    const addSingleOptionStatsWithAllStat = ["올스탯 %"];
+    const addSingleOptionStatsWithEquipmentLevelDecrease = ["착용 레벨 감소"];
+    const addSingleOptionStatsWithPower = ["공격력", "마력"];
+    const addSingleOptionStatsWithBossDamage = ["보스 몬스터 공격 시 데미지 %"];
+    const addSingleOptionStatsWithDamage = ["데미지 %"];
+    if (itemLevel === undefined) return result;
+    //방어구, 장신구
+    if (addSingleOptionStats.includes(leftOption)) {
+      for (let i = 1; i <= 7; i++) {
+        result.push(`+${(Math.floor(itemLevel / 20) + 1) * i} (${i}등급)`);
+      }
     }
-    if (itemLevel === 160) {
-      result =
-        ADD_OPTIONS_160_EQUIPMENT.find((item) => item.kind.includes(leftOption))
-          ?.value || [];
+    if (addDoubleOptionStats.includes(leftOption)) {
+      for (let i = 1; i <= 7; i++) {
+        result.push(`+${(Math.floor(itemLevel / 40) + 1) * i} (${i}등급)`);
+      }
     }
-    if (itemLevel === 200) {
-      result =
-        ADD_OPTIONS_200_EQUIPMENT.find((item) => item.kind.includes(leftOption))
-          ?.value || [];
+    if (addSingleOptionStatsWithHPMP.includes(leftOption)) {
+      for (let i = 1; i <= 7; i++) {
+        result.push(`+${itemLevel * 3 * i} (${i}등급)`);
+      }
     }
-    if (itemLevel === 250) {
-      result =
-        ADD_OPTIONS_250_EQUIPMENT.find((item) => item.kind.includes(leftOption))
-          ?.value || [];
+    if (addSingleOptionStatsWithArmor.includes(leftOption)) {
+      for (let i = 1; i <= 7; i++) {
+        result.push(`+${(Math.floor(itemLevel / 20) + 1) * i} (${i}등급)`);
+      }
+    }
+    if (addSingleOptionStatsWithSpeedJump.includes(leftOption)) {
+      for (let i = 1; i <= 7; i++) {
+        result.push(`+${i} (${i}등급)`);
+      }
+    }
+    if (
+      addSingleOptionStatsWithAllStat.includes(leftOption) &&
+      itemLevel >= 70
+    ) {
+      for (let i = 1; i <= 7; i++) {
+        result.push(`+${i}% (${i}등급)`);
+      }
+    }
+    if (addSingleOptionStatsWithEquipmentLevelDecrease.includes(leftOption)) {
+      for (let i = 1; i <= 7; i++) {
+        result.push(`-${5 * i} (${i}등급)`);
+      }
+    }
+    if (addSingleOptionStatsWithPower.includes(leftOption)) {
+      if (itemSlot !== "무기") {
+        for (let i = 1; i <= 7; i++) {
+          result.push(`+${i} (${i}등급)`);
+        }
+      } else {
+        if (leftOption === "공격력") {
+          const attackPowers = getAddAttackPower(
+            itemData?.item_base_option.attack_power !== "0"
+              ? Number(itemData?.item_base_option.attack_power)
+              : Number(itemData?.item_base_option.magic_power),
+            itemLevel
+          );
+          return attackPowers
+            .sort((a, b) => a.value - b.value)
+            .map((item, idx) => {
+              return `+${item.value} (${idx + 3}등급)`;
+            });
+        }
+        if (leftOption === "마력") {
+          const magicPowers = getAddAttackPower(
+            itemData?.item_base_option.magic_power !== "0"
+              ? Number(itemData?.item_base_option.magic_power)
+              : Number(itemData.item_base_option.attack_power),
+            itemLevel
+          );
+          return magicPowers
+            .sort((a, b) => a.value - b.value)
+            .map((item, idx) => {
+              return `+${item.value} (${idx + 3}등급)`;
+            });
+        }
+      }
+    }
+    if (
+      addSingleOptionStatsWithBossDamage.includes(leftOption) &&
+      itemLevel >= 90
+    ) {
+      for (let i = 1; i <= 7; i++) {
+        result.push(`+${i * 2}% (${i}등급)`);
+      }
+    }
+    if (addSingleOptionStatsWithDamage.includes(leftOption)) {
+      for (let i = 1; i <= 7; i++) {
+        result.push(`+${i}% (${i}등급)`);
+      }
     }
     return result;
   };
-  const attackPowers = getAddAttackPower(
-    itemData?.item_base_option.attack_power !== "0"
-      ? Number(itemData?.item_base_option.attack_power)
-      : Number(itemData?.item_base_option.magic_power),
-    itemLevel || undefined
-  );
-  const magicPowers = getAddAttackPower(
-    itemData?.item_base_option.magic_power !== "0"
-      ? Number(itemData?.item_base_option.magic_power)
-      : Number(itemData.item_base_option.attack_power),
-    itemLevel || undefined
-  );
-  const genWeaponRightOptionsByItemLevel = (
-    itemLevel: number | undefined,
-    leftOption: string
-  ) => {
-    let result = genEquipmentRightOptionsByItemLevel(itemLevel, leftOption);
-    if (leftOption === "공격력") {
-      result = attackPowers
-        .sort((a, b) => a.value - b.value)
-        .map((item, idx) => {
-          return `+${item.value} (${idx + 3}등급)`;
-        });
-    }
-    if (leftOption === "마력") {
-      result = magicPowers
-        .sort((a, b) => a.value - b.value)
-        .map((item, idx) => {
-          return `+${item.value} (${idx + 3}등급)`;
-        });
-    }
-    if (leftOption === "보스 몬스터 공격 시 데미지 %") {
-      result =
-        ADD_OPTIONS_WEAPON.find((item) => item.kind.includes(leftOption))
-          ?.value || [];
-    }
-    if (leftOption === "데미지 %") {
-      result =
-        ADD_OPTIONS_WEAPON.find((item) => item.kind.includes(leftOption))
-          ?.value || [];
-    }
-    return result;
-  };
-  const onChangeRightOption = (leftOption: string, index: number) => {
-    let result: string[];
-    if (itemSlot !== "무기") {
-      result = genEquipmentRightOptionsByItemLevel(itemLevel, leftOption);
-    }
-    if (itemSlot === "무기") {
-      result = genWeaponRightOptionsByItemLevel(itemLevel, leftOption);
-    }
 
+  const onChangeRightOption = (leftOption: string, index: number) => {
+    const result = genRightOptions(itemLevel, leftOption);
     const copyRightOptions = rightOptions.map((item, idx) => {
       return idx === index ? result : item;
     });
     setRightOptions(copyRightOptions);
   };
+
   const onClickLeftList = (inputString: string, index: number) => {
     onChangeRightOption(inputString, index);
 
@@ -159,6 +196,7 @@ const AddOption = ({ itemLevel }: { itemLevel: number | undefined }) => {
         return "";
     }
   };
+
   const extractNumber = (inputString: string) => {
     const result = inputString.match(/\d+/g);
     return result ? parseInt(result[0]) : 0;
