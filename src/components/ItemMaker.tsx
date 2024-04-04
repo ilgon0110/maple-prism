@@ -77,7 +77,7 @@ const ItemMaker = ({ onClickModalClose }: ItemMakerProps) => {
     setItemData(updateItemEquipmentToPure(value));
     setPureItemData(updateItemEquipmentToPure(value));
   };
-  const [category, setCategory] = useState("추가옵션");
+  const [category, setCategory] = useState("---");
   const itemLevel = itemData?.item_base_option.base_equipment_level;
   const onClickCategory = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     setCategory(e.currentTarget.innerText);

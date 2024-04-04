@@ -17,21 +17,23 @@ const ItemMakerHeader = ({
     itemData.scroll_upgrade === "0" &&
     itemData.starforce === "0";
   const isCanStarForce = itemData?.scroll_upgradeable_count === "0";
+  const isNotAddOptionItem =
+    itemData?.item_equipment_part === "엠블렘" ||
+    itemData?.item_equipment_part === "반지" ||
+    itemData?.item_equipment_part === "뱃지" ||
+    itemData?.item_equipment_part === "보조무기" ||
+    itemData?.item_equipment_part === "기계 심장";
   return (
     <ul className="w-full space-x-5 text-sm text-gray-300 flex justify-center items-center mt-5 lg:block">
       <li
         className={cls(
           "float-left",
           category === "추가옵션" ? "text-indigo-600" : "",
-          itemData?.item_equipment_slot === "엠블렘"
+          isNotAddOptionItem
             ? "text-black opacity-10 hover:cursor-not-allowed"
             : "hover:cursor-pointer"
         )}
-        onClick={(e) =>
-          itemData?.item_equipment_slot === "엠블렘"
-            ? () => {}
-            : onClickCategory(e)
-        }
+        onClick={(e) => (isNotAddOptionItem ? () => {} : onClickCategory(e))}
       >
         추가옵션
         {category === "추가옵션" && (
