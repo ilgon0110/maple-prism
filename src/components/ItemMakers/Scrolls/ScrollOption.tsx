@@ -1,13 +1,9 @@
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
 import { PIECE_OF_SCROLL } from "@/constants/reinforcement";
 import useItemMakerInfoStore from "@/models/itemMakerInfo";
 import { cls } from "@/utils/cls";
-import { CHARACTER_CLASS } from "@/constants/characterClass";
-import uuid from "react-uuid";
 import Scrollbars from "react-custom-scrollbars-2";
 import MySelect from "../../common/MySelect";
-import ScrollButton from "./ScrollButton";
 import ChaosInput from "./ChaosInput";
 import { IItemEquipment } from "@/types/characters/CharacterItemEquipment";
 import ScrollHeader from "./ScrollHeader";
@@ -64,8 +60,6 @@ const ScrollOption = ({ itemLevel }: ScrollOptionProps) => {
   const scrollPercent = PIECE_OF_SCROLL.find(
     (el) => el.type === myItemSlot
   )?.values.map((v) => v.reinforce_stat.map((el) => el.percent))[0];
-  const STATS = ["STR", "DEX", "INT", "LUK"];
-  const POWERS = ["공격력", "마력"];
   const isCanSubmitChaosScrollButton = chaosScrollStats.every(
     (el) => el.value !== null
   );
@@ -138,9 +132,11 @@ const ScrollOption = ({ itemLevel }: ScrollOptionProps) => {
   const onChangeSelectScrollType = (inputString: string) => {
     setSelectedScrollType(inputString);
   };
-  const powerOption = ["1", "2", "3", "4", "5"];
-  const [selectedAttackPower, setSelectedAttackPower] = useState("1");
-  const [selectedMagicPower, setSelectedMagicPower] = useState("1");
+  const powerOption = ["0", "1", "2", "3", "4", "5"];
+  const [selectedAttackPower, setSelectedAttackPower] = useState("0");
+  const [selectedMagicPower, setSelectedMagicPower] = useState("0");
+  const isValidPowerSubmit =
+    selectedAttackPower !== "0" || selectedMagicPower !== "0";
   const onChangeSelectAttackPower = (inputString: string) => {
     setSelectedAttackPower(inputString);
   };
@@ -243,17 +239,9 @@ const ScrollOption = ({ itemLevel }: ScrollOptionProps) => {
           selectedOption={selectedScrollType}
           onChangeSelectOption={onChangeSelectScrollType}
         />
-        <div className="w-full flex flex-row justify-center items-center border border-slate-200 rounded">
-          <PieceOfScrollPercentHeader
-            selectedScrollPercent={selectedScrollPercent}
-            selectedScrollType={selectedScrollType}
-            scrollPercent={scrollPercent}
-            onClickPieceOfScrollPercentButton={
-              onClickPieceOfScrollPercentButton
-            }
-          />
+        <Scrollbars autoHide autoHeight>
           {selectedScrollType === "공격력/마력 주문서" && (
-            <div className=" mt-5 w-full">
+            <div className="mt-5 w-full">
               <div className="flex flex-row gap-1 justify-between sm:px-10 w-full item-center">
                 <div className="w-full">
                   <span>공격력</span>
@@ -274,90 +262,100 @@ const ScrollOption = ({ itemLevel }: ScrollOptionProps) => {
               </div>
               <div className="w-full sm:px-10">
                 <button
-                  className="w-full h-8 mt-5 border border-slate-200 rounded text-sm hover:border-slate-400 duration-300 transform ease-in-out"
+                  className={cls(
+                    "w-full h-8 mt-5 border border-slate-200 rounded text-sm duration-300 transform ease-in-out",
+                    isValidPowerSubmit
+                      ? "hover:border-slate-400"
+                      : "hover:cursor-default opacity-30"
+                  )}
                   onClick={onClickPowerScrollButton}
+                  disabled={!isValidPowerSubmit}
                 >
                   적용
                 </button>
               </div>
             </div>
           )}
-        </div>
-        <Scrollbars autoHide autoHeight>
-          <div className="flex flex-col gap-4">
-            <PieceOfScrollBody
-              selectedScrollType={selectedScrollType}
-              itemLevel={itemLevel}
-              myItemSlot={myItemSlot}
-              scrollPercent={scrollPercent}
-              selectedScrollPercent={selectedScrollPercent}
-            />
-            {selectedScrollType === "혼돈의 주문서" && (
-              <div>
-                {chaosScrollStats.map((el) => {
-                  return (
-                    <ChaosInput
-                      key={el.stat}
-                      stat={el.stat}
-                      value={el.value}
-                      onAddValue={onAddChaosScrollStat}
-                      onDescendValue={onDescendChaosScrollStat}
-                    />
-                  );
-                })}
-                <div className="flex items-center">
-                  {/* <!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" --> */}
-                  <button
-                    type="button"
-                    className={cls(
-                      "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2",
-                      isRandomChaosScroll ? "bg-indigo-600" : "bg-gray-200"
-                    )}
-                    role="switch"
-                    aria-checked="false"
-                    aria-labelledby="annual-billing-label"
-                    onClick={
-                      isRandomChaosScroll
-                        ? onClickRandomChaosScrollToFalse
-                        : onClickRandomChaosScrollToTrue
-                    }
-                  >
-                    {/* <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" --> */}
-                    <span
-                      aria-hidden="true"
-                      className={cls(
-                        "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
-                        isRandomChaosScroll ? "translate-x-5" : "translate-x-0"
-                      )}
-                    ></span>
-                  </button>
-                  <span
-                    className="ml-3 text-xs sm:text-sm"
-                    id="annual-billing-label"
-                  >
-                    <span className="font-medium text-gray-900">
-                      빈 스탯을 임의의 놀긍혼 수치로 설정
-                    </span>
-                  </span>
-                </div>
-                <div className="text-sm text-amber-500 text-center">
-                  {chaosScrollStatInputString}
-                </div>
+          {selectedScrollType === "주문의 흔적" && (
+            <div className="flex flex-col gap-4">
+              <PieceOfScrollPercentHeader
+                selectedScrollPercent={selectedScrollPercent}
+                scrollPercent={scrollPercent}
+                onClickPieceOfScrollPercentButton={
+                  onClickPieceOfScrollPercentButton
+                }
+              />
+              <PieceOfScrollBody
+                itemLevel={itemLevel}
+                myItemSlot={myItemSlot}
+                scrollPercent={scrollPercent}
+                selectedScrollPercent={selectedScrollPercent}
+              />
+            </div>
+          )}
+          {selectedScrollType === "혼돈의 주문서" && (
+            <div className="flex flex-col gap-4">
+              {chaosScrollStats.map((el) => {
+                return (
+                  <ChaosInput
+                    key={el.stat}
+                    stat={el.stat}
+                    value={el.value}
+                    onAddValue={onAddChaosScrollStat}
+                    onDescendValue={onDescendChaosScrollStat}
+                  />
+                );
+              })}
+              <div className="flex items-center">
                 <button
+                  type="button"
                   className={cls(
-                    "w-full h-8 border border-slate-200 rounded text-sm",
-                    isCanSubmitChaosScrollButton
-                      ? "hover:border-slate-400"
-                      : "text-gray-300"
+                    "relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2",
+                    isRandomChaosScroll ? "bg-indigo-600" : "bg-gray-200"
                   )}
-                  onClick={onClickChaosScrollButton}
-                  disabled={!isCanSubmitChaosScrollButton}
+                  role="switch"
+                  aria-checked="false"
+                  aria-labelledby="annual-billing-label"
+                  onClick={
+                    isRandomChaosScroll
+                      ? onClickRandomChaosScrollToFalse
+                      : onClickRandomChaosScrollToTrue
+                  }
                 >
-                  적용
+                  <span
+                    aria-hidden="true"
+                    className={cls(
+                      "pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out",
+                      isRandomChaosScroll ? "translate-x-5" : "translate-x-0"
+                    )}
+                  ></span>
                 </button>
+                <span
+                  className="ml-3 text-xs sm:text-sm"
+                  id="annual-billing-label"
+                >
+                  <span className="font-medium text-gray-900">
+                    빈 스탯을 임의의 놀긍혼 수치로 설정
+                  </span>
+                </span>
               </div>
-            )}
-          </div>
+              <div className="text-sm text-amber-500 text-center">
+                {chaosScrollStatInputString}
+              </div>
+              <button
+                className={cls(
+                  "w-full h-8 border border-slate-200 rounded text-sm",
+                  isCanSubmitChaosScrollButton
+                    ? "hover:border-slate-400"
+                    : "text-gray-300"
+                )}
+                onClick={onClickChaosScrollButton}
+                disabled={!isCanSubmitChaosScrollButton}
+              >
+                적용
+              </button>
+            </div>
+          )}
         </Scrollbars>
       </div>
     </div>

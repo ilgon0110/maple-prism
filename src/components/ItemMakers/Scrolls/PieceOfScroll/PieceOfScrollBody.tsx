@@ -5,7 +5,6 @@ import { PIECE_OF_SCROLL } from "@/constants/reinforcement";
 import { IItemEquipment } from "@/types/characters/CharacterItemEquipment";
 
 type PieceOfScrollBodyProps = {
-  selectedScrollType: string;
   myItemSlot: string;
   itemLevel: number | undefined;
   scrollPercent: number[] | undefined;
@@ -13,7 +12,6 @@ type PieceOfScrollBodyProps = {
 };
 
 const PieceOfScrollBody = ({
-  selectedScrollType,
   myItemSlot,
   itemLevel,
   scrollPercent,
@@ -24,7 +22,7 @@ const PieceOfScrollBody = ({
   const { itemData, setItemData } = useItemMakerInfoStore();
   const isWeapon = myItemSlot === "weapon" || myItemSlot === "glove";
 
-  const upgradeByStatInArmor = (stat: string, value: number) => {
+  const upgradeByStatInEquipment = (stat: string, value: number): void => {
     let copyItemData = { ...itemData } as IItemEquipment;
     const addStat =
       Number(
@@ -47,20 +45,21 @@ const PieceOfScrollBody = ({
     setItemData({ ...copyItemData });
   };
 
-  const upgradeByAllStatInArmor = (value: number) => {
+  const upgradeByAllStatInEquipment = (value: number): void => {
     let copyItemData = { ...itemData } as IItemEquipment;
     STATS.forEach((stat) => {
+      const lowerStat = stat.toLowerCase();
       const addStat =
         Number(
           copyItemData.item_etc_option[
-            stat.toLowerCase() as keyof typeof copyItemData.item_etc_option
+            lowerStat as keyof typeof copyItemData.item_etc_option
           ]
         ) + value;
       copyItemData = {
         ...copyItemData,
         item_etc_option: {
           ...copyItemData.item_etc_option,
-          [stat]: addStat,
+          [lowerStat]: addStat,
         },
       };
     });
@@ -143,20 +142,20 @@ const PieceOfScrollBody = ({
       ?.reinforce_stat.find((el) => el.percent === percent);
     if (selectScrollStats === undefined) return;
     if (itemData?.scroll_upgradeable_count === "0") return;
-    if (
+    const isValidStatAndEquipment =
       stat &&
       STATS.includes(stat) &&
-      myItemSlot == "armor" &&
-      "up_stat" in selectScrollStats
-    ) {
-      upgradeByStatInArmor(stat.toLowerCase(), selectScrollStats.up_stat);
-    }
-    if (
+      (myItemSlot === "armor" || myItemSlot === "accessory") &&
+      "up_stat" in selectScrollStats;
+    const isValidAllStatAndEquipment =
       stat === "올스탯" &&
-      myItemSlot === "armor" &&
-      "up_all_stat" in selectScrollStats
-    ) {
-      upgradeByAllStatInArmor(selectScrollStats.up_all_stat);
+      (myItemSlot === "armor" || myItemSlot === "accessory") &&
+      "up_all_stat" in selectScrollStats;
+    if (isValidStatAndEquipment) {
+      upgradeByStatInEquipment(stat.toLowerCase(), selectScrollStats.up_stat);
+    }
+    if (isValidAllStatAndEquipment) {
+      upgradeByAllStatInEquipment(selectScrollStats.up_all_stat);
     }
     if (stat && myItemSlot === "weapon" && "up_stat" in selectScrollStats) {
       upgradeByStatInWeapon({
@@ -180,8 +179,7 @@ const PieceOfScrollBody = ({
   };
   return (
     <>
-      {selectedScrollType === "주문의 흔적" &&
-        myItemSlot === "armor" &&
+      {myItemSlot === "armor" &&
         scrollPercent
           ?.filter((percent) => percent === selectedScrollPercent)
           .map((percent) => {
@@ -197,8 +195,7 @@ const PieceOfScrollBody = ({
               );
             });
           })}
-      {selectedScrollType === "주문의 흔적" &&
-        myItemSlot === "armor" &&
+      {myItemSlot === "armor" &&
         scrollPercent
           ?.filter(
             (percent) => percent <= 30 && percent === selectedScrollPercent
@@ -214,8 +211,39 @@ const PieceOfScrollBody = ({
               />
             );
           })}
-      {selectedScrollType === "주문의 흔적" &&
-        myItemSlot === "weapon" &&
+      {myItemSlot === "accessory" &&
+        scrollPercent
+          ?.filter((percent) => percent === selectedScrollPercent)
+          .map((percent) => {
+            return STATS.map((stat) => {
+              return (
+                <ScrollButton
+                  key={uuid()}
+                  percent={percent}
+                  stat={stat}
+                  onClickScrollButton={onClickScrollButton}
+                  upgradableCount={itemData?.scroll_upgradeable_count}
+                />
+              );
+            });
+          })}
+      {myItemSlot === "accessory" &&
+        scrollPercent
+          ?.filter(
+            (percent) => percent <= 30 && percent === selectedScrollPercent
+          )
+          .map((percent) => {
+            return (
+              <ScrollButton
+                key={uuid()}
+                percent={percent}
+                stat="올스탯"
+                onClickScrollButton={onClickScrollButton}
+                upgradableCount={itemData?.scroll_upgradeable_count}
+              />
+            );
+          })}
+      {myItemSlot === "weapon" &&
         scrollPercent
           ?.filter((percent) => percent === selectedScrollPercent)
           .map((percent) => {
@@ -235,8 +263,7 @@ const PieceOfScrollBody = ({
               });
             });
           })}
-      {selectedScrollType === "주문의 흔적" &&
-        myItemSlot === "glove" &&
+      {myItemSlot === "glove" &&
         scrollPercent
           ?.filter((percent) => percent === selectedScrollPercent)
           .map((percent) => {
