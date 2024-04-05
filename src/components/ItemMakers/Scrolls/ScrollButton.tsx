@@ -24,18 +24,21 @@ const ScrollButton = ({
 }: ScrollButtonProps) => {
   const covertToKorStat = (stat: string | undefined) => {
     if (stat === "STR") {
-      return "힘";
+      return "(힘)";
     }
     if (stat === "DEX") {
-      return "민첩";
+      return "(민첩)";
     }
     if (stat === "INT") {
-      return "지능";
+      return "(지능)";
     }
     if (stat === "LUK") {
-      return "운";
+      return "(운)";
     }
-    return "올스탯";
+    if (stat === " ") {
+      return "";
+    }
+    return "(올스탯)";
   };
   const getScrollImage = (percent: number) => {
     switch (percent) {
@@ -69,7 +72,7 @@ const ScrollButton = ({
       />
       <span>
         {isWeapon
-          ? `${percent}% ${powerType}(${covertToKorStat(stat)}) 주문서`
+          ? `${percent}% ${powerType}${covertToKorStat(stat)} 주문서`
           : `${percent}% ${covertToKorStat(stat)} 주문서`}
       </span>
     </button>

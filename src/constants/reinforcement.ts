@@ -398,4 +398,67 @@ export const PIECE_OF_SCROLL = [
       },
     ],
   },
+  {
+    type: "heart",
+    values: [
+      {
+        level: 30,
+        reinforce_stat: [
+          {
+            percent: 100,
+            up_attack_power: 1,
+            up_magic_power: 1,
+            up_stat: 0,
+            up_hp: 0,
+            up_all_stat: 0,
+          },
+          {
+            percent: 70,
+            up_attack_power: 2,
+            up_magic_power: 2,
+            up_stat: 0,
+            up_hp: 0,
+            up_all_stat: 0,
+          },
+          {
+            percent: 30,
+            up_attack_power: 3,
+            up_magic_power: 3,
+            up_stat: 0,
+            up_hp: 0,
+            up_all_stat: 0,
+          },
+        ],
+      },
+      {
+        level: 200,
+        reinforce_stat: [
+          {
+            percent: 100,
+            up_attack_power: 2,
+            up_magic_power: 2,
+            up_stat: 0,
+            up_hp: 0,
+            up_all_stat: 0,
+          },
+          {
+            percent: 70,
+            up_attack_power: 3,
+            up_magic_power: 3,
+            up_stat: 0,
+            up_hp: 0,
+            up_all_stat: 0,
+          },
+          {
+            percent: 30,
+            up_attack_power: 5,
+            up_magic_power: 5,
+            up_stat: 0,
+            up_hp: 0,
+            up_all_stat: 0,
+          },
+        ],
+      },
+    ],
+  },
 ];

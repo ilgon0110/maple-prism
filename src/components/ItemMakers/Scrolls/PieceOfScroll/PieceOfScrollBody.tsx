@@ -20,8 +20,10 @@ const PieceOfScrollBody = ({
   const STATS = ["STR", "DEX", "INT", "LUK"];
   const POWERS = ["공격력", "마력"];
   const { itemData, setItemData } = useItemMakerInfoStore();
-  const isWeapon = myItemSlot === "weapon" || myItemSlot === "glove";
-
+  const isWeapon =
+    myItemSlot === "weapon" || myItemSlot === "glove" || myItemSlot === "heart";
+  console.log("scrollPercent", scrollPercent);
+  console.log("myItemSlot", myItemSlot);
   const upgradeByStatInEquipment = (stat: string, value: number): void => {
     let copyItemData = { ...itemData } as IItemEquipment;
     const addStat =
@@ -110,7 +112,7 @@ const PieceOfScrollBody = ({
     setItemData({ ...copyItemData });
   };
 
-  const upgradeGlove = (powerType: string, value: number) => {
+  const upgradeOnlyPower = (powerType: string, value: number) => {
     let copyItemData = { ...itemData } as IItemEquipment;
     const addPower =
       powerType === "공격력"
@@ -168,8 +170,8 @@ const PieceOfScrollBody = ({
             : selectScrollStats.up_magic_power,
       });
     }
-    if (myItemSlot === "glove" && powerType) {
-      upgradeGlove(
+    if ((myItemSlot === "glove" || myItemSlot === "heart") && powerType) {
+      upgradeOnlyPower(
         powerType,
         powerType === "공격력"
           ? selectScrollStats.up_attack_power
@@ -281,6 +283,24 @@ const PieceOfScrollBody = ({
                   />
                 );
               });
+            });
+          })}
+      {myItemSlot === "heart" &&
+        scrollPercent
+          ?.filter((percent) => percent === selectedScrollPercent)
+          .map((percent) => {
+            return POWERS.map((power) => {
+              return (
+                <ScrollButton
+                  key={uuid()}
+                  percent={percent}
+                  stat={" "}
+                  onClickScrollButton={onClickScrollButton}
+                  upgradableCount={itemData?.scroll_upgradeable_count}
+                  isWeapon={isWeapon}
+                  powerType={power}
+                />
+              );
             });
           })}
     </>

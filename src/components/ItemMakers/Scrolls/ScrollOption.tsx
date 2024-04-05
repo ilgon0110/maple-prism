@@ -36,7 +36,7 @@ const ScrollOption = ({ itemLevel }: ScrollOptionProps) => {
   //   (item) => item.item_equipment_slot
   // );
 
-  const weaponSlotName = ["무기", "보조무기", "기계 심장"];
+  const weaponSlotName = ["무기", "보조무기"];
   const armorSlotName = ["모자", "상의", "하의", "신발", "망토", "한벌옷"];
   const accessorySlotName = [
     "벨트",
@@ -55,6 +55,8 @@ const ScrollOption = ({ itemLevel }: ScrollOptionProps) => {
     ? "armor"
     : itemSlot === "장갑"
     ? "glove"
+    : itemSlot === "기계 심장"
+    ? "heart"
     : "accessory";
   const [selectedScrollType, setSelectedScrollType] = useState(scrollType[0]);
   const scrollPercent = PIECE_OF_SCROLL.find(
