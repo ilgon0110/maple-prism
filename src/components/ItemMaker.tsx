@@ -33,6 +33,7 @@ const ItemMaker = ({ onClickModalClose }: ItemMakerProps) => {
     setItemData,
     setPureItemData,
     setMakerModalOpen,
+    setBlackHeart,
   } = useItemMakerInfoStore();
   const { itemEquipments, appendItemEquipment, appendSetEffect, setEffects } =
     useItemEquipmentInfoStore();
@@ -74,6 +75,10 @@ const ItemMaker = ({ onClickModalClose }: ItemMakerProps) => {
   };
 
   const onClickItem = (value: IBaseConstants) => {
+    if (value.name === "블랙 하트") {
+      setBlackHeart();
+      return;
+    }
     setItemData(updateItemEquipmentToPure(value));
     setPureItemData(updateItemEquipmentToPure(value));
   };

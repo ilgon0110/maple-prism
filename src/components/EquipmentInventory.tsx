@@ -64,7 +64,7 @@ const EquipmentInventory = ({
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "포켓 아이템"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
       if (row === 0 && col === 2) {
         const item = itemEquipment.item_equipment.find(
