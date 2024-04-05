@@ -43,6 +43,7 @@ const StarforceOption = ({ itemLevel }: StarforceOptionProps) => {
   const isGlove = itemData?.item_equipment_slot === "장갑";
   const isWeapon = itemData?.item_equipment_slot === "무기";
   const isShoes = itemData?.item_equipment_slot === "신발";
+  const isHeart = itemData?.item_equipment_slot === "기계 심장";
   const isMagician = mainStat === "int";
 
   const updateStarForceOption = (value: number) => {
@@ -61,8 +62,9 @@ const StarforceOption = ({ itemLevel }: StarforceOptionProps) => {
     const upArmor =
       (isWeapon ? "0" : starForceResult.get("up_armor")?.toString()) ?? "0";
     const upHp =
-      (isGlove || isShoes ? "0" : starForceResult.get("up_hp")?.toString()) ??
-      "0";
+      (isGlove || isShoes || isHeart
+        ? "0"
+        : starForceResult.get("up_hp")?.toString()) ?? "0";
     const upMp =
       (isWeapon ? starForceResult.get("up_hp")?.toString() : "0") ?? "0";
     const upJump =
@@ -117,9 +119,13 @@ const StarforceOption = ({ itemLevel }: StarforceOptionProps) => {
       updateStarForceOption(starForce - 1);
     }
   };
-  const onClickFixedStarForce = (value: number) => {
+  const onClickFixedStarForce = (number: number) => {
     if (itemData === null) return;
-    updateStarForceOption(value);
+    if (number > maxiumStarForce) {
+      updateStarForceOption(maxiumStarForce);
+    } else {
+      updateStarForceOption(number);
+    }
   };
 
   return (
