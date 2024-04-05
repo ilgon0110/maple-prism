@@ -84,9 +84,16 @@ const ItemMakerHeader = ({
       <li
         className={cls(
           "float-left hover:cursor-pointer",
-          category === "잠재옵션" ? "text-indigo-600" : ""
+          category === "잠재옵션" ? "text-indigo-600" : "",
+          itemData?.item_equipment_part === "뱃지"
+            ? "text-black opacity-10 hover:cursor-not-allowed"
+            : ""
         )}
-        onClick={(e) => onClickCategory(e)}
+        onClick={(e) =>
+          itemData?.item_equipment_part === "뱃지"
+            ? () => {}
+            : onClickCategory(e)
+        }
       >
         잠재옵션
         {category === "잠재옵션" && (

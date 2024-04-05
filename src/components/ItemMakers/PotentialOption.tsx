@@ -11,6 +11,13 @@ import {
   WEAPON_POTENTIAL_OPTIONS,
   GLOVE_POTENTIAL_OPTIONS,
   EMBLEM_POTENTIAL_OPTIONS,
+  EYEACC_POTENTIAL_OPTIONS,
+  FACEACC_POTENTIAL_OPTIONS,
+  EARRING_POTENTIAL_OPTIONS,
+  PENDANT_POTENTIAL_OPTIONS,
+  BELT_POTENTIAL_OPTIONS,
+  RING_POTENTIAL_OPTIONS,
+  MACHINE_HEART_POTENTIAL_OPTIONS,
 } from "@/constants/potentialOptions";
 import { useState } from "react";
 import { cls } from "@/utils/cls";
@@ -22,7 +29,7 @@ type PotentialOptionProps = {
 };
 
 const PotentialOption = ({ itemLevel }: PotentialOptionProps) => {
-  const { itemData, setItemData, itemSlot } = useItemMakerInfoStore();
+  const { itemData, setItemData, itemPart } = useItemMakerInfoStore();
   const {
     grades,
     selectedPotentialGrade,
@@ -36,21 +43,9 @@ const PotentialOption = ({ itemLevel }: PotentialOptionProps) => {
     resetPotentialOptions,
     resetAddPotentialOptions,
   } = usePotentialOptionInfoStore();
-  // const grades = ["---", "레어", "에픽", "유니크", "레전드리"];
-  // const [selectedUpSideGrade, setSelectedUpSideGrade] = useState("---");
-  // const [selectedDownSideGrade, setSelectedDownSideGrade] = useState("---");
-  // const [selectedUpSidOptions, setSelectedUpSidOptions] = useState([
-  //   "---",
-  //   "---",
-  //   "---",
-  // ]);
-  // const [selectedDownSidOptions, setSelectedDownSidOptions] = useState([
-  //   "---",
-  //   "---",
-  //   "---",
-  // ]);
+
   const getItemPotentialOption = () => {
-    switch (itemSlot) {
+    switch (itemPart) {
       case "모자":
         return filterPotentialOption(HAT_POTENTIAL_OPTIONS);
       case "상의":
@@ -71,10 +66,25 @@ const PotentialOption = ({ itemLevel }: PotentialOptionProps) => {
         return filterPotentialOption(GLOVE_POTENTIAL_OPTIONS);
       case "엠블렘":
         return filterPotentialOption(EMBLEM_POTENTIAL_OPTIONS);
+      case "눈장식":
+        return filterPotentialOption(EYEACC_POTENTIAL_OPTIONS);
+      case "얼굴장식":
+        return filterPotentialOption(FACEACC_POTENTIAL_OPTIONS);
+      case "펜던트":
+        return filterPotentialOption(PENDANT_POTENTIAL_OPTIONS);
+      case "귀고리":
+        return filterPotentialOption(EARRING_POTENTIAL_OPTIONS);
+      case "벨트":
+        return filterPotentialOption(BELT_POTENTIAL_OPTIONS);
+      case "반지":
+        return filterPotentialOption(RING_POTENTIAL_OPTIONS);
+      case "기계 심장":
+        return filterPotentialOption(MACHINE_HEART_POTENTIAL_OPTIONS);
       default:
         return { upside: [], downside: [] };
     }
   };
+
   const filterPotentialOption = (
     options: {
       level: number;
@@ -135,6 +145,7 @@ const PotentialOption = ({ itemLevel }: PotentialOptionProps) => {
             .flat();
     return { upside, downside };
   };
+
   const { upside, downside } = getItemPotentialOption();
   const onChangePotentialGrade = (grade: string) => {
     setSelectedPotentialGrade(grade);
