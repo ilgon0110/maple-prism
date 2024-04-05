@@ -160,7 +160,7 @@ const EquipmentInventory = ({
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "뱃지"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
       if (row === 2 && col === 4) {
         const item = itemEquipment.item_equipment.find(
@@ -184,7 +184,7 @@ const EquipmentInventory = ({
         const item = itemEquipment.item_equipment.find(
           (v) => v.item_equipment_slot === "기계 심장"
         );
-        return { ...el, values: item };
+        return { ...el, values: item, isCanMake: true };
       }
     });
   });

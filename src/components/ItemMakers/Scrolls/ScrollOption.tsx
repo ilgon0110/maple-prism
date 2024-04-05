@@ -37,7 +37,7 @@ const ScrollOption = ({ itemLevel }: ScrollOptionProps) => {
   // );
 
   const weaponSlotName = ["무기", "보조무기", "기계 심장"];
-  const armorSlotName = ["모자", "상의", "하의", "신발", "망토"];
+  const armorSlotName = ["모자", "상의", "하의", "신발", "망토", "한벌옷"];
   const accessorySlotName = [
     "벨트",
     "어깨장식",

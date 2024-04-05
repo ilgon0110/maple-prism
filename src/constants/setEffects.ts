@@ -1,5 +1,15 @@
 export const SET_EFFECTS = [
   {
+    set_name: "칠요 세트",
+    total_set_count: 2,
+    set_effect_info: [
+      {
+        set_count: 2,
+        set_option: "몬스터 방어율 무시 : +10%",
+      },
+    ],
+  },
+  {
     set_name: "루타비스 세트(해적)",
     total_set_count: 4,
     set_effect_info: [
@@ -328,7 +338,14 @@ export const SET_ITEM_NAME = {
     Creation_Batch: "창세의뱃지",
     Commander_Poss: "커맨더포스이어링",
     Huge_Fear: "거대한공포",
-    Cursed_Book: "저주받은",
-    Mitra_Anger: "미트라의분노",
+    Cursed_Book_STR: "저주받은적의마도서",
+    Cursed_Book_DEX: "저주받은녹의마도서",
+    Cursed_Book_INT: "저주받은청의마도서",
+    Cursed_Book_LUK: "저주받은황의마도서",
+    Mitra_Anger_SWORD: "미트라의분노:전사",
+    Mitra_Anger_WIZARD: "미트라의분노:마법사",
+    Mitra_Anger_ARCHER: "미트라의분노:궁수",
+    Mitra_Anger_THIEF: "미트라의분노:도적",
+    Mitra_Anger_PIRATE: "미트라의분노:해적",
   },
 };
