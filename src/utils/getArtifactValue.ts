@@ -8,8 +8,6 @@ export const getArtifactValue = (characterArtifact: ICharacterArtifact) => {
   characterArtifact.union_artifact_effect.forEach((effect) => {
     const value = extractNumbersFromString(effect.name);
     const effectName = removeSpace(effect.name);
-    console.log("effectName : ", effectName);
-    console.log("value : ", value);
     if (effectName.includes("올스탯")) {
       addingMap(artifactStats, "STR", value);
       addingMap(artifactStats, "DEX", value);

@@ -10,7 +10,6 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  console.log("error", error.message);
   return (
     <div className="w-full h-screen flex justify-center items-center flex-col px-6">
       <Image

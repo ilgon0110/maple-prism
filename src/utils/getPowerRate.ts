@@ -168,11 +168,13 @@ const getStatPowerRate = ({
   const { artifactStats } = getArtifactValue(characterArtifact);
   const { exceptUnionStats } = getUnionValue(selectedUnionRaider);
   const { hexaStats } = getHexaValue(characterHexaStat);
-  console.log("baseAbilityStats", baseAbilityStats);
-  console.log("exceptAbilityStats", exceptAbilityStats);
-  console.log("artifactStats", artifactStats);
-  console.log("exceptUnionStats", exceptUnionStats);
-  console.log("hexaStats", hexaStats);
+  // console.log("chacterItemEquipment", characterItemEquipment);
+  // console.log("characterSetEffect", characterSetEffect);
+  // console.log("baseAbilityStats", baseAbilityStats);
+  // console.log("exceptAbilityStats", exceptAbilityStats);
+  // console.log("artifactStats", artifactStats);
+  // console.log("exceptUnionStats", exceptUnionStats);
+  // console.log("hexaStats", hexaStats);
   //주스탯
   const baseAbilityMainStat = baseAbilityStats.get(mainStat) ?? 0;
   const hexaMainStat = hexaStats.get(mainStat) ?? 0;
@@ -254,39 +256,39 @@ const getStatPowerRate = ({
   const finalStrSub =
     Math.floor(strStatValue * (strStatPercent + 100) * 0.01) +
     strExceptStatValue;
-  console.log("mainStat", mainStat, "subStat", subStat);
-  console.log("baseAbilityMainStat", baseAbilityMainStat);
-  console.log("baseAbilitySubStat", baseAbilitySubStat);
-  console.log("hexaMainStat", hexaMainStat);
-  console.log("exceptAbilityMainStat", exceptAbilityMainStat);
-  console.log("exceptAbilitySubStat", exceptAbilitySubStat);
-  console.log("baseArtifactMainStat", baseArtifactMainStat);
-  console.log("baseArtifactSubStat", baseArtifactSubStat);
-  console.log("exceptUnionMainStat", exceptUnionMainStat);
-  console.log("exceptUnionSubStat", exceptUnionSubStat);
-  console.log("EVENT_STAT", EVENT_STAT);
-  console.log("pureMainStat", pureMainStat);
-  console.log("pureSubStat", pureSubStat);
-  console.log("baseEquipmentMainStat", baseEquipmentMainStat);
-  console.log("baseEquipmentSubStat", baseEquipmentSubStat);
-  console.log("baseTitleMainStat", baseTitleMainStat);
-  console.log("baseTitleSubStat", baseTitleSubStat);
-  console.log("baseUnionRaiderMainStat", baseUnionRaiderMainStat);
-  console.log("baseUnionRaiderSubStat", baseUnionRaiderSubStat);
+  // console.log("mainStat", mainStat, "subStat", subStat);
+  // console.log("baseAbilityMainStat", baseAbilityMainStat);
+  // console.log("baseAbilitySubStat", baseAbilitySubStat);
+  // console.log("hexaMainStat", hexaMainStat);
+  // console.log("exceptAbilityMainStat", exceptAbilityMainStat);
+  // console.log("exceptAbilitySubStat", exceptAbilitySubStat);
+  // console.log("baseArtifactMainStat", baseArtifactMainStat);
+  // console.log("baseArtifactSubStat", baseArtifactSubStat);
+  // console.log("exceptUnionMainStat", exceptUnionMainStat);
+  // console.log("exceptUnionSubStat", exceptUnionSubStat);
+  // console.log("EVENT_STAT", EVENT_STAT);
+  // console.log("pureMainStat", pureMainStat);
+  // console.log("pureSubStat", pureSubStat);
+  // console.log("baseEquipmentMainStat", baseEquipmentMainStat);
+  // console.log("baseEquipmentSubStat", baseEquipmentSubStat);
+  // console.log("baseTitleMainStat", baseTitleMainStat);
+  // console.log("baseTitleSubStat", baseTitleSubStat);
+  // console.log("baseUnionRaiderMainStat", baseUnionRaiderMainStat);
+  // console.log("baseUnionRaiderSubStat", baseUnionRaiderSubStat);
 
-  console.log("baseAbilityStrStat", baseAbilityStrStat);
-  console.log("exceptAbilityStrStat", exceptAbilityStrStat);
-  console.log("baseArtifactStrStat", baseArtifactStrStat);
-  console.log("exceptUnionStrStat", exceptUnionStrStat);
-  console.log("pureStrStat", pureStrStat);
-  console.log("baseEquipmentStrStat", baseEquipmentStrStat);
-  console.log("baseTitleStrStat", baseTitleStrStat);
-  console.log("baseUnionRaiderStrStat", baseUnionRaiderStrStat);
-  console.log("exceptHyperStrStat", exceptHyperStrStat);
-  console.log("strStatValue", strStatValue);
-  console.log("strStatPercent", strStatPercent);
-  console.log("strExceptStatValue", strExceptStatValue);
-  console.log("finalStrSub", finalStrSub);
+  // console.log("baseAbilityStrStat", baseAbilityStrStat);
+  // console.log("exceptAbilityStrStat", exceptAbilityStrStat);
+  // console.log("baseArtifactStrStat", baseArtifactStrStat);
+  // console.log("exceptUnionStrStat", exceptUnionStrStat);
+  // console.log("pureStrStat", pureStrStat);
+  // console.log("baseEquipmentStrStat", baseEquipmentStrStat);
+  // console.log("baseTitleStrStat", baseTitleStrStat);
+  // console.log("baseUnionRaiderStrStat", baseUnionRaiderStrStat);
+  // console.log("exceptHyperStrStat", exceptHyperStrStat);
+  // console.log("strStatValue", strStatValue);
+  // console.log("strStatPercent", strStatPercent);
+  // console.log("strExceptStatValue", strExceptStatValue);
+  // console.log("finalStrSub", finalStrSub);
 
   const mainStatValue =
     pureMainStat +
@@ -294,8 +296,8 @@ const getStatPowerRate = ({
     baseTitleMainStat +
     baseUnionRaiderMainStat +
     baseAbilityMainStat +
-    baseArtifactMainStat +
-    EVENT_STAT;
+    baseArtifactMainStat;
+  EVENT_STAT;
   const mainStatPercent = getStatPercentByPotential(
     characterItemEquipment,
     mainStat
@@ -321,12 +323,12 @@ const getStatPowerRate = ({
   );
   const subExceptStatValue =
     exceptUnionSubStat + exceptAbilitySubStat + exceptHyperSubStat;
-  console.log("mainStatValue", mainStatValue);
-  console.log("mainStatPercent", mainStatPercent);
-  console.log("mainExceptStatValue", mainExceptStatValue);
-  console.log("subStatValue", subStatValue);
-  console.log("subStatPercent", subStatPercent);
-  console.log("subExceptStatValue", subExceptStatValue);
+  // console.log("mainStatValue", mainStatValue);
+  // console.log("mainStatPercent", mainStatPercent);
+  // console.log("mainExceptStatValue", mainExceptStatValue);
+  // console.log("subStatValue", subStatValue);
+  // console.log("subStatPercent", subStatPercent);
+  // console.log("subExceptStatValue", subExceptStatValue);
 
   const finalMain =
     (Math.floor(mainStatValue * (mainStatPercent + 100) * 0.01) +
@@ -384,8 +386,8 @@ const getAttackValueRate = ({
     characterPetEquipment,
     characterSetEffect
   );
-  console.log("attackPowerPercent", attackPowerPercent);
-  console.log("equipmentValues", equipmentValues);
+  // console.log("attackPowerPercent", attackPowerPercent);
+  // console.log("equipmentValues", equipmentValues);
   const selectedAbility = characterAbility[
     `ability_preset_${presets.ability}` as keyof ICharacterAbility
   ] as ICharacterAbility["ability_preset_1"];
@@ -407,13 +409,13 @@ const getAttackValueRate = ({
     characterBasicInfo
   );
   const { hexaStats } = getHexaValue(characterHexaStat);
-  console.log("unionStats", unionStats);
-  console.log("hyperStats", hyperStats);
-  console.log("skillStats", skillStats);
-  console.log("artifactStats", artifactStats);
-  console.log("titleStats", titleStats);
-  console.log("baseStats", baseStats);
-  console.log("hexaStats", hexaStats);
+  // console.log("unionStats", unionStats);
+  // console.log("hyperStats", hyperStats);
+  // console.log("skillStats", skillStats);
+  // console.log("artifactStats", artifactStats);
+  // console.log("titleStats", titleStats);
+  // console.log("baseStats", baseStats);
+  // console.log("hexaStats", hexaStats);
   const equipmentPower = isMagician
     ? equipmentValues.get(POWER_RATE.magic_power) ?? 0
     : equipmentValues.get(POWER_RATE.attack_power) ?? 0;
@@ -451,20 +453,20 @@ const getAttackValueRate = ({
     : skillStats.get(POWER_RATE.attack_power) ?? 0;
   const EVENT_ATTACK_POWER = +eventSkillInfo.selectedPowerOption;
 
-  console.log("equipmentPower", equipmentPower);
-  console.log("unionPower", unionPower);
-  console.log("hyperPower", hyperPower);
-  console.log("artifactPower", artifactPower);
-  console.log("titlePower", titlePower);
-  console.log("myWeaponPower", myWeaponPower);
-  console.log("transWeaponPower", transWeaponPower);
-  console.log("abilityPower", abilityPower);
-  console.log("hexaAttackPower", hexaAttackPower);
-  console.log("hexaMagicPower", hexaMagicPower);
-  console.log("hexaPower", hexaPower);
-  console.log("totalPower", totalPower);
-  console.log("addSkillAttackPower", addSkillAttackPower);
-  console.log("EVENT_ATTACK_POWER", EVENT_ATTACK_POWER);
+  // console.log("equipmentPower", equipmentPower);
+  // console.log("unionPower", unionPower);
+  // console.log("hyperPower", hyperPower);
+  // console.log("artifactPower", artifactPower);
+  // console.log("titlePower", titlePower);
+  // console.log("myWeaponPower", myWeaponPower);
+  // console.log("transWeaponPower", transWeaponPower);
+  // console.log("abilityPower", abilityPower);
+  // console.log("hexaAttackPower", hexaAttackPower);
+  // console.log("hexaMagicPower", hexaMagicPower);
+  // console.log("hexaPower", hexaPower);
+  // console.log("totalPower", totalPower);
+  // console.log("addSkillAttackPower", addSkillAttackPower);
+  // console.log("EVENT_ATTACK_POWER", EVENT_ATTACK_POWER);
 
   return Math.floor(
     (hexaPower +
@@ -556,21 +558,21 @@ const getBossDamageRate = ({
     baseDamage +
     hexaDamage;
   const EVENT_BOSS_DAMAGE = +eventSkillInfo.selectedBossDamageOption;
-  console.log("equipmentBossDamage", equipmentBossDamage);
-  console.log("unionBossDamage", unionBossDamage);
-  console.log("hyperBossDamage", hyperBossDamage);
-  console.log("artifactBossDamage", artifactBossDamage);
-  console.log("titleBossDamage", titleBossDamage);
-  console.log("baseBossDamage", baseBossDamage);
-  console.log("hexaBossDamage", hexaBossDamage);
-  console.log("sumBossDamage", sumBossDamage);
-  console.log("equipmentDamage", equipmentDamage);
-  console.log("unionDamage", unionDamage);
-  console.log("hyperDamage", hyperDamage);
-  console.log("artifactDamage", artifactDamage);
-  console.log("titleDamage", titleDamage);
-  console.log("baseDamage", baseDamage);
-  console.log("hexaDamage", hexaDamage);
+  // console.log("equipmentBossDamage", equipmentBossDamage);
+  // console.log("unionBossDamage", unionBossDamage);
+  // console.log("hyperBossDamage", hyperBossDamage);
+  // console.log("artifactBossDamage", artifactBossDamage);
+  // console.log("titleBossDamage", titleBossDamage);
+  // console.log("baseBossDamage", baseBossDamage);
+  // console.log("hexaBossDamage", hexaBossDamage);
+  // console.log("sumBossDamage", sumBossDamage);
+  // console.log("equipmentDamage", equipmentDamage);
+  // console.log("unionDamage", unionDamage);
+  // console.log("hyperDamage", hyperDamage);
+  // console.log("artifactDamage", artifactDamage);
+  // console.log("titleDamage", titleDamage);
+  // console.log("baseDamage", baseDamage);
+  // console.log("hexaDamage", hexaDamage);
   return (100 + sumBossDamage + EVENT_BOSS_DAMAGE + sumDamage) * 0.01;
 };
 

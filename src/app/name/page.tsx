@@ -283,9 +283,9 @@ const CharacterNamePage = () => {
   const onClickMakerModalOpen = () => {
     setMakerModalOpen(true);
   };
-  const onClickItemModalOpen = (itemValue: IItemEquipment) => {
+  const onClickItemModalOpen = (itemData: IItemEquipment) => {
     setModalOpen(true);
-    setItemData(itemValue);
+    setItemData(itemData);
   };
   const onClickEquipment = () => {
     setEquipmentOpen(!equipmentOpen);
@@ -313,16 +313,6 @@ const CharacterNamePage = () => {
     }
   };
 
-  console.log(
-    "api PowerRate",
-    convertToKoreanNumber(
-      Number(
-        stats.data.final_stat.find((el) => el.stat_name === "전투력")
-          ?.stat_value
-      )
-    )
-  );
-  console.log("setEffects", setEffects.at(-1));
   return (
     <div
       className={cls(

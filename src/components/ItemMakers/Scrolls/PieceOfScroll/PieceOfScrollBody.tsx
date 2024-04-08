@@ -22,8 +22,7 @@ const PieceOfScrollBody = ({
   const { itemData, setItemData } = useItemMakerInfoStore();
   const isWeapon =
     myItemSlot === "weapon" || myItemSlot === "glove" || myItemSlot === "heart";
-  console.log("scrollPercent", scrollPercent);
-  console.log("myItemSlot", myItemSlot);
+
   const upgradeByStatInEquipment = (stat: string, value: number): void => {
     let copyItemData = { ...itemData } as IItemEquipment;
     const addStat =
