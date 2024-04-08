@@ -15,6 +15,9 @@ import {
   baseEarring,
   baseEyeAccessory,
   baseFaceAccessory,
+  baseBatch,
+  baseMachineHeart,
+  basePocket,
 } from "@/constants/items";
 
 export const getMakerItemList = (slot: string, characterJob: string) => {
@@ -82,6 +85,18 @@ export const getMakerItemList = (slot: string, characterJob: string) => {
       );
     case "얼굴장식":
       return baseFaceAccessory.filter(
+        (item) => item.job === characterJob || item.job?.includes(characterJob)
+      );
+    case "뱃지":
+      return baseBatch.filter(
+        (item) => item.job === characterJob || item.job?.includes(characterJob)
+      );
+    case "기계 심장":
+      return baseMachineHeart.filter(
+        (item) => item.job === characterJob || item.job?.includes(characterJob)
+      );
+    case "포켓 아이템":
+      return basePocket.filter(
         (item) => item.job === characterJob || item.job?.includes(characterJob)
       );
     default:
