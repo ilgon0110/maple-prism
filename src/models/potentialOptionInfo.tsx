@@ -42,9 +42,15 @@ const usePotentialOptionInfoStore = create<potentialOptionInfoStore>((set) => ({
   setSelectedAddPotentialOptions: (selectedAddPotentialOptions) =>
     set({ selectedAddPotentialOptions }),
   resetPotentialOptions: () =>
-    set({ selectedPotentialOptions: ["---", "---", "---"] }),
+    set({
+      selectedPotentialGrade: "---",
+      selectedPotentialOptions: ["---", "---", "---"],
+    }),
   resetAddPotentialOptions: () =>
-    set({ selectedAddPotentialOptions: ["---", "---", "---"] }),
+    set({
+      selectedAddPotentialGrade: "---",
+      selectedAddPotentialOptions: ["---", "---", "---"],
+    }),
 }));
 
 export default usePotentialOptionInfoStore;

@@ -19,7 +19,6 @@ import {
   RING_POTENTIAL_OPTIONS,
   MACHINE_HEART_POTENTIAL_OPTIONS,
 } from "@/constants/potentialOptions";
-import { useState } from "react";
 import { cls } from "@/utils/cls";
 import { IItemEquipment } from "@/types/characters/CharacterItemEquipment";
 import usePotentialOptionInfoStore from "@/models/potentialOptionInfo";
@@ -29,7 +28,7 @@ type PotentialOptionProps = {
 };
 
 const PotentialOption = ({ itemLevel }: PotentialOptionProps) => {
-  const { itemData, setItemData, itemPart } = useItemMakerInfoStore();
+  const { itemData, setItemData, itemSlot } = useItemMakerInfoStore();
   const {
     grades,
     selectedPotentialGrade,
@@ -44,8 +43,8 @@ const PotentialOption = ({ itemLevel }: PotentialOptionProps) => {
     resetAddPotentialOptions,
   } = usePotentialOptionInfoStore();
 
-  const getItemPotentialOption = () => {
-    switch (itemPart) {
+  const getItemPotentialOptionBySlot = () => {
+    switch (itemSlot) {
       case "모자":
         return filterPotentialOption(HAT_POTENTIAL_OPTIONS);
       case "상의":
@@ -70,13 +69,17 @@ const PotentialOption = ({ itemLevel }: PotentialOptionProps) => {
         return filterPotentialOption(EYEACC_POTENTIAL_OPTIONS);
       case "얼굴장식":
         return filterPotentialOption(FACEACC_POTENTIAL_OPTIONS);
-      case "펜던트":
+      case "펜던트1":
+      case "펜던트2":
         return filterPotentialOption(PENDANT_POTENTIAL_OPTIONS);
       case "귀고리":
         return filterPotentialOption(EARRING_POTENTIAL_OPTIONS);
       case "벨트":
         return filterPotentialOption(BELT_POTENTIAL_OPTIONS);
-      case "반지":
+      case "반지1":
+      case "반지2":
+      case "반지3":
+      case "반지4":
         return filterPotentialOption(RING_POTENTIAL_OPTIONS);
       case "기계 심장":
         return filterPotentialOption(MACHINE_HEART_POTENTIAL_OPTIONS);
@@ -84,6 +87,8 @@ const PotentialOption = ({ itemLevel }: PotentialOptionProps) => {
         return { upside: [], downside: [] };
     }
   };
+
+  console.log("itemSlot", itemSlot);
 
   const filterPotentialOption = (
     options: {
@@ -146,7 +151,7 @@ const PotentialOption = ({ itemLevel }: PotentialOptionProps) => {
     return { upside, downside };
   };
 
-  const { upside, downside } = getItemPotentialOption();
+  const { upside, downside } = getItemPotentialOptionBySlot();
   const onChangePotentialGrade = (grade: string) => {
     setSelectedPotentialGrade(grade);
     updatePotentialGrade(grade);
