@@ -57,7 +57,7 @@ const BasicInfo = ({
     }
   };
 
-  const isEventDuration = false;
+  const isEventDuration = true;
 
   let width = 0;
   let height = 0;
@@ -346,9 +346,7 @@ const BasicInfo = ({
         <div className="absolute inset-0 w-full h-full object-cover blur-[1px] rounded-md">
           <Image
             src={
-              isEventDuration
-                ? "/루시드드림페스타.png"
-                : "/maplestory_noEvent.jpeg"
+              isEventDuration ? "/빅토리아컵2.jpg" : "/maplestory_noEvent.jpeg"
             }
             fill
             sizes="100%"

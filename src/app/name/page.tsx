@@ -171,8 +171,28 @@ const CharacterNamePage = () => {
   if (allLoadingFalse) {
     return (
       //Skeleton UI
-      <div className="text-2xl mx-auto text-center font-bold text-red-500">
-        Loading...
+      <div className="w-full max-w-xl mx-auto shadow h-screen px-6 pt-20 animate-pulse">
+        <div className="border border-slate-300 px-4 py-6 rounded w-full">
+          <div className="w-full flex flex-row">
+            <div className="w-32 h-32 bg-slate-300 rounded-md shrink-0" />
+            <div className="w-full flex flex-col justify-between ml-3 h-32 pt-4">
+              <div className="w-full h-8 rounded-md bg-slate-300" />
+              <div className="w-full h-16 rounded-md bg-slate-300" />
+            </div>
+          </div>
+          <div className="w-full flex flex-col gap-3 mt-4">
+            <div className="w-full h-6 rounded bg-slate-300" />
+            <div className="w-full h-6 rounded bg-slate-300" />
+            <div className="w-full h-6 rounded bg-slate-300" />
+          </div>
+          <div></div>
+          <div className="w-full text-xs py-2 relative h-20 rounded bg-slate-300 mt-4" />
+          <div className="w-full h-8 rounded bg-slate-300 mt-4" />
+          <div className="w-full flex flex-row gap-3 mt-4">
+            <div className="w-full h-8 rounded bg-slate-300" />
+            <div className="w-full h-8 rounded bg-slate-300" />
+          </div>
+        </div>
       </div>
     );
   }
