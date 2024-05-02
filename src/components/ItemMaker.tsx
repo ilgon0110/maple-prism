@@ -38,14 +38,20 @@ const ItemMaker = ({ onClickModalClose }: ItemMakerProps) => {
   const { itemEquipments, appendItemEquipment, appendSetEffect, setEffects } =
     useItemEquipmentInfoStore();
   const { resetSelectedOptions } = useAddOptionInfoStore();
-  const { resetAddPotentialOptions, resetPotentialOptions } =
-    usePotentialOptionInfoStore();
+  const {
+    resetAddPotentialOptions,
+    resetPotentialOptions,
+    resetSelectedAddPotentialGrade,
+    resetSelectedPotentialGrade,
+  } = usePotentialOptionInfoStore();
   const baseItemList = getMakerItemList(itemSlot, characterJob);
   const pureItemEquipment = PURE_ITEM_EQUIPMENT;
   const resetAll = () => {
     resetSelectedOptions();
     resetAddPotentialOptions();
     resetPotentialOptions();
+    resetSelectedAddPotentialGrade();
+    resetSelectedPotentialGrade();
   };
   const updateItemEquipmentToPure = (value: IBaseConstants): IItemEquipment => {
     const filterTotalOption: Omit<

@@ -19,6 +19,8 @@ interface potentialOptionInfoActions {
   setSelectedAddPotentialOptions: (
     selectedAddPotentialOptions: string[]
   ) => void;
+  resetSelectedPotentialGrade: () => void;
+  resetSelectedAddPotentialGrade: () => void;
   resetPotentialOptions: () => void;
   resetAddPotentialOptions: () => void;
 }
@@ -41,14 +43,15 @@ const usePotentialOptionInfoStore = create<potentialOptionInfoStore>((set) => ({
     set({ selectedPotentialOptions }),
   setSelectedAddPotentialOptions: (selectedAddPotentialOptions) =>
     set({ selectedAddPotentialOptions }),
+  resetSelectedPotentialGrade: () => set({ selectedPotentialGrade: "---" }),
+  resetSelectedAddPotentialGrade: () =>
+    set({ selectedAddPotentialGrade: "---" }),
   resetPotentialOptions: () =>
     set({
-      selectedPotentialGrade: "---",
       selectedPotentialOptions: ["---", "---", "---"],
     }),
   resetAddPotentialOptions: () =>
     set({
-      selectedAddPotentialGrade: "---",
       selectedAddPotentialOptions: ["---", "---", "---"],
     }),
 }));
