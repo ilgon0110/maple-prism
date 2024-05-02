@@ -7,7 +7,7 @@ import useGetOcidQuery from "@/queries/useGetOcidQuery";
 import { convertToKoreanNumber } from "@/utils/converToKoreanNumber";
 import { getPowerRate } from "@/utils/getPowerRate";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import BasicInfo from "@/components/BasicInfo";
 import EquipmentInventory from "@/components/EquipmentInventory";
@@ -95,6 +95,8 @@ const CharacterNamePage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [equipmentOpen, setEquipmentOpen] = useState(false);
   const [itemData, setItemData] = useState<IItemEquipment | null>(null);
+  const equipmentRef = useRef<HTMLDivElement>(null);
+  const itemCardRef = useRef<HTMLDivElement>(null);
   // const basicInfo = { data: mockCharacterBasicInfo };
   // const itemEquipment = { data: mockCharacterItemEquipment };
   // const setEffect = { data: mockCharacterSetEffect };
@@ -147,6 +149,14 @@ const CharacterNamePage = () => {
       });
     }
   }, [ability.data, hyperStats.data, unionRaider.data]);
+
+  useEffect(() => {
+    console.log("scrollHeight", window.innerHeight);
+  }, [window.innerHeight]);
+
+  console.log("window.innerHeight", window.innerHeight);
+  console.log("window.outerHeight", window.outerHeight);
+  console.log("scrollY", window.scrollY);
 
   if (error) {
     return (
@@ -306,11 +316,44 @@ const CharacterNamePage = () => {
   const onClickItemModalOpen = (itemData: IItemEquipment) => {
     setModalOpen(true);
     setItemData(itemData);
+    console.log("itemCardRef", itemCardRef.current?.offsetTop);
+    if (typeof window === "undefined") return;
+    if (
+      window.innerWidth <= 768 &&
+      modalOpen === false &&
+      equipmentRef.current
+    ) {
+      window.scrollTo({
+        top: equipmentRef.current?.offsetTop + equipmentRef.current?.offsetTop,
+        behavior: "smooth",
+      });
+    }
   };
   const onClickEquipment = () => {
     setEquipmentOpen(!equipmentOpen);
     setModalOpen(false);
+
+    //media query가 768px 이하일 때 스크롤 이동하는 로직
+    if (typeof window === "undefined") return;
+    if (window.innerWidth <= 768) {
+      if (equipmentOpen) {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      } else {
+        console.log("clientHeight : ", equipmentRef.current?.clientHeight);
+        console.log("offsetHeight : ", equipmentRef.current?.offsetHeight);
+        console.log("scrollHeight : ", equipmentRef.current?.scrollHeight);
+        console.log("offsetTop : ", equipmentRef.current?.offsetTop);
+        window.scrollTo({
+          top: equipmentRef.current?.offsetTop,
+          behavior: "smooth",
+        });
+      }
+    }
   };
+
   const onClickModalClose = () => {
     setModalOpen(false);
   };
@@ -334,12 +377,7 @@ const CharacterNamePage = () => {
   };
 
   return (
-    <div
-      className={cls(
-        "h-screen",
-        makerModalOpen ? "overflow-hidden relative" : "mt-12"
-      )}
-    >
+    <div className={cls("h-screen", makerModalOpen ? "relative" : "mt-12")}>
       <div
         className={cls(
           "flex flex-row justify-center items-center w-full pt-20",
@@ -454,6 +492,7 @@ const CharacterNamePage = () => {
               ) : null}
             </button>
           </div>
+          <div ref={equipmentRef} />
           <div
             className={cls(
               "transform duration-200",
@@ -481,7 +520,9 @@ const CharacterNamePage = () => {
               장비제작
             </button>
           ) : null}
-          <ItemCard itemData={itemData} />
+          <div ref={itemCardRef}>
+            <ItemCard itemData={itemData} />
+          </div>
         </div>
       </div>
       {makerModalOpen && (
