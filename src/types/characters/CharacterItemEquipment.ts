@@ -84,6 +84,7 @@ export interface IItemEquipment {
     max_mp: string;
     attack_power: string;
     magic_power: string;
+    exceptional_upgrade: number;
   };
   item_add_option: {
     str: string;
@@ -141,4 +142,5 @@ export interface IItemEquipment {
   };
   special_ring_level: number;
   date_expire: string | null;
+  freestyle_flag: string;
 }

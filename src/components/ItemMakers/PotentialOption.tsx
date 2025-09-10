@@ -88,8 +88,6 @@ const PotentialOption = ({ itemLevel }: PotentialOptionProps) => {
     }
   };
 
-  console.log("itemSlot", itemSlot);
-
   const filterPotentialOption = (
     options: {
       level: number;

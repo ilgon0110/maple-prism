@@ -11,8 +11,8 @@ export const getAttackPowerPercent = (
   isMagician: boolean
 ) => {
   const prefix = isMagician
-    ? `${POWER_RATE.magic_power}:`
-    : `${POWER_RATE.attack_power}:`;
+    ? `${POWER_RATE.magic_power}`
+    : `${POWER_RATE.attack_power}`;
   const suffix = "%";
   const options = [1, 2, 3];
   return characterItemEquipment?.item_equipment.reduce((acc, cur) => {

@@ -1,7 +1,5 @@
 "use client";
 
-import { mockCharacterBasicInfo } from "@/mocks/characters/mockCharacterBasicInfo";
-import { mockCharacterItemEquipment } from "@/mocks/characters/mockCharacterItemEquipment";
 import { useCharacterQueries } from "@/queries/useCharacterQueries";
 import useGetOcidQuery from "@/queries/useGetOcidQuery";
 import { convertToKoreanNumber } from "@/utils/converToKoreanNumber";
@@ -15,24 +13,9 @@ import ItemCard from "@/components/ItemCard";
 import { cls } from "@/utils/cls";
 import useItemMakerInfoStore from "@/models/itemMakerInfo";
 import ItemMaker from "@/components/ItemMaker";
-import {
-  ICharacterItemEquipment,
-  IItemEquipment,
-} from "@/types/characters/CharacterItemEquipment";
-import { mockCharacterSetEffect } from "@/mocks/characters/mockCharacterSetEffect";
-import { mockCharacterUnionRaider } from "@/mocks/characters/mockCharacterUnionRaider";
-import { mockCharacterCashItemEquipment } from "@/mocks/characters/mockCharacterCashItemEquipment";
-import { mockCharacterPetEquipment } from "@/mocks/characters/mockCharacterPetEquipment";
-import { mockCharacterStat } from "@/mocks/characters/mockCharacterStat";
-import { mockCharacterHyperStat } from "@/mocks/characters/mockCharacterHyperStat";
-import { mockCharacterSymbol } from "@/mocks/characters/mockCharacterSymbol";
-import { mockCharacterAbility } from "@/mocks/characters/mockCharacterAbility";
-import { mockCharacterZeroSkill } from "@/mocks/characters/skills/mockCharacterZeroSkill";
-import { mockCharacterHexaStat } from "@/mocks/characters/mockCharacterHexaStat";
-import { mockCharacterArtifact } from "@/mocks/characters/mockCharacterArtifact";
+import { IItemEquipment } from "@/types/characters/CharacterItemEquipment";
 import useEventSKillInfoStore from "@/models/eventSkillInfo";
 import useItemEquipmentInfoStore from "@/models/itemEquipmentInfo";
-import { ICharacterSetEffect } from "@/types/characters/CharacterSetEffect";
 import Link from "next/link";
 
 const CharacterNamePage = () => {
@@ -97,19 +80,6 @@ const CharacterNamePage = () => {
   const [itemData, setItemData] = useState<IItemEquipment | null>(null);
   const equipmentRef = useRef<HTMLDivElement>(null);
   const itemCardRef = useRef<HTMLDivElement>(null);
-  // const basicInfo = { data: mockCharacterBasicInfo };
-  // const itemEquipment = { data: mockCharacterItemEquipment };
-  // const setEffect = { data: mockCharacterSetEffect };
-  // const unionRaider = { data: mockCharacterUnionRaider };
-  // const cashItemEquipment = { data: mockCharacterCashItemEquipment };
-  // const petEquipment = { data: mockCharacterPetEquipment };
-  // const stats = { data: mockCharacterStat };
-  // const hyperStats = { data: mockCharacterHyperStat };
-  // const symbol = { data: mockCharacterSymbol };
-  // const ability = { data: mockCharacterAbility };
-  // const zeroSkill = { data: mockCharacterZeroSkill };
-  // const hexaStat = { data: mockCharacterHexaStat };
-  // const artifact = { data: mockCharacterArtifact };
   const unValidJob = useMemo(
     () =>
       basicInfo?.data?.character_class === "제논" ||
@@ -149,14 +119,6 @@ const CharacterNamePage = () => {
       });
     }
   }, [ability.data, hyperStats.data, unionRaider.data]);
-
-  useEffect(() => {
-    console.log("scrollHeight", window.innerHeight);
-  }, [window.innerHeight]);
-
-  console.log("window.innerHeight", window.innerHeight);
-  console.log("window.outerHeight", window.outerHeight);
-  console.log("scrollY", window.scrollY);
 
   if (error) {
     return (
@@ -316,7 +278,6 @@ const CharacterNamePage = () => {
   const onClickItemModalOpen = (itemData: IItemEquipment) => {
     setModalOpen(true);
     setItemData(itemData);
-    console.log("itemCardRef", itemCardRef.current?.offsetTop);
     if (typeof window === "undefined") return;
     if (
       window.innerWidth <= 768 &&
@@ -342,10 +303,6 @@ const CharacterNamePage = () => {
           behavior: "smooth",
         });
       } else {
-        console.log("clientHeight : ", equipmentRef.current?.clientHeight);
-        console.log("offsetHeight : ", equipmentRef.current?.offsetHeight);
-        console.log("scrollHeight : ", equipmentRef.current?.scrollHeight);
-        console.log("offsetTop : ", equipmentRef.current?.offsetTop);
         window.scrollTo({
           top: equipmentRef.current?.offsetTop,
           behavior: "smooth",

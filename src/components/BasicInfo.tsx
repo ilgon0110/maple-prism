@@ -98,16 +98,18 @@ const BasicInfo = ({
   return (
     <>
       <div className="flex flex-row justify-center items-center">
-        <div className="h-full">
-          <Image
-            src={data.character_image}
-            width={120}
-            height={120}
-            alt="캐릭터이미지"
-            style={{ objectFit: "contain" }}
-            sizes="100%"
-          />
-        </div>
+        <Image
+          src={data.character_image}
+          width={120}
+          height={120}
+          alt="캐릭터이미지"
+          style={{
+            objectFit: "cover",
+            transform: "scale(2.5)",
+            transformOrigin: "center",
+          }}
+          sizes="100%"
+        />
         <div className="px-4 py-5 sm:p-6">
           <dt className="text-sm font-normal mb-2 text-gray-900 block xs:flex flex-row gap-3 items-center">
             <span className="ml-1 xs:ml-0">{data.character_name}</span>

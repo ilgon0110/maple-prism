@@ -204,7 +204,7 @@ export const getBaseEquipmentStat = (
             Math.floor(
               extractSetEffectValue(
                 removeSpace(cur),
-                `${targetStat.toUpperCase()}:`,
+                `${targetStat.toUpperCase()}`,
                 suffix
               )
             )
@@ -245,10 +245,10 @@ const extractEquipmentValue = (
   targetStat: string | undefined,
   level: number | undefined
 ) => {
-  const prefix = `${targetStat}:`;
+  const prefix = `${targetStat}`;
   const suffix = "%";
-  const allStatPrefix = "올스탯:";
-  const statPerLevelPrefix = `캐릭터기준9레벨당${targetStat}:`;
+  const allStatPrefix = "올스탯";
+  const statPerLevelPrefix = `캐릭터기준9레벨당${targetStat}`;
   if (inputString === null) return 0;
   if (inputString.startsWith(statPerLevelPrefix)) {
     if (level === undefined) {
@@ -281,7 +281,7 @@ const extractSetEffectValue = (
   prefix: string,
   suffix: string
 ) => {
-  const allStatPrefix = "올스탯:";
+  const allStatPrefix = "올스탯";
   if (inputString === null) return 0;
   if (
     (inputString.startsWith(prefix) || inputString.startsWith(allStatPrefix)) &&

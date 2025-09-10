@@ -5,7 +5,7 @@ export const getSkillStat = (characterSkill: ICharacterSkill) => {
   const map = new Map();
   characterSkill.character_skill.forEach((el) => {
     const skillEffects = el.skill_effect?.split(/\r|\n/);
-    const prefix = "[패시브 효과 : ";
+    const prefix = "[패시브 효과  ";
     const suffix = " 증가]";
     skillEffects?.forEach((effect) => {
       if (effect.startsWith(prefix) && effect.endsWith(suffix)) {

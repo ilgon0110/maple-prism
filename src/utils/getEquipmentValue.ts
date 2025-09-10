@@ -68,11 +68,11 @@ const getMesoEquipment = (characterItemEquipment: ICharacterItemEquipment) => {
   let bossDamage = 0;
   let damage = 0;
   let criticalDamage = 0;
-  const attackPrefix = `${POWER_RATE.attack_power}:`;
-  const magicPrefix = `${POWER_RATE.magic_power}:`;
-  const bossPrefix = `${POWER_RATE.boss_damage}:`;
-  const damagePrefix = `${POWER_RATE.damage}:`;
-  const criticalPrefix = `${POWER_RATE.critical_damage}:`;
+  const attackPrefix = `${POWER_RATE.attack_power}`;
+  const magicPrefix = `${POWER_RATE.magic_power}`;
+  const bossPrefix = `${POWER_RATE.boss_damage}`;
+  const damagePrefix = `${POWER_RATE.damage}`;
+  const criticalPrefix = `${POWER_RATE.critical_damage}`;
   characterItemEquipment.item_equipment.forEach((item) => {
     attackPower +=
       +item.item_total_option.attack_power +
@@ -266,27 +266,27 @@ const getSetEffect = (characterSetEffect: ICharacterSetEffect) => {
       effects.forEach((effect) => {
         attackPower += extractValue(
           removeSpace(effect),
-          `${POWER_RATE.attack_power}:`,
+          `${POWER_RATE.attack_power}`,
           ""
         );
         magicPower += extractValue(
           removeSpace(effect),
-          `${POWER_RATE.magic_power}:`,
+          `${POWER_RATE.magic_power}`,
           ""
         );
         bossDamage += extractValue(
           removeSpace(effect),
-          `${POWER_RATE.boss_damage}:`,
+          `${POWER_RATE.boss_damage}`,
           "%"
         );
         damage += extractValue(
           removeSpace(effect),
-          `${POWER_RATE.damage}:`,
+          `${POWER_RATE.damage}`,
           "%"
         );
         criticalDamage += extractValue(
           removeSpace(effect),
-          `${POWER_RATE.critical_damage}:`,
+          `${POWER_RATE.critical_damage}`,
           "%"
         );
       });

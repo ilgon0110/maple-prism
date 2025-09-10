@@ -6,9 +6,9 @@ export const getStatPercentByPotential = (
   characterItemEquipment: ICharacterItemEquipment,
   targetStat: string | undefined
 ) => {
-  const prefix = `${targetStat}:`;
+  const prefix = `${targetStat}`;
   const suffix = "%";
-  const allStatPrefix = "올스탯:";
+  const allStatPrefix = "올스탯";
   return characterItemEquipment?.item_equipment.reduce((acc, cur) => {
     const one = extractValue(
       removeSpace(cur.potential_option_1),
