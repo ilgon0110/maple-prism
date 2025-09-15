@@ -7,5 +7,9 @@ export interface ICharacterSetEffect {
       set_count: number;
       set_option: string;
     }[];
+    set_option_full: {
+      set_count: number;
+      set_option: string;
+    }[];
   }[];
 }

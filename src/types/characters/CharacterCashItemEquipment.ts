@@ -2,6 +2,7 @@ export interface ICharacterCashItemEquipment {
   date: string | null;
   character_gender: string;
   character_class: string;
+  character_look_mode: string;
   preset_no: number | null;
   cash_item_equipment_base: ICharacterCashItemEquipmentPreset[] | [];
   cash_item_equipment_preset_1: ICharacterCashItemEquipmentPreset[] | [];
@@ -39,4 +40,6 @@ interface ICharacterCashItemEquipmentPreset {
     value: number;
   };
   item_gender: string | null;
+  skills: string[];
+  freestyle_flag: string;
 }

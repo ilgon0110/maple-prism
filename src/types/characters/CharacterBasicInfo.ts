@@ -8,7 +8,7 @@ export interface ICharacterBasicInfo {
   character_level: number;
   character_exp: number;
   character_exp_rate: string;
-  character_guild_name: string;
+  character_guild_name: string | null;
   character_image: string;
   character_date_create: string;
   access_flag: string;

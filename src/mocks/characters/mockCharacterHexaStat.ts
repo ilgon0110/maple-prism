@@ -1,7 +1,7 @@
 import { ICharacterHexaStat } from "@/types/characters/CharacterHexaStat";
 
 export const mockCharacterHexaStat: ICharacterHexaStat = {
-  date: "2024-03-11T00:00+09:00",
+  date: null,
   character_class: "은월",
   character_hexa_stat_core: [
     {
@@ -15,6 +15,8 @@ export const mockCharacterHexaStat: ICharacterHexaStat = {
       stat_grade: 20,
     },
   ],
+  character_hexa_stat_core_2: [],
+  character_hexa_stat_core_3: [],
   preset_hexa_stat_core: [
     {
       slot_id: "0",
@@ -37,4 +39,6 @@ export const mockCharacterHexaStat: ICharacterHexaStat = {
       stat_grade: 0,
     },
   ],
+  preset_hexa_stat_core_2: [],
+  preset_hexa_stat_core_3: [],
 };

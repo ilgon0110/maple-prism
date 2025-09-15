@@ -42,6 +42,7 @@ const CharacterNamePage = () => {
     unionRaider,
     artifact,
   ] = useCharacterQueries(data?.ocid, presets);
+
   const allLoadingFalse =
     basicInfo.isLoading ||
     stats.isLoading ||
@@ -234,6 +235,7 @@ const CharacterNamePage = () => {
     eventSkillInfo,
     presets,
   });
+
   const undoPowerRate = getPowerRate({
     characterBasicInfo: basicInfo.data,
     characterSetEffect: setEffects.at(-2),
@@ -251,6 +253,7 @@ const CharacterNamePage = () => {
     eventSkillInfo,
     presets,
   });
+
   const redoPowerRate = getPowerRate({
     characterBasicInfo: basicInfo.data,
     characterSetEffect: setEffectCallStack.at(-1),

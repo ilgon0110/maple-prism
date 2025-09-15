@@ -10,10 +10,14 @@ export interface ICharacterItemEquipment {
   title: {
     title_name: string;
     title_icon: string;
+    title_shape_name: string | null;
+    title_shape_icon: string | null;
     title_description: string;
+    title_shape_description: string | null;
     date_expire: null;
     date_option_expire: null;
   } | null;
+  medal_shape: string | null;
   dragon_equipment: IItemEquipment[];
   mechanic_equipment: IItemEquipment[];
 }
@@ -66,8 +70,10 @@ export interface IItemEquipment {
     max_mp_rate: string;
     base_equipment_level: number;
   };
+  potential_option_flag: string;
   potential_option_grade: string | null;
   additional_potential_option_grade: string | null;
+  additional_potential_option_flag: string;
   potential_option_1: string | null;
   potential_option_2: string | null;
   potential_option_3: string | null;
@@ -142,5 +148,5 @@ export interface IItemEquipment {
   };
   special_ring_level: number;
   date_expire: string | null;
-  freestyle_flag: string;
+  freestyle_flag: string | null;
 }

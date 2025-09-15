@@ -8,5 +8,6 @@ export interface ICharacterSkill {
     skill_level: number;
     skill_effect: string | null;
     skill_icon: string;
+    skill_effect_next: string | null;
   }[];
 }

@@ -37,6 +37,8 @@ export const PURE_ITEM_EQUIPMENT: IItemEquipment = {
   item_shape_name: "",
   item_shape_icon: "",
   item_gender: null,
+  potential_option_flag: "0",
+  additional_potential_option_flag: "0",
   item_total_option: {
     str: "0",
     dex: "0",
@@ -94,6 +96,7 @@ export const PURE_ITEM_EQUIPMENT: IItemEquipment = {
     max_mp: "0",
     attack_power: "0",
     magic_power: "0",
+    exceptional_upgrade: 0,
   },
   item_add_option: {
     str: "0",
@@ -151,6 +154,7 @@ export const PURE_ITEM_EQUIPMENT: IItemEquipment = {
   },
   special_ring_level: 0,
   date_expire: null,
+  freestyle_flag: null,
 };
 
 export const baseHats: IBaseConstants[] = [

@@ -1,10 +1,10 @@
 import { ICharacterHyperStat } from "@/types/characters/CharacterHyperStat";
 
 export const mockCharacterHyperStat: ICharacterHyperStat = {
-  date: "2024-03-11T00:00+09:00",
+  date: null,
   character_class: "은월",
   use_preset_no: "3",
-  use_available_hyper_stat: 1398,
+  use_available_hyper_stat: 1432,
   hyper_stat_preset_1: [
     {
       stat_type: "STR",
@@ -109,7 +109,7 @@ export const mockCharacterHyperStat: ICharacterHyperStat = {
       stat_increase: null,
     },
   ],
-  hyper_stat_preset_1_remain_point: 158,
+  hyper_stat_preset_1_remain_point: 192,
   hyper_stat_preset_2: [
     {
       stat_type: "STR",
@@ -214,7 +214,7 @@ export const mockCharacterHyperStat: ICharacterHyperStat = {
       stat_increase: null,
     },
   ],
-  hyper_stat_preset_2_remain_point: 139,
+  hyper_stat_preset_2_remain_point: 173,
   hyper_stat_preset_3: [
     {
       stat_type: "STR",
@@ -260,9 +260,9 @@ export const mockCharacterHyperStat: ICharacterHyperStat = {
     },
     {
       stat_type: "크리티컬 확률",
-      stat_point: 3,
-      stat_level: 2,
-      stat_increase: "크리티컬 확률 2% 증가",
+      stat_point: 7,
+      stat_level: 3,
+      stat_increase: "크리티컬 확률 3% 증가",
     },
     {
       stat_type: "크리티컬 데미지",
@@ -319,5 +319,5 @@ export const mockCharacterHyperStat: ICharacterHyperStat = {
       stat_increase: null,
     },
   ],
-  hyper_stat_preset_3_remain_point: 15,
+  hyper_stat_preset_3_remain_point: 45,
 };

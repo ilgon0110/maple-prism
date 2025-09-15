@@ -37,7 +37,7 @@ const initialState = {
   characterJob: "",
 };
 
-const blackHeart = {
+const blackHeart: IItemEquipment = {
   item_equipment_part: "기계 심장",
   item_equipment_slot: "기계 심장",
   item_name: "블랙 하트",
@@ -48,6 +48,8 @@ const blackHeart = {
   item_shape_icon:
     "https://open.api.nexon.com/static/maplestory/ItemIcon/KEJFJHJH.png",
   item_gender: null,
+  potential_option_flag: "0",
+  additional_potential_option_flag: "0",
   item_total_option: {
     str: "50",
     dex: "50",
@@ -105,6 +107,7 @@ const blackHeart = {
     max_mp: "0",
     attack_power: "0",
     magic_power: "0",
+    exceptional_upgrade: 0,
   },
   item_add_option: {
     str: "0",
@@ -162,6 +165,7 @@ const blackHeart = {
   },
   special_ring_level: 0,
   date_expire: "2024-04-22T23:34+09:00",
+  freestyle_flag: null,
 };
 
 const useItemMakerInfoStore = create<ItemCardInfoStore>((set) => ({

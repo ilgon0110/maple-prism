@@ -41,6 +41,9 @@ export const getBaseItem = (
     item_add_option: { ...initialOption },
     item_etc_option: { ...initialOption },
     item_starforce_option: { ...initialOption },
+    potential_option_flag: "0",
+    additional_potential_option_flag: "0",
+    freestyle_flag: "",
     item_exceptional_option: {
       str: "0",
       dex: "0",
@@ -50,6 +53,7 @@ export const getBaseItem = (
       max_mp: "0",
       attack_power: "0",
       magic_power: "0",
+      exceptional_upgrade: 0,
     },
     potential_option_grade: null,
     potential_option_1: null,

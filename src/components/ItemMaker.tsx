@@ -229,6 +229,7 @@ const ItemMaker = ({ onClickModalClose }: ItemMakerProps) => {
           set_name: setName,
           total_set_count: value,
           set_effect_info: genSetEffectInfo(convertSetName, value),
+          set_option_full: genSetEffectInfo(convertSetName, 30), //풀옵션은 30으로 계산
         });
       });
     };

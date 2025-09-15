@@ -1,7 +1,7 @@
 import { ICharacterAbility } from "@/types/characters/CharacterAbility";
 
 export const mockCharacterAbility: ICharacterAbility = {
-  date: "2024-03-11T00:00+09:00",
+  date: null,
   ability_grade: "레전드리",
   ability_info: [
     {
@@ -20,7 +20,7 @@ export const mockCharacterAbility: ICharacterAbility = {
       ability_value: "상태 이상에 걸린 대상 공격 시 데미지 7% 증가",
     },
   ],
-  remain_fame: 6639920,
+  remain_fame: 7418579,
   preset_no: 1,
   ability_preset_1: {
     ability_preset_grade: "레전드리",
@@ -53,12 +53,12 @@ export const mockCharacterAbility: ICharacterAbility = {
       {
         ability_no: "2",
         ability_grade: "유니크",
-        ability_value: "공격력 18 증가",
+        ability_value: "공격력 15 증가",
       },
       {
         ability_no: "3",
         ability_grade: "유니크",
-        ability_value: "아이템 드롭률 14% 증가",
+        ability_value: "아이템 드롭률 15% 증가",
       },
     ],
   },

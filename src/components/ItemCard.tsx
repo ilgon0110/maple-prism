@@ -213,7 +213,9 @@ const ItemCard = ({ itemData }: ItemCardProps) => {
   if (!itemData) return null;
   const isNotExceptionalReinforce = !!Object.entries(
     itemData?.item_exceptional_option
-  ).every(([key, value]: [key: string, value: string]) => +value === 0);
+  ).every(
+    ([key, value]: [key: string, value: string | number]) => +value === 0
+  );
 
   return (
     <div className="w-full px-10 py-5 rounded border-2 border-black text-white bg-slate-700">

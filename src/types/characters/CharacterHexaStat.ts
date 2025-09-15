@@ -2,7 +2,11 @@ export interface ICharacterHexaStat {
   date: string | null;
   character_class: string;
   character_hexa_stat_core: ICharacterHexaStatPreset[] | null;
-  preset_hexa_stat_core: ICharacterHexaStatPreset[];
+  character_hexa_stat_core_2: ICharacterHexaStatPreset[] | null;
+  character_hexa_stat_core_3: ICharacterHexaStatPreset[] | null;
+  preset_hexa_stat_core: ICharacterHexaStatPreset[] | null;
+  preset_hexa_stat_core_2: ICharacterHexaStatPreset[] | null;
+  preset_hexa_stat_core_3: ICharacterHexaStatPreset[] | null;
 }
 
 interface ICharacterHexaStatPreset {
